@@ -18,7 +18,8 @@ module.exports = {
     };
 
     var create = new CreateTask({
-      project: this.project
+      project: this.project,
+      ui: this.ui
     });
 
     return create.run()
