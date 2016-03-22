@@ -1,3 +1,7 @@
+'use strict';
+
+var CreateTask        = require('../tasks/build');
+
 var stringUtils       = require('../../lib/utils/string');
 var defaultPlatform   = require('../../lib/utils/default-platform');
 
@@ -13,7 +17,10 @@ module.exports = {
       id: options.entity.name
     };
 
-    var createProject   = require('../../lib/tasks/create-cordova-project')(this.project);
-    return createProject();
+    var create = new CreateTask({
+      project: this.project
+    });
+
+    return create.run()
   }
 };
