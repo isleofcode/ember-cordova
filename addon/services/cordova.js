@@ -88,7 +88,10 @@ export default Service.extend(Evented, {
       };
 
       this._listeners.push(listener);
-      document.addEventListener(name, listener.method, true);
+    });
+
+    this._listeners.forEach((l) => {
+      document.addEventListener(l.name, l.method, true);
     });
   },
 
