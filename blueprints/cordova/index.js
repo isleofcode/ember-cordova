@@ -1,6 +1,6 @@
 'use strict';
 
-var CreateTask        = require('../tasks/build');
+var CreateTask        = require('../../lib/tasks/create-cordova-project');
 
 var stringUtils       = require('../../lib/utils/string');
 var defaultPlatform   = require('../../lib/utils/default-platform');
