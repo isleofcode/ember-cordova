@@ -6,7 +6,7 @@ var stringUtils       = require('../../lib/utils/string');
 var defaultPlatform   = require('../../lib/utils/default-platform');
 
 module.exports = {
-  name: 'ember-cordova',
+  name: 'cordova',
 
   afterInstall: function(options) {
     this.options          = options.entity.options;
