@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import SplashscreenMixin from 'ember-platform-cordova/mixins/splashscreen';
+import SplashscreenMixin from 'ember-cordova/mixins/splashscreen';
 
 const {
   Route
