@@ -1,8 +1,12 @@
+'use strict';
+
+var CreateTask        = require('../../lib/tasks/create-cordova-project');
+
 var stringUtils       = require('../../lib/utils/string');
 var defaultPlatform   = require('../../lib/utils/default-platform');
 
 module.exports = {
-  name: 'ember-cordova',
+  name: 'cordova',
 
   afterInstall: function(options) {
     this.options          = options.entity.options;
@@ -13,7 +17,11 @@ module.exports = {
       id: options.entity.name
     };
 
-    var createProject   = require('../../lib/tasks/create-cordova-project')(this.project);
-    return createProject();
+    var create = new CreateTask({
+      project: this.project,
+      ui: this.ui
+    });
+
+    return create.run()
   }
 };
