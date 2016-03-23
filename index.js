@@ -1,4 +1,6 @@
 'use strict';
+var rasterizeIcons = require('./broccoli-plugins/rasterize-icons/plugin');
+var rasterizeSplashscreen = require('./broccoli-plugins/rasterize-splashscreen/plugin');
 
 var path = require('path');
 var fs = require('fs');
@@ -101,6 +103,10 @@ module.exports = {
       return mergeTrees([tree, pluginsTree]);
     }
 
+    
+
+
     return tree;
-  }
+  },
+
 };
