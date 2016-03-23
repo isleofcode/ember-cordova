@@ -1,5 +1,5 @@
 export function initialize(container) {
-  var platform = container.lookup('service:platform');
+  var platform = container.lookup('service:device/platform');
 
   if (platform.get('isWebView')) {
     document.addEventListener('deviceready', function() {
