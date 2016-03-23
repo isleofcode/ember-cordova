@@ -7,7 +7,6 @@ const {
 } = Ember;
 
 export default Service.extend({
-
   cordova: inject.service('cordova'),
   splashSelector: '#splashcreen',
 
@@ -41,5 +40,4 @@ export default Service.extend({
         }
       });
   }
-
 });
