@@ -6,7 +6,6 @@ const {
 } = Ember;
 
 export default Mixin.create({
-
   splashscreen: inject.service('device/splashscreen'),
 
   afterModel() {
@@ -14,5 +13,4 @@ export default Mixin.create({
 
     return this._super(...arguments);
   }
-
 });
