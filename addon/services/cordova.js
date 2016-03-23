@@ -45,6 +45,7 @@ const CORDOVA_EVENTS = new A([
 //   }
 // });
 // ```
+
 export default Service.extend(Evented, {
 
   _readyHasTriggered: false,
@@ -94,7 +95,6 @@ export default Service.extend(Evented, {
       document.addEventListener(l.name, l.method, true);
     });
   },
-
 
   /*
    * Services are long lived, but still need teardown to avoid
