@@ -1,1 +1,1 @@
-export { default } from 'ember-cordova/services/splashscreen';
+export { default } from 'ember-cordova/services/device/splashscreen';
