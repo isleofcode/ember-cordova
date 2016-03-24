@@ -8,6 +8,18 @@ var defaultPlatform   = require('../../lib/utils/default-platform');
 module.exports = {
   name: 'cordova',
 
+  fileMapTokens: function() {
+    return {
+      __root__: function(options) {
+        if (options.inAddon) {
+          return path.join('tests', 'dummy');
+        }
+
+        return '/';
+      }
+    };
+  },
+
   afterInstall: function(options) {
     this.options          = options.entity.options;
     this.options.platform = options.platform || defaultPlatform(this.project);
