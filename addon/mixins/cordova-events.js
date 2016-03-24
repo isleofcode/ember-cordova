@@ -1,56 +1,37 @@
-/* jshint esnext:true */
-
 import Ember from 'ember';
 
-// include this mixin to define cordova event listeners with an onCordova object
-//
-// onCordova supports arrays, strings, and anonymous functions, e.g.:
-//
-// ```
-// export default MyEmberObject.extend({
-//   onCordova: {
-//     pause: ['pauseListening', 'disconnectPeripheral'],
-//     resume: 'resumeListening',
-//     volumeup: function() { console.log('a little bit louder now'); }
-//   }
-// });
-// ```
-export default Ember.Mixin.create({
-  cordova: Ember.inject.service(),
+const {
+  Mixin,
+  get,
+  inject,
+  on
+} = Ember;
 
-  subscribeToCordovaEvents: Ember.on('init', function() {
-    var cordova = this.get('cordova'),
-        onCordova = this.get('onCordova');
+export default Mixin.create({
+  cordova: inject.service(),
 
-    Ember.keys(onCordova).forEach(function(key) {
-      var func = Ember.get(onCordova, key);
+  subscribeToCordovaEvents: on('init', function() {
+    const cordova = this.get('cordova'),
+          onCordova = this.get('onCordova');
 
-      // subscribe to events
+    Object.keys(onCordova).forEach(key => {
+      const func = get(onCordova, key);
+
       if (func instanceof Array) {
-        func.forEach(function(fn) {
-          if (this._validateIsFunction(fn)) {
+        func.filter(this._validateIsFunction, this)
+          .forEach(fn => {
             cordova.on(key, this, fn);
-          }
-        }, this);
-      } else {
-        if (this._validateIsFunction(func)) {
-          cordova.on(key, this, func);
-        }
+          });
+      } else if (this._validateIsFunction(func)) {
+        cordova.on(key, this, func);
       }
     }, this);
   }),
 
   _validateIsFunction: function(func) {
-    var isFunction = false;
+    if (func instanceof Function) { return true; }
+    if (typeof func === 'string') { return this.get(func) instanceof Function; }
 
-    if (func instanceof Function) {
-      isFunction = true;
-    } else if (typeof func === 'string') {
-      var fn = this.get(func);
-
-      isFunction = fn instanceof Function;
-    }
-
-    return isFunction;
+    return false;
   }
 });
