@@ -1,11 +1,11 @@
 {
   "name": "ember-cordova",
-  "version": "0.1.0-beta-2",
-  "description": "A tool for creating hybrid apps using a combination of ember-cli and cordova ",
-  "homepage": "https://github.com/poetic/ember-cli-cordova",
+  "version": "0.1.0",
+  "description": "A tool for creating hybrid apps with Ember",
+  "homepage": "https://github.com/isleofcode/ember-cordova",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/poetic/ember-cli-cordova.git"
+    "url": "git+https://github.com/isleofcode/ember-cordova.git"
   },
   "main": "index.js",
   "directories": {
@@ -20,13 +20,34 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "Jake Craige <jake@poeticsystems.com>",
+  "author": {
+    "name": "Alex Blom",
+    "email": "alex@isleofcode.com",
+    "url": "https://isleofcode.com"
+  },
+  "contributors": [{
+    "name": "Jake Craige",
+    "email": "jake@poeticsystem.com"
+  }, {
+    "name": "Aidan Nulman",
+    "email": "aidan@isleofcode.com",
+    "url": "https://isleofcode.com"
+  }, {
+    "name": "Chris Thoburn",
+    "email": "chris@isleofcode.com",
+    "url": "https://isleofcode.com"
+  }],
   "license": "MIT",
   "ember-addon": {
     "configPath": "tests/dummy/config"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "cordova",
+    "phonegap",
+    "crosswalk",
+    "hybrid",
+    "mobile"
   ],
   "dependencies": {
     "broccoli-funnel": "^1.0.0",
