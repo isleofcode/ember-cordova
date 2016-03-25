@@ -37,6 +37,8 @@ ember cdv platform add ios
 ember cdv platform add android
 ```
 
+Cordova working relies on the cordova.js script being injected. By default, this happens using ember cdv commands. Your vanilla ember build && ember s commands will not inject cordova.js by design.
+
 ##Features and Documentation
 * [CLI](docs/cli.md)
 * [Cordova Service & Event Bindings](docs/services/cordova.md])
