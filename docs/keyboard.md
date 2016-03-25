@@ -1,5 +1,7 @@
 ## Keyboard
 
+**TODO: link the addon & include install line once public**
+
 We have distributed a separate `ember-cordova-keyboard` addon, which handles
 subtle layout issues & fires events related to a native device's keyboard
 display.
