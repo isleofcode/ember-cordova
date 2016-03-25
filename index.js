@@ -1,41 +1,39 @@
 'use strict';
+
 var rasterizeIcons = require('./broccoli-plugins/rasterize-icons/plugin');
 var rasterizeSplashscreen = require('./broccoli-plugins/rasterize-splashscreen/plugin');
 
-var path = require('path');
-var fs = require('fs');
 var commands = require('./lib/commands');
+var inArray  = require('./lib/utils/in-array');
+
+//Livereload only
 var defaults = require('lodash').defaults;
 var chalk = require('chalk');
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
+var path = require('path');
+var fs = require('fs');
 
 module.exports = {
   name: 'ember-cordova',
 
   _isTargetCordova: function () {
-    return true;
-    //return !process.env.EMBER_CLI_CORDOVA ||
-    //  ['0', 'off', 'false', 'no'].indexOf(process.env.EMBER_CLI_CORDOVA.toLowerCase()) === -1;
+    var cordovaCommands = ['cdv:', 'cordova:'];
+    return inArray(cordovaCommands, process.argv);
   },
 
   config: function (env, config) {
-    var conf = {isCordovaBuild: this._isTargetCordova()};
-    if (conf.isCordovaBuild && env !== 'test') {
+    var conf = {};
+
+    if (this._isTargetCordova() && env !== 'test') {
       if (config.locationType && config.locationType !== 'hash') {
         throw new Error('ember-cli-cordova: You must specify the locationType as \'hash\' in your environment.js or rename it to defaultLocationType.');
       }
       conf.locationType = 'hash';
-    }
-    else if (!conf.locationType) {
+    } else if (!conf.locationType) {
       conf.locationType = config.defaultLocationType || 'auto';
     }
-    conf.cordova = defaults(config.cordova || {}, {
-      liveReload: {
-        enabled:  false,
-        platform: 'ios'
-      }
-    });
+
     return conf;
   },
 
