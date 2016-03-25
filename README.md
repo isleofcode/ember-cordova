@@ -4,12 +4,12 @@ ember-cordova simplifies building Cordova applications with Ember.js.
 
 It includes a CLI for builds, hooks, device event bindings, and handles splash screens, icons and a growing number of supported Ember/Cordova plugin bindings.
 
-1) Platforms & Requirements
-2) Getting Started
-3) Features and Documentation;
-4) Upcoming Extensions;
-5) Contributing;
-6) Credits
+1. Platforms & Requirements
+2. Getting Started
+3. Features and Documentation;
+4. Upcoming Extensions;
+5. Contributing;
+6. Credits
 
 ##Platforms & Requirements
 
@@ -47,6 +47,7 @@ Cordova working relies on the cordova.js script being injected. By default, this
 *  *  [Splash Screen Management](docs/services/splash.md)
 * [Icon Management](docs/services/icons.md)
 * [Hooks](docs/hooks.md)
+* [Live reload](docs/livereload.md)
 * [Available Plugins](docs/plugins.md)
 
 ##Upcoming Extensions
