@@ -1,43 +1,47 @@
 'use strict';
 
-var path = require('path');
-var fs = require('fs');
-var commands = require('./lib/commands');
-var postBuild = require('./lib/tasks/post-build');
-var defaults = require('lodash').defaults;
-var chalk = require('chalk');
-var mergeTrees = require('broccoli-merge-trees');
-var Funnel = require('broccoli-funnel');
+var rasterizeIcons        = require('./broccoli-plugins/rasterize-icons/plugin');
+var rasterizeSplashscreen = require('./broccoli-plugins/rasterize-splashscreen/plugin');
+
+var commands              = require('./lib/commands');
+var cordovaPath           = require('./lib/utils/cordova-path');
+
+var chalk                 = require('chalk');
+var mergeTrees            = require('broccoli-merge-trees');
+var Funnel                = require('broccoli-funnel');
+var path                  = require('path');
+var fs                    = require('fs');
 
 module.exports = {
-  name: 'ember-cli-cordova',
+  name: 'ember-cordova',
 
   _isTargetCordova: function () {
-    return !process.env.EMBER_CLI_CORDOVA ||
-      ['0', 'off', 'false', 'no'].indexOf(process.env.EMBER_CLI_CORDOVA.toLowerCase()) === -1;
+    return process.env.EMBER_CORDOVA === "true";
   },
 
-  config: function (env, config) {
-    var conf = {isCordovaBuild: this._isTargetCordova()};
-    if (conf.isCordovaBuild && env !== 'test') {
-      if (config.locationType && config.locationType !== 'hash') {
+  _isCordovaLiveReload: function() {
+    return process.env.CORDOVA_RELOAD_ADDRESS !== undefined;
+  },
+
+  config: function (env, baseConfig) {
+    if (this._isTargetCordova() && env !== 'test') {
+      if (baseConfig.locationType && baseConfig.locationType !== 'hash') {
         throw new Error('ember-cli-cordova: You must specify the locationType as \'hash\' in your environment.js or rename it to defaultLocationType.');
       }
-      conf.locationType = 'hash';
     }
-    else if (!conf.locationType) {
-      conf.locationType = config.defaultLocationType || 'auto';
+
+    if (this._isCordovaLiveReload()) {
+      var conf = {};
+      //If cordova live reload, set the reload url
+      var reloadUrl = process.env.CORDOVA_RELOAD_ADDRESS;
+      conf.cordova = {};
+      conf.cordova.reloadUrl = reloadUrl;
+      return conf;
     }
-    conf.cordova = defaults(config.cordova || {}, {
-      liveReload: {
-        enabled:  false,
-        platform: 'ios'
-      }
-    });
-    return conf;
   },
 
   contentFor: function (type) {
+    var is = this._isTargetCordova();
     if (this._isTargetCordova() && type === 'body') {
       return '<script src="cordova.js"></script>';
     }
@@ -47,42 +51,17 @@ module.exports = {
     return commands;
   },
 
-  cdvConfig: function () {
-    return this.project.config(process.env.EMBER_ENV || 'development').cordova;
-  },
-
-  postBuild: function () {
-    if (this._isTargetCordova()) {
-      return postBuild(this.project, this.cdvConfig())();
-    }
-    else {
-      return function () {
-      };
-    }
-  },
-
   treeForPublic: function (tree) {
-    var config = this.cdvConfig();
+    if (this._isCordovaLiveReload() === true) {
+      var platform = process.env.CORDOVA_PLATFORM;
 
-    if (this._isTargetCordova() && config.liveReload.enabled) {
-      if (!config.liveReload.platform) {
-        throw new Error('ember-cli-cordova: You must specify a liveReload.platform in your environment.js');
-      }
-
-      var platformsPath = path.join(this.project.root, 'cordova', 'platforms');
+      var platformsPath = path.join(cordovaPath(this.project), 'platforms');
       var pluginsPath;
 
-      if (config.liveReload.platform === 'ios') {
+      if (platform === 'ios') {
         pluginsPath = path.join(platformsPath, 'ios', 'www');
-      }
-      else if (config.liveReload.platform === 'browser') {
-        pluginsPath = path.join(platformsPath, 'browser', 'www');
-      }
-      else if (config.liveReload.platform === 'android') {
+      } else if (platform === 'android') {
         pluginsPath = path.join(platformsPath, 'android', 'assets', 'www');
-      }
-      else {
-        pluginsPath = path.join(platformsPath, config.liveReload.platform);
       }
 
       var files = ['cordova.js', 'cordova_plugins.js'];
@@ -90,7 +69,7 @@ module.exports = {
       files.forEach(function (file) {
         var filePath = path.join(pluginsPath, file);
         if (!fs.existsSync(filePath)) {
-          var err = new Error('ember-cli-cordova: ' + filePath + ' did not exist. It is required for Device LiveReload to work.');
+          var err = new Error('ember-cordova: ' + filePath + ' did not exist. It is required for Device LiveReload to work.');
           err.stack = null;
           throw err;
         }
@@ -106,7 +85,7 @@ module.exports = {
         destDir: '/'
       });
 
-      console.log(chalk.green('ember-cli-cordova: Device LiveReload is enabled'));
+      this.ui.writeLine(chalk.green('ember-cordova: Device LiveReload is enabled'));
 
       return mergeTrees([tree, pluginsTree]);
     }
