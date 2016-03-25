@@ -38,10 +38,10 @@ module.exports = {
     var projectName = this.project.name();
 
     var create = new CreateTask({
-      project: this.project,
-      ui: this.ui,
+      id: options.cordovaId || projectName,
       name: options.name || projectName,
-      id: options.cordovaId || projectName
+      project: this.project,
+      ui: this.ui
     });
 
     return create.run()
