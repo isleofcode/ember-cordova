@@ -1,12 +1,15 @@
 import Ember from 'ember';
 
-var computed = Ember.computed;
+const IOS = 'ios';
+const ANDROID = 'android';
+const WINDOWS_PHONE = 'windowsphone';
+const EDGE = 'edge';
+const CROSSWALK = 'crosswalk';
 
-var IOS = 'ios';
-var ANDROID = 'android';
-var WINDOWS_PHONE = 'windowsphone';
-var EDGE = 'edge';
-var CROSSWALK = 'crosswalk';
+const {
+  Service,
+  computed
+} = Ember;
 
 /*
 
@@ -65,8 +68,8 @@ export default Ember.Service.extend({
   }),
 
   platform: Ember.computed(function() {
-    var ua = this.get('ua');
-    var platformName;
+    const ua = this.get('ua');
+    let platformName;
 
     if (ua.indexOf('Edge') > -1) {
       platformName = EDGE;
@@ -77,7 +80,7 @@ export default Ember.Service.extend({
     } else if (/iPhone|iPad|iPod/.test(ua)) {
       platformName = IOS;
     } else {
-      var navPlatform = navigator.platform;
+      let navPlatform = navigator.platform;
       if (navPlatform) {
         platformName = navigator.platform.toLowerCase().split(' ')[0];
       } else {
@@ -89,7 +92,7 @@ export default Ember.Service.extend({
   }),
 
   version: computed(function() {
-    var v = this.get('device.version');
+    let v = this.get('device.version');
 
     if (!v) {
       return undefined;
@@ -108,14 +111,16 @@ export default Ember.Service.extend({
   is: function(type) {
     type = type.toLowerCase();
     // check if it has an array of platforms
-    var platforms = this.get('platforms');
+    let platforms = this.get('platforms');
     if (platforms) {
-      for (var x = 0; x < platforms.length; x++) {
-        if (platforms[x] === type) return true;
+      for (let x = 0; x < platforms.length; x++) {
+        if (platforms[x] === type) {
+          return true;
+        }
       }
     }
     // exact match
-    var pName = this.get('platform');
+    const pName = this.get('platform');
     if (pName) {
       return pName === type.toLowerCase();
     }
@@ -125,8 +130,8 @@ export default Ember.Service.extend({
   },
 
   _setPlatforms() {
-    var _this     = this,
-        platforms = [];
+    let  _this     = this;
+    let  platforms = [];
 
     if (_this.get('isWebView')) {
       platforms.push('webview');
@@ -140,17 +145,17 @@ export default Ember.Service.extend({
     }
 
     if (_this.get('isIPad')) {
-      platforms.push('ipad')
+      platforms.push('ipad');
     };
 
-    var platform = _this.get('platform');
+    const platform = _this.get('platform');
 
     if (platform) {
       platforms.push(platform);
 
-      var version = _this.get('version');
+      const version = _this.get('version');
       if (version) {
-        var v = version.toString();
+        const v = version.toString();
         if (v.indexOf('.') > 0) {
           v = v.replace('.', '_');
         } else {

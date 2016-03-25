@@ -5,13 +5,13 @@ import Ember from 'ember';
 const { run } = Ember;
 
 export function initialize(app) {
-  var config = app.__container__.lookupFactory('config:environment');
-  var env = config.environment;
+  let config = app.__container__.lookupFactory('config:environment');
+  let env = config.environment;
 
   if (config.cordova && config.cordova.reloadUrl &&
      (env === 'development' || env === 'test')) {
 
-    var url = config.cordova.reloadUrl;
+    let url = config.cordova.reloadUrl;
     if (window.location.href.indexOf('file://') > -1) {
       run.later(function() {
         window.location.replace(url);

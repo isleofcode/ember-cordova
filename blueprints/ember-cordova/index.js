@@ -21,19 +21,6 @@ module.exports = {
     // not specified (since that doesn't actually matter
     // to us
   },
-
-  fileMapTokens: function() {
-    return {
-      __root__: function(options) {
-        if (options.inAddon) {
-          return path.join('tests', 'dummy');
-        }
-
-        return '/';
-      }
-    };
-  },
-
   afterInstall: function(options) {
     var projectName = this.project.name();
 
