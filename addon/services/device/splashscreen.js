@@ -3,7 +3,8 @@ import Ember from 'ember';
 
 const {
   Service,
-  inject
+  inject,
+  isPresent
 } = Ember;
 
 export default Service.extend({
@@ -13,7 +14,7 @@ export default Service.extend({
   hide() {
     this.get('cordova').ready()
       .then(() => {
-        if (navigator && navigator.splashscreen) {
+        if (isPresent(navigator) && isPresent(navigator.splashscreen)) {
           navigator.splashscreen.hide();
         }
       });
@@ -22,7 +23,7 @@ export default Service.extend({
   show() {
     this.get('cordova').ready()
       .then(() => {
-        if (navigator && navigator.splashscreen) {
+        if (isPresent(navigator) && isPresent(navigator.splashscreen)) {
           navigator.splashscreen.show();
         }
       });
