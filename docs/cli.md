@@ -11,6 +11,7 @@ ember-cordova interference with ember cdv build, vs. ember cdv:build.
 * ember cdv:build
 * ember cdv:link
 * ember cdv:prepare
+* ember cdv:serve
 * ember cordova
 
 ### Open
@@ -59,6 +60,21 @@ beforePrepare/afterPrepare hooks.
 
 #### Examples
 + `ember cordova:prepare`
+
+### Serve
+
+#### Description
+
+Runs the Ember Server for live reload. To learn more, [read
+here](livereload.md).
+
+#### Available options
++ platform (default:ios)
++ reloadUrl (default:localhost:4200)
+
+#### Examples
++ `ember cdv:serve`
++ `ember cordova:serve --platform=android --reloadUrl=192.168.1.1`
 
 ## Cordova
 
