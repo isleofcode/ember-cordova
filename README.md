@@ -1,4 +1,4 @@
-#ember-cordova
+#ember-cordova (beta)
 
 ember-cordova simplifies building Cordova applications with Ember.js.
 
@@ -10,6 +10,9 @@ It includes a CLI for builds, hooks, device event bindings, and handles splash s
 4. Upcoming Extensions;
 5. Contributing;
 6. Credits
+
+It is a beta fork of ember-cli-cordova, but should have similar
+stability. It includes new features discussed below.
 
 ##Platforms & Requirements
 
@@ -29,6 +32,8 @@ display name of your Cordova application. If none exist, your Ember Apps
 name will be used.
 
 If you already have a Cordova project here it will not be overwritten.
+
+Make sure your config.locationType is set to 'hash'.
 
 As a final step, add your desired platforms, e.g.:
 
