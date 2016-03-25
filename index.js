@@ -4,7 +4,6 @@ var rasterizeIcons        = require('./broccoli-plugins/rasterize-icons/plugin')
 var rasterizeSplashscreen = require('./broccoli-plugins/rasterize-splashscreen/plugin');
 
 var commands              = require('./lib/commands');
-var inArray               = require('./lib/utils/in-array');
 var cordovaPath           = require('./lib/utils/cordova-path');
 
 var chalk                 = require('chalk');
@@ -17,12 +16,11 @@ module.exports = {
   name: 'ember-cordova',
 
   _isTargetCordova: function () {
-    var cordovaCommands = ['cdv:', 'cordova:'];
-    return inArray(cordovaCommands, process.argv);
+    return process.env.EMBER_CORDOVA === "true";
   },
 
   _isCordovaLiveReload: function() {
-    return process.env.CORDOVA_LIVERELOAD === "true";
+    return process.env.CORDOVA_RELOAD_ADDRESS !== undefined;
   },
 
   config: function (env, baseConfig) {
@@ -43,6 +41,7 @@ module.exports = {
   },
 
   contentFor: function (type) {
+    var is = this._isTargetCordova();
     if (this._isTargetCordova() && type === 'body') {
       return '<script src="cordova.js"></script>';
     }
