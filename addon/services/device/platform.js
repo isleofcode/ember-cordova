@@ -22,9 +22,6 @@ export default Ember.Service.extend({
   ua: navigator.userAgent,
   deviceReady: false,
 
-  /**
-   * @returns {Array(string)} An array of all platforms found.
-   */
   platforms: [],
 
   init() {
@@ -32,9 +29,6 @@ export default Ember.Service.extend({
     this._setPlatforms();
   },
 
-  /*
-   * @returns {boolean} Check if we are running within a WebView (such as Cordova).
-   */
   isWebView: computed(function() {
     return !(
       !window.cordova &&
@@ -44,9 +38,6 @@ export default Ember.Service.extend({
     );
   }),
 
-  /**
-   * @returns {boolean} Whether we are running on iPad.
-   */
   isIPad: computed(function() {
     if (/iPad/i.test(window.navigator.platform)) {
       return true;
@@ -54,44 +45,26 @@ export default Ember.Service.extend({
     return /iPad/i.test(window.ua);
   }),
 
-  /**
-   * @returns {boolean} Whether we are running on iOS.
-   */
   isIOS: computed(function() {
     return this.is(IOS);
   }),
 
-  /**
-   * @returns {boolean} Whether we are running on Android.
-   */
   isAndroid: computed(function() {
     return this.is(ANDROID);
   }),
 
-  /**
-   * @returns {boolean} Whether we are running on Windows Phone.
-   */
   isWindowsPhone: computed(function() {
     return this.is(WINDOWS_PHONE);
   }),
 
-  /**
-   * @returns {boolean} Whether we are running on MS Edge/Windows 10 (inc. Phone)
-   */
   isEdge: computed(function() {
     return this.is(EDGE);
   }),
 
-  /**
-   * @returns {boolean} Whether we are running on Crosswalk
-   */
   isCrosswalk: computed(function() {
     return this.is(CROSSWALK);
   }),
 
-  /**
-   * @returns {string} The name of the current platform.
-   */
   platform: Ember.computed(function() {
     var ua = this.get('ua');
     var platformName;
@@ -116,9 +89,6 @@ export default Ember.Service.extend({
     return platformName;
   }),
 
-  /**
-   * @returns {number} The version of the current device platform.
-   */
   version: computed(function() {
     var v = this.get('device.version');
 
@@ -132,17 +102,10 @@ export default Ember.Service.extend({
     }
   }),
 
-  /**
-   * @returns {object} The device object.
-   */
   device: computed(function() {
     return window.device || {};
   }),
 
-  /**
-   * @param {string} Platform name.
-   * @returns {boolean} Whether the platform name provided is detected.
-   */
   is: function(type) {
     type = type.toLowerCase();
     // check if it has an array of platforms
@@ -200,5 +163,5 @@ export default Ember.Service.extend({
     }
 
     _this.set('platforms', platforms);
-  },
+  }
 });
