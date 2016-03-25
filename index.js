@@ -53,7 +53,7 @@ module.exports = {
   },
 
   treeForPublic: function (tree) {
-    if (this._isCordovaLiveReload() === false) {
+    if (this._isCordovaLiveReload() === true) {
       var platform = process.env.CORDOVA_PLATFORM;
 
       var platformsPath = path.join(cordovaPath(this.project), 'platforms');
