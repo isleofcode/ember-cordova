@@ -20,7 +20,6 @@ var CROSSWALK = 'crosswalk';
 export default Ember.Service.extend({
   navigator: window.navigator,
   ua: navigator.userAgent,
-  deviceReady: false,
 
   /**
    * @returns {Array(string)} An array of all platforms found.
