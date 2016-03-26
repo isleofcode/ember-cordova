@@ -50,6 +50,7 @@ Cordova working relies on the cordova.js script being injected. By default, this
 * Device:
 *  *  [Platform Service](docs/services/platform.md)
 *  *  [Splash Screen Management](docs/services/splash.md)
+*  *  [Keyboard](docs/keyboard.md)
 * [Icon Management](docs/services/icons.md)
 * [Hooks](docs/hooks.md)
 * [Live reload](docs/livereload.md)
