@@ -1,10 +1,13 @@
 ## Keyboard
 
-**TODO: link the addon & include install line once public**
-
 We have distributed a separate `ember-cordova-keyboard` addon, which handles
 subtle layout issues & fires events related to a native device's keyboard
 display.
+
+To install:
+```
+ember install ember-cordova-keyboard
+```
 
 N.B. `ember-cordova-keyboard` will install the Cordova `ionic-plugin-keyboard`
 plugin & persist this to your config.xml.
