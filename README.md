@@ -46,7 +46,7 @@ Cordova working relies on the cordova.js script being injected. By default, this
 
 ##Features and Documentation
 * [CLI](docs/cli.md)
-* [Cordova Service & Event Bindings](docs/services/cordova.md])
+* [Cordova Service & Event Bindings](docs/services/cordova.md)
 * Device:
 *  *  [Platform Service](docs/services/platform.md)
 *  *  [Splash Screen Management](docs/services/splash.md)
