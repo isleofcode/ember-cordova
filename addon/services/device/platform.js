@@ -155,7 +155,7 @@ export default Ember.Service.extend({
 
       const version = _this.get('version');
       if (version) {
-        const v = version.toString();
+        let v = version.toString();
         if (v.indexOf('.') > 0) {
           v = v.replace('.', '_');
         } else {
