@@ -16,7 +16,7 @@ export function initialize(app) {
       }, 50);
     }
   }
-};
+}
 
 export default {
   name: 'cordova:in-app-livereload',
