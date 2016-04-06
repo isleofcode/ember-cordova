@@ -25,7 +25,7 @@ ember cordova:serve
 
 OPTIONS
 --platform= (android or ios)
---reloadUrl= Network IP for live reload. Default is locahost:4200.
+--reload-url= Network IP for live reload. Default is locahost:4200.
 ```
 
 Config options such as reloadUrl can also be stored in
@@ -37,4 +37,4 @@ You can run the app on an emulator or any device connected to your local network
 
 * If you are are having any issues, take note of your network IP. Ensure
   it is whitelisted in config.xml, and start cordova:serve with this as
-your reloadUrl.
+your reload-url.
