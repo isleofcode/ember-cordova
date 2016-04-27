@@ -11,7 +11,7 @@ module.exports = {
       name: 'name',
       type: String
     }, {
-      name: 'cordovaId',
+      name: 'cordovaid',
       type: String
     }
   ],
@@ -33,7 +33,7 @@ module.exports = {
     var projectName = this.project.name();
 
     var create = new CreateTask({
-      id: options.cordovaId || camelize(projectName),
+      id: options.cordovaid || camelize(projectName),
       name: options.name || camelize(projectName),
       project: this.project,
       ui: this.ui
