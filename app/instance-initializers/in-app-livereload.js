@@ -3,7 +3,7 @@ import Ember from 'ember';
 const { run } = Ember;
 
 export function initialize(app) {
-  let config = app.container.lookupFactory('config:environment');
+  let config = app.resolveRegistration('config:environment');
   let env = config.environment;
 
   if (config.cordova && config.cordova.reloadUrl &&
