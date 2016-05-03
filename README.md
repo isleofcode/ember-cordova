@@ -23,8 +23,8 @@ For support with older Ember versions, look at [ember-cli-cordova](https://githu
 
 ##Getting Started
 
-If you are migrating from ember-cli-cordova, as a pre step move your
-/cordova directory to /ember-cordova/cordova.
+If you are migrating from ember-cli-cordova, read the [migration
+guide](docs/migration-from-ember-cli.md).
 
 
 ```

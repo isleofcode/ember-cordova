@@ -3,8 +3,14 @@ import Ember from 'ember';
 const { run } = Ember;
 
 export function initialize(app) {
-  let config = app.container.lookupFactory('config:environment');
-  let env = config.environment;
+  let config, env;
+
+  if (app.resolveRegistration) {
+    config = app.resolveRegistration('config:environment');
+  } else {
+    config = app.container.lookupFactory('config:environment');
+  }
+  env = config.environment;
 
   if (config.cordova && config.cordova.reloadUrl &&
      (env === 'development' || env === 'test')) {
