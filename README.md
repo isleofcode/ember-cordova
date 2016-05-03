@@ -23,11 +23,15 @@ For support with older Ember versions, look at [ember-cli-cordova](https://githu
 
 ##Getting Started
 
+If you are migrating from ember-cli-cordova, as a pre step move your
+/cordova directory to /ember-cordova/cordova.
+
+
 ```
   ember install ember-cordova
 ```
 
-You can optionally pass name & cordovaId params, which will set the id &
+You can optionally pass name & cordovaid params, which will set the id &
 display name of your Cordova application. If none exist, your Ember Apps
 name will be used.
 
@@ -49,7 +53,8 @@ Cordova working relies on the cordova.js script being injected. By default, this
 * [Cordova Service & Event Bindings](docs/services/cordova.md)
 * Device:
 *  *  [Platform Service](docs/services/platform.md)
-*  *  [Splash Screen Management](docs/services/splash.md)
+*  *  [Splash Screen Management](docs/services/splashscreen.md)
+*  *  [Keyboard](docs/keyboard.md)
 * [Icon Management](docs/services/icons.md)
 * [Hooks](docs/hooks.md)
 * [Live reload](docs/livereload.md)

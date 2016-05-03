@@ -2,7 +2,7 @@
 
 ### Description
 
-ember-cordova creates a service a cordova service, which listens for
+ember-cordova creates a cordova service, which listens for
 events defined and emitted by Cordova (e.g. `deviceready`, `pause`, `resume`).
 
 ### Usage

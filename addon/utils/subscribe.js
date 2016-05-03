@@ -2,14 +2,14 @@ import Ember from 'ember';
 
 const {
   assert,
-  computed
-} = Ember;
+  on
+  } = Ember;
 
 export default function subscribe(path, method) {
   let [service, event, err] = path.split('.');
   let _listener = null;
 
-  assert(`'subscribe()' expects a path with exactly one leaf, given ${path}`, err || !event || !service);
+  assert(`'subscribe()' expects a path with exactly one leaf, given ${path}`, event && service && !err);
 
   let computedFn = function() {
     if (!this.get(service) || _listener) {
@@ -34,5 +34,5 @@ export default function subscribe(path, method) {
     this.get(service).on(event, _listener);
   };
 
-  return computed.call(this, service, computedFn);
+  return on.call(this, 'init', computedFn);
 }
