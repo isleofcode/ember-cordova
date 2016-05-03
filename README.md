@@ -16,15 +16,16 @@ stability. It includes new features discussed below.
 
 ##Platforms & Requirements
 
-We require Ember 2.3 or greater. Supported Cordova platforms are iOS
-and Android.
+ember-cordova has been tested and works on Ember 1.13 &
+greater, including 2+.
 
-For support with older Ember versions, look at [ember-cli-cordova](https://github.com/poetic/ember-cli-cordova)
+When push comes to shove we are likely to only support Ember 2.4 or
+greater.
 
 ##Getting Started
 
-If you are migrating from ember-cli-cordova, as a pre step move your
-/cordova directory to /ember-cordova/cordova.
+If you are migrating from ember-cli-cordova, read the [migration
+guide](docs/migration-from-ember-cli.md).
 
 
 ```
