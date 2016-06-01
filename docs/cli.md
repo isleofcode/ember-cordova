@@ -75,6 +75,7 @@ here](livereload.md).
 #### Examples
 + `ember cdv:serve`
 + `ember cordova:serve --platform=android --reloadUrl=192.168.1.1`
++ `ember cdv:serve --platform=browser --env "development"`
 
 ## Cordova
 
