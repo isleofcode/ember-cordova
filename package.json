@@ -13,7 +13,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "ember try:testall"
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register 'node-tests/**/*-test.js'"
   },
   "engines": {
     "node": ">= 0.10.0"
@@ -23,18 +23,22 @@
     "email": "alex@isleofcode.com",
     "url": "https://isleofcode.com"
   },
-  "contributors": [{
-    "name": "Jake Craige",
-    "email": "jake@poeticsystem.com"
-  }, {
-    "name": "Aidan Nulman",
-    "email": "aidan@isleofcode.com",
-    "url": "https://isleofcode.com"
-  }, {
-    "name": "Chris Thoburn",
-    "email": "chris@isleofcode.com",
-    "url": "https://isleofcode.com"
-  }],
+  "contributors": [
+    {
+      "name": "Jake Craige",
+      "email": "jake@poeticsystem.com"
+    },
+    {
+      "name": "Aidan Nulman",
+      "email": "aidan@isleofcode.com",
+      "url": "https://isleofcode.com"
+    },
+    {
+      "name": "Chris Thoburn",
+      "email": "chris@isleofcode.com",
+      "url": "https://isleofcode.com"
+    }
+  ],
   "license": "MIT",
   "ember-addon": {
     "configPath": "tests/dummy/config"
@@ -47,42 +51,37 @@
     "hybrid",
     "mobile"
   ],
-  "dependencies": {
-    "broccoli-funnel": "^1.0.0",
-    "broccoli-merge-trees": "^1.1.0",
-    "chalk": "^0.4.0",
-    "ember-cli-babel": "^5.1.5",
-    "findup-sync": "^0.1.3",
-    "fs-extra": "^0.26.5",
-    "lodash": "^4.5.1",
-    "pleasant-progress": "^1.0.1",
-    "recursive-readdir": "^1.1.1",
-    "rsvp": "^3.0.6",
-    "sinon": "^1.17.3",
-    "underscore.string": "^2.3.3"
-  },
   "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babel-register": "^6.9.0",
     "broccoli-asset-rev": "^2.2.0",
-    "chai": "^1.9.1",
+    "broccoli-funnel": "^1.0.1",
+    "broccoli-merge-trees": "^1.1.1",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "chalk": "^0.4.0",
     "ember-ajax": "0.7.1",
-    "ember-cli": "2.3.0",
+    "ember-cli": "2.5.0",
     "ember-cli-app-version": "^1.0.0",
+    "ember-cli-babel": "^5.1.6",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
     "ember-cli-inject-live-reload": "^1.3.1",
-    "ember-cli-qunit": "^1.4.0",
     "ember-cli-release": "0.2.8",
     "ember-cli-sri": "^2.0.0",
+    "ember-cli-testdouble": "0.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-load-initializers": "^0.5.0",
     "ember-resolver": "^2.0.3",
-    "ember-sinon": "0.5.0",
     "ember-try": "^0.1.2",
-    "glob": "^4.5.3",
-    "loader.js": "^4.0.0"
+    "fs-extra": "^0.26.5",
+    "loader.js": "^4.0.0",
+    "lodash": "^4.13.1",
+    "mocha": "^2.5.3",
+    "mocha-jshint": "^2.3.1"
   }
 }
