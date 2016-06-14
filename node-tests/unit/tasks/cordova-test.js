@@ -7,7 +7,7 @@ const CordovaTask  = require('../../../lib/tasks/cordova');
 const mockProject  = require('../../fixtures/ember-cordova-mock/project');
 const isObject     = td.matchers.isA(Object);
 
-describe('Cordova cordovaCmd Task', () => {
+describe('Cordova Task', () => {
   let bashDouble, cordovaCmd;
 
   beforeEach(() => {
