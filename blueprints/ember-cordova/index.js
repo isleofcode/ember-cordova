@@ -1,7 +1,6 @@
 'use strict';
 
 var CreateTask       = require('../../lib/tasks/create-cordova-project');
-var camelize         = require('../../lib/utils/string.js').camelize;
 
 module.exports = {
   name: 'ember-cordova',
