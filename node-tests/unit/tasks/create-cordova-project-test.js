@@ -1,23 +1,20 @@
 'use strict';
 
-const td             = require('testdouble');
-const fs             = require('fs');
-const path           = require('path');
-const expect         = require('../../helpers/expect');
-const BashTask       = require('../../../lib/tasks/bash');
-const CreateCdvTask  = require('../../../lib/tasks/create-cordova-project');
+const td            = require('testdouble');
+const fs            = require('fs');
+const path          = require('path');
+const expect        = require('../../helpers/expect');
+const BashTask      = require('../../../lib/tasks/bash');
+const CreateCdvTask = require('../../../lib/tasks/create-cordova-project');
 
-const mockProject    = require('../../fixtures/ember-cordova-mock/project');
-const isObject       = td.matchers.isA(Object);
+const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const isObject      = td.matchers.isA(Object);
 
 describe('Cordova Create Task', () => {
   let bashDouble, cordovaCreate, mkDir;
 
   beforeEach(() => {
     bashDouble = td.replace(BashTask.prototype, 'runCommand');
-
-    td.replace(fs, 'mkdirSync');
-
     cordovaCreate = new CreateCdvTask(mockProject);
   });
 
@@ -26,6 +23,11 @@ describe('Cordova Create Task', () => {
   });
 
   it('creates an ember-cordova directory if one does not exist', () => {
+    td.replace(fs, 'mkdirSync');
+    td.replace(fs, 'existsSync', () => {
+      return false;
+    });
+
     const expectedPath = path.resolve(__dirname, '..', '..', 'fixtures', 'ember-cordova-mock', 'ember-cordova');
 
     cordovaCreate.run();
@@ -46,13 +48,11 @@ describe('Cordova Create Task', () => {
   });
 
   it('raises a warning if cordova project already exists', () => {
-    let ui = cordovaCreate.ui;
-
     td.replace(fs, 'existsSync', function() {
       return true;
     });
 
     cordovaCreate.run();
-    expect(ui.output).to.contain('project already exists');
+    expect(cordovaCreate.ui.output).to.contain('project already exists');
   });
 });
