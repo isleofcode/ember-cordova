@@ -1,12 +1,12 @@
 'use strict';
 
-const td                = require('testdouble');
-const BashTask          = require('../../../lib/tasks/bash');
-const CordovaBuildTask  = require('../../../lib/tasks/cordova-build');
+const td            = require('testdouble');
+const BashTask      = require('../../../lib/tasks/bash');
+const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 
-const mockProject       = require('../../fixtures/ember-cordova-mock/project');
-const defaults          = require('lodash').defaults;
-const isObject          = td.matchers.isA(Object);
+const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const defaults      = require('lodash').defaults;
+const isObject      = td.matchers.isA(Object);
 
 describe('Cordova Build Task', () => {
   let bashDouble, build;
@@ -14,7 +14,7 @@ describe('Cordova Build Task', () => {
   beforeEach(() => {
     bashDouble = td.replace(BashTask.prototype, 'runCommand');
 
-    build = new CordovaBuildTask(mockProject);
+    build = new CdvBuildTask(mockProject);
   });
 
   afterEach(() => {
@@ -22,21 +22,19 @@ describe('Cordova Build Task', () => {
   });
 
   it('generates a cordova build command', () => {
-    build.run();
+    build.run('ios');
 
     td.verify(bashDouble('cordova build ios', isObject));
   });
 
   it('sets platform', () => {
-    build.platform = 'android';
-    build.run();
+    build.run('android');
 
     td.verify(bashDouble('cordova build android', isObject));
   });
 
-  it('sets release tag for non development builds', () => {
-    build.env = 'production';
-    build.run();
+  it('sets release tag for production builds', () => {
+    build.run('ios', 'production');
 
     td.verify(bashDouble('cordova build ios --release', isObject));
   });
