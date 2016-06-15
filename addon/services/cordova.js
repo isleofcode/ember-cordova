@@ -39,8 +39,8 @@ export default Service.extend(Evented, {
     this._listeners = [];
     this._ready = RSVP.defer();
 
-    this.setupListeners();
     this.setupReady();
+    this.setupListeners();
   },
 
   willDestroy() {
