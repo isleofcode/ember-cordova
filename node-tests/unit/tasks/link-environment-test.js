@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Link Environment Task', () => {
-  xit('throws an error if project does not exist', () => {
+  xit('runs verify dist task', () => {
   });
 
   xit('symlinks dist/ to ember-cordova/cordova/www', () => {
