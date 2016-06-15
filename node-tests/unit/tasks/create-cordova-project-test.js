@@ -16,6 +16,7 @@ describe('Cordova Create Task', () => {
   beforeEach(() => {
     bashDouble = td.replace(BashTask.prototype, 'runCommand');
     cordovaCreate = new CreateCdvTask(mockProject);
+    td.replace(fs, 'mkdirSync');
   });
 
   afterEach(() => {
@@ -23,7 +24,6 @@ describe('Cordova Create Task', () => {
   });
 
   it('creates an ember-cordova directory if one does not exist', () => {
-    td.replace(fs, 'mkdirSync');
     td.replace(fs, 'existsSync', () => {
       return false;
     });
@@ -35,11 +35,19 @@ describe('Cordova Create Task', () => {
   });
 
   it('generates a cordova build command', () => {
+    td.replace(fs, 'existsSync', () => {
+      return false;
+    });
+
     cordovaCreate.run();
     td.verify(bashDouble('cordova create cordova emberCordovaMock emberCordovaMock', isObject));
   });
 
   it('forces camelcased ids and names', () => {
+    td.replace(fs, 'existsSync', () => {
+      return false;
+    });
+
     cordovaCreate.id = 'ember-cordova-app';
     cordovaCreate.name = 'ember-cordova-app';
 
