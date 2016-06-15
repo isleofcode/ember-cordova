@@ -45,9 +45,14 @@ As a final step, add your desired platforms, e.g.:
 ```
 ember cdv platform add ios
 ember cdv platform add android
+ember cdv platform add browser #experimental
 ```
 
 Cordova working relies on the cordova.js script being injected. By default, this happens using ember cdv commands. Your vanilla ember build && ember s commands will not inject cordova.js by design.
+
+### A note on browser platform
+
+Some cordova/phonegap plugins have browser fallbacks. For example [phonegap-plugin-barcodescanner](https://github.com/phonegap/phonegap-plugin-barcodescanner) will ask you to manually type the barcode value. Using the browser platform, you'll be able to develop your cordova app as it was a regular ember app.
 
 ##Features and Documentation
 * [CLI](docs/cli.md)

@@ -62,6 +62,8 @@ module.exports = {
         pluginsPath = path.join(platformsPath, 'ios', 'www');
       } else if (platform === 'android') {
         pluginsPath = path.join(platformsPath, 'android', 'assets', 'www');
+      } else if (platform === 'browser') {
+        pluginsPath = path.join(platformsPath, 'browser', 'www');
       }
 
       var files = ['cordova.js', 'cordova_plugins.js'];
