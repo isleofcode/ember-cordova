@@ -21,15 +21,8 @@ describe('Ember Build Task', () => {
   });
 
   it('generates ember build command with EMBER_CORDOVA flag', () => {
-    build.run();
+    build.run('development');
 
     td.verify(bashDouble('EMBER_CORDOVA=true ember build --environment development', isObject));
-  });
-
-  it('sets environment', () => {
-    build.env = 'production';
-    build.run();
-
-    td.verify(bashDouble('EMBER_CORDOVA=true ember build --environment production', isObject));
   });
 });
