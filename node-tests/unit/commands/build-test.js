@@ -12,8 +12,6 @@ const HookTask      = require('../../../lib/tasks/run-hook');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 const defaults      = require('lodash').defaults;
-const merge         = require('lodash').merge;
-
 
 describe('Build Command', () => {
   afterEach(() => {
