@@ -13,9 +13,14 @@ const isObject      = td.matchers.isA(Object);
 
 //TODO - kill Task
 describe('Cordova Command', () => {
+  let bashDouble;
+
   beforeEach(() => {
     CordovaCmd.ui = mockProject.ui;
     CordovaCmd.project = mockProject.project;
+
+    bashDouble = td.replace(BashTask.prototype, 'runCommand');
+
   });
 
   afterEach(() => {
@@ -33,16 +38,12 @@ describe('Cordova Command', () => {
   });
 
   it('proxies the command to cordova', () => {
-    let bashDouble = td.replace(BashTask.prototype, 'runCommand');
     CordovaCmd.run({}, ['prepare']);
-
     td.verify(bashDouble('cordova prepare', isObject));
   });
 
   it('proxies multi argument commands', () => {
-    let bashDouble = td.replace(BashTask.prototype, 'runCommand');
     CordovaCmd.run({}, ['plugin add foo']);
-
     td.verify(bashDouble('cordova plugin add foo', isObject));
   });
 });
