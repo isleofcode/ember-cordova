@@ -51,6 +51,11 @@
     "hybrid",
     "mobile"
   ],
+  "dependencies": {
+    "fs-extra": "^0.26.5",
+    "chalk": "^0.4.0",
+    "lodash": "^4.13.1"
+  },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
@@ -59,7 +64,6 @@
     "broccoli-merge-trees": "^1.1.1",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
-    "chalk": "^0.4.0",
     "ember-ajax": "0.7.1",
     "ember-cli": "2.5.0",
     "ember-cli-app-version": "^1.0.0",
@@ -78,9 +82,7 @@
     "ember-load-initializers": "^0.5.0",
     "ember-resolver": "^2.0.3",
     "ember-try": "^0.1.2",
-    "fs-extra": "^0.26.5",
     "loader.js": "^4.0.0",
-    "lodash": "^4.13.1",
     "mocha": "^2.5.3",
     "mocha-jshint": "^2.3.1"
   }
