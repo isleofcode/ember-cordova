@@ -12,6 +12,7 @@ const HookTask      = require('../../../lib/tasks/run-hook');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 const defaults      = require('lodash').defaults;
+const merge         = require('lodash').merge;
 
 
 describe('Build Command', () => {
@@ -54,13 +55,39 @@ describe('Build Command', () => {
     ]);
   });
 
-  xit('uses default platform if none is provided', () => {
+  it('passes env to ember build task', () => {
+    td.replace(CdvBuildTask.prototype, 'run', () => {
+      return Promise.resolve();
+    });
+    td.replace(LinkTask.prototype, 'run', () => {
+      return Promise.resolve();
+    });
+    td.replace(HookTask.prototype, 'run',  (hookName) => {
+      return Promise.resolve();
+    });
+
+    let buildDouble = td.replace(EmberBldTask.prototype, 'run');
+
+    BuildCmd.run(defaults(mockProject, {
+      environment: 'development'
+    }));
+    td.verify(buildDouble('development'));
   });
 
-  xit('passes env to ember build task', () => {
-  });
+  it('passes platform to cordova build task', () => {
+    td.replace(EmberBldTask.prototype, 'run', () => {
+      return Promise.resolve();
+    });
+    td.replace(LinkTask.prototype, 'run', () => {
+      return Promise.resolve();
+    });
+    td.replace(HookTask.prototype, 'run',  (hookName) => {
+      return Promise.resolve();
+    });
 
-  xit('passes platform to cordova build task', () => {
+    let cordovaDouble = td.replace(CdvBuildTask.prototype, 'run');
+
+    BuildCmd.run(mockProject);
+    td.verify(cordovaDouble('ios'));
   });
 });
-
