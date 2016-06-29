@@ -1,51 +1,41 @@
-describe('Tasks - Link Environment', function() {
-  var project;
-  beforeEach(function() {
-    project = newProject();
+'use strict';
+
+const td            = require('testdouble');
+const fs            = require('fs-extra');
+const BashTask      = require('../../../lib/tasks/bash');
+const LinkTask      = require('../../../lib/tasks/link-environment');
+const VerifyTask    = require('../../../lib/tasks/verify-dist');
+
+const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+
+describe('Link Environment Task', () => {
+  it('runs verify dist task', () => {
+    const verifyDouble = td.replace(VerifyTask.prototype, 'run');
+
+    const linkEnv = new LinkTask(mockProject);
+    linkEnv.run();
+
+    td.verify(verifyDouble());
   });
 
-  before(function() {
-    process._chdir = process.chdir;
-    process.chdir = noop;
-  });
+  it('undoes prior symlink', () => {
+    const linkEnv = new LinkTask(mockProject);
+    linkEnv.run();
 
-  after(function() {
-    process.chdir = process._chdir;
-  });
-
-  it('removes the cordova/www dir', function() {
-    var createProject = proxyquire('../../lib/tasks/link-environment', {
-      './verify-dist': function() { return resolveFn; },
-      'fs-extra': {
-        remove: function(path, callback) {
-          expect(path).to.eql('project-root/cordova/www');
-          return callback(null, true);
-        },
-        symlink: function(from, to, type, _, callback) {
-          return callback(null, true);
-        }
-      }
+    td.replace(fs, 'removeSync', () => {
     });
 
-    return createProject(project)();
+    td.verify(fs.removeSync());
   });
 
-  it('creates a relative dir symlink', function() {
-    var createProject = proxyquire('../../lib/tasks/link-environment', {
-      './verify-dist': function() { return resolveFn; },
-      'fs-extra': {
-        remove: function(path, callback) {
-          return callback(null, true);
-        },
-        symlink: function(from, to, type, _, callback) {
-          expect(from).to.eql('../dist');
-          expect(to).to.eql('www');
-          expect(type).to.eql('dir');
-          return callback(null, true);
-        }
-      }
+  it('symlinks dist/ to ember-cordova/cordova/www', () => {
+    const linkEnv = new LinkTask(mockProject);
+    linkEnv.run();
+
+    td.replace(fs, 'ensureSymlinkSync', () => {
+      //no function here causes test to fail
     });
 
-    return createProject(project)();
+    td.verify(fs.ensureSymlinkSync());
   });
 });

@@ -1,28 +1,43 @@
-describe('Tasks - Verify Dist', function() {
-  var project;
-  beforeEach(function() {
-    project = newProject();
+'use strict';
+
+const td            = require('testdouble');
+const fs            = require('fs');
+const path          = require('path');
+const expect        = require('../../helpers/expect');
+const VerifyTask    = require('../../../lib/tasks/verify-dist');
+const assert        = require('chai').assert;
+
+const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+
+describe('Verify Dist Task', () => {
+  let verify;
+
+  beforeEach(() => {
+    verify = new VerifyTask(mockProject);
   });
 
-  it('resolves when path exists', function() {
-    var verifyDist = proxyquire('../../lib/tasks/verify-dist', {
-      'fs': {
-        existsSync: function() { return true; }
-      }
-    });
-
-    return verifyDist(project)().then(function() {
-      expect(true).to.be.ok;
-    });
+  afterEach(() => {
+    td.reset();
   });
 
-  it('runs ember build when it doesn\'t exist', function() {
-    var verifyDist = proxyquire('../../lib/tasks/verify-dist', {
-      '../utils/run-command': function(command) {
-        expect(command).to.eql('ember build');
-      }
+  it('resolves if dist exists', () => {
+   td.replace(fs, 'existsSync', () => {
+     return true;
+   });
+
+   expect(verify.run()).to.be.fulfilled;
+  });
+
+  it('creates dist if it does not exist', () => {
+    td.replace(fs, 'mkdirSync');
+
+    td.replace(fs, 'existsSync', () => {
+      return false;
     });
 
-    return verifyDist(project);
+    verify.run();
+
+    const expectedPath = path.resolve(__dirname, '..', '..', 'fixtures', 'ember-cordova-mock', 'dist');
+    td.verify(fs.mkdirSync(expectedPath));
   });
 });
