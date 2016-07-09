@@ -5,6 +5,8 @@ var rasterizeSplashscreen = require('./broccoli-plugins/rasterize-splashscreen/p
 
 var commands              = require('./lib/commands');
 var cordovaPath           = require('./lib/utils/cordova-path');
+var isTargetCordova       = require('./lib/utils/is-target-cordova');
+var isCordovaLiveReload   = require('./lib/utils/is-cordova-live-reload');
 
 var chalk                 = require('chalk');
 var mergeTrees            = require('broccoli-merge-trees');
@@ -15,33 +17,20 @@ var fs                    = require('fs');
 module.exports = {
   name: 'ember-cordova',
 
-  _isTargetCordova: function () {
-    return process.env.EMBER_CORDOVA === "true";
-  },
-
-  _isCordovaLiveReload: function() {
-    return process.env.CORDOVA_RELOAD_ADDRESS !== undefined;
-  },
-
   config: function (env, baseConfig) {
-    if (this._isTargetCordova() && env !== 'test') {
-      if (baseConfig.locationType && baseConfig.locationType !== 'hash') {
-        throw new Error('ember-cli-cordova: You must specify the locationType as \'hash\' in your environment.js or rename it to defaultLocationType.');
-      }
-    }
-
-    if (this._isCordovaLiveReload()) {
+    if (isCordovaLiveReload()) {
       var conf = {};
       //If cordova live reload, set the reload url
       var reloadUrl = process.env.CORDOVA_RELOAD_ADDRESS;
       conf.cordova = {};
       conf.cordova.reloadUrl = reloadUrl;
+
       return conf;
     }
   },
 
   contentFor: function (type) {
-    if (this._isTargetCordova() && type === 'body') {
+    if (isTargetCordova() && type === 'body') {
       return '<script src="cordova.js"></script>';
     }
   },
@@ -51,7 +40,7 @@ module.exports = {
   },
 
   treeForPublic: function (tree) {
-    if (this._isCordovaLiveReload() === true) {
+    if (isCordovaLiveReload()) {
       var platform = process.env.CORDOVA_PLATFORM;
 
       var platformsPath = path.join(cordovaPath(this.project), 'platforms');
