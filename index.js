@@ -1,8 +1,5 @@
 'use strict';
 
-var rasterizeIcons        = require('./broccoli-plugins/rasterize-icons/plugin');
-var rasterizeSplashscreen = require('./broccoli-plugins/rasterize-splashscreen/plugin');
-
 var commands              = require('./lib/commands');
 var cordovaPath           = require('./lib/utils/cordova-path');
 
