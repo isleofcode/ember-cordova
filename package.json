@@ -1,6 +1,6 @@
 {
   "name": "ember-cordova",
-  "version": "0.1.06",
+  "version": "0.1.07",
   "description": "A tool for creating hybrid apps with Ember",
   "homepage": "https://github.com/isleofcode/ember-cordova",
   "repository": {
@@ -56,16 +56,18 @@
     "chalk": "^0.4.0",
     "lodash": "^4.13.1",
     "broccoli-funnel": "^1.0.1",
+<<<<<<< HEAD
     "broccoli-merge-trees": "^1.1.1",
     "rsvp": "^3.2.1",
     "svg2png": "^3.0.0"
+=======
+    "broccoli-merge-trees": "^1.1.1"
+>>>>>>> 384bdd1f1202ebb676f1cc8d681486e4f584a49b
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
     "broccoli-asset-rev": "^2.2.0",
-    "broccoli-funnel": "^1.0.1",
-    "broccoli-merge-trees": "^1.1.1",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "ember-ajax": "0.7.1",
@@ -78,7 +80,6 @@
     "ember-cli-inject-live-reload": "^1.3.1",
     "ember-cli-release": "0.2.8",
     "ember-cli-sri": "^2.0.0",
-    "ember-cli-testdouble": "0.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-disable-proxy-controllers": "^1.0.1",
@@ -89,6 +90,7 @@
     "loader.js": "^4.0.0",
     "mocha": "^2.5.3",
     "mocha-jshint": "^2.3.1",
-    "splicon": "0.0.2"
+    "splicon": "0.0.2",
+    "testdouble": "^1.4.3"
   }
 }
