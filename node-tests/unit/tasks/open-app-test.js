@@ -6,6 +6,8 @@ const BashTask      = require('../../../lib/tasks/bash');
 const OpenAppTask   = require('../../../lib/tasks/open-app');
 const MockUI        = require('ember-cli/tests/helpers/mock-ui');
 const expect        = require('../../helpers/expect');
+const openCommand   = require('../../../lib/utils/open-app-command');
+
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 const isObject      = td.matchers.isA(Object);
@@ -26,7 +28,8 @@ describe('Open App Task', () => {
 
   it('runs open command for ios', () => {
     openApp.run();
-    const expectedCmd = `open ${cdvPath}/platforms/ios/*.xcodeproj`;
+    const expectedPath = `${cdvPath}/platforms/ios/*.xcodeproj`;
+    const expectedCmd  = openCommand(expectedPath);
     td.verify(bashDouble(expectedCmd, isObject));
   });
 
@@ -34,7 +37,8 @@ describe('Open App Task', () => {
     openApp.platform = 'android';
     openApp.run();
 
-    const expectedCmd = `open ${cdvPath}/platforms/android/.project`;
+    const expectedPath = `${cdvPath}/platforms/android/.project`;
+    const expectedCmd  = openCommand(expectedPath);
     td.verify(bashDouble(expectedCmd, isObject));
   }),
 
