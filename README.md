@@ -1,5 +1,7 @@
 #ember-cordova (beta)
 
+[![Build Status](https://travis-ci.org/isleofcode/ember-cordova.svg?branch=feat%2Ftravis)](https://travis-ci.org/isleofcode/ember-cordova)
+
 ember-cordova simplifies building Cordova applications with Ember.js.
 
 It includes a CLI for builds, hooks, device event bindings, and handles splash screens, icons and a growing number of supported Ember/Cordova plugin bindings.
