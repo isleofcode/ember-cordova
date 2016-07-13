@@ -14,6 +14,18 @@ const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 const defaults      = require('lodash').defaults;
 
 describe('Build Command', () => {
+  beforeEach(() => {
+    BuildCmd.ui = mockProject.ui;
+    BuildCmd.project = defaults(mockProject.project, {
+      config: {
+        cordova: {
+          platform: 'android',
+          reloadUrl: 'reloadUrl'
+        }
+      }
+    });
+  });
+
   afterEach(() => {
     td.reset();
   });
@@ -66,9 +78,9 @@ describe('Build Command', () => {
 
     let buildDouble = td.replace(EmberBldTask.prototype, 'run');
 
-    BuildCmd.run(defaults(mockProject, {
+    BuildCmd.run({
       environment: 'development'
-    }));
+    });
     td.verify(buildDouble('development'));
   });
 
@@ -85,7 +97,9 @@ describe('Build Command', () => {
 
     let cordovaDouble = td.replace(CdvBuildTask.prototype, 'run');
 
-    BuildCmd.run(mockProject);
+    BuildCmd.run({
+      platform: 'ios'
+    });
     td.verify(cordovaDouble('ios'));
   });
 });

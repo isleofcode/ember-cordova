@@ -14,6 +14,7 @@ const defaults      = require('lodash').defaults;
 
 describe('Serve Command', () => {
   beforeEach(() => {
+    ServeCmd.ui = mockProject.ui;
     ServeCmd.project = defaults(mockProject.project, {
       config: {
         cordova: {
@@ -28,30 +29,59 @@ describe('Serve Command', () => {
     td.reset();
   });
 
-  it('runs tasks in the correct order', () => {
+  function runServe() {
+    ServeCmd.run({});
+  }
+
+  context('when locationType is hash', () => {
     let tasks = [];
 
-    td.replace(EmberBldTask.prototype, 'run', () => {
-      tasks.push('ember-build');
-      return Promise.resolve();
+    beforeEach(() => {
+      mockTasks();
+      ServeCmd.project.config.locationType = 'hash';
     });
 
-    td.replace(CdvBuildTask.prototype, 'run', () => {
-      tasks.push('cordova-build');
-      return Promise.resolve();
+    it('runs tasks in the correct order', () => {
+      runServe();
+
+      expect(tasks).to.deep.equal([
+        'ember-build',
+        'cordova-build',
+        'serve-bash'
+      ]);
     });
 
-    td.replace(BashTask.prototype, 'run', () => {
-      tasks.push('serve-bash');
-      return Promise.resolve();
+    it('exits cleanly', () => {
+      expect(runServe).not.to.throw;
     });
 
-    ServeCmd.run({});
+    function mockTasks() {
+      tasks = [];
 
-    expect(tasks).to.deep.equal([
-      'ember-build',
-      'cordova-build',
-      'serve-bash'
-    ]);
+      td.replace(EmberBldTask.prototype, 'run', () => {
+        tasks.push('ember-build');
+        return Promise.resolve();
+      });
+
+      td.replace(CdvBuildTask.prototype, 'run', () => {
+        tasks.push('cordova-build');
+        return Promise.resolve();
+      });
+
+      td.replace(BashTask.prototype, 'run', () => {
+        tasks.push('serve-bash');
+        return Promise.resolve();
+      });
+    }
+  });
+
+  context('when locationType is not hash', () => {
+    beforeEach(() => {
+      ServeCmd.project.config.locationType = 'auto';
+    });
+
+    it('throws', () => {
+      expect(runServe).to.throw;
+    });
   });
 });
