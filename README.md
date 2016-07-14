@@ -40,9 +40,9 @@ name will be used.
 
 If you already have a Cordova project here it will not be overwritten.
 
-Make sure your config.locationType is set to 'hash'.
+1. ####Set your config.locationType to 'hash'.
 
-As a final step, add your desired platforms, e.g.:
+2. As a final step, add your desired platforms, e.g.:
 
 ```
 ember cdv platform add ios
