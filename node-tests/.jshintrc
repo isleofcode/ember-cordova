@@ -8,6 +8,7 @@
     "it"         : false,
     "before"     : false,
     "beforeEach" : false,
+    "context"    : false,
     "after"      : false,
     "afterEach"  : false
   }
