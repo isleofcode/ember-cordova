@@ -2,7 +2,7 @@
 
 We have introduced a Platform Service, heavily inspired and
 partially forked from [Ionic
-Platform](ionicframework.com/docs/api/utility/ionic.Platform/).
+Platform](http://ionicframework.com/docs/api/utility/ionic.Platform/).
 
 ### Location
 
