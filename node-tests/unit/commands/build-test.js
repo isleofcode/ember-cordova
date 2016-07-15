@@ -30,76 +30,93 @@ describe('Build Command', () => {
     td.reset();
   });
 
-  it('runs tasks in the correct order', () => {
+  function runBuild(_options) {
+    let options = _options || mockProject;
+
+    return BuildCmd.run(options);
+  }
+
+  context('when locationType is hash', () => {
     let tasks = [];
+    let buildEnv;
+    let cordovaPlatform;
 
-    td.replace(HookTask.prototype, 'run',  (hookName) => {
-      tasks.push('hook ' + hookName);
-      return Promise.resolve();
+    beforeEach(() => {
+      mockTasks();
+      BuildCmd.project.config.locationType = 'hash';
     });
 
-    td.replace(EmberBldTask.prototype, 'run', () => {
-      tasks.push('ember-build');
-      return Promise.resolve();
+    function mockTasks() {
+      td.replace(HookTask.prototype, 'run',  (hookName) => {
+        tasks.push('hook ' + hookName);
+        return Promise.resolve();
+      });
+
+      td.replace(EmberBldTask.prototype, 'run', (_buildEnv) => {
+        buildEnv = _buildEnv;
+
+        tasks.push('ember-build');
+        return Promise.resolve();
+      });
+
+      td.replace(CdvBuildTask.prototype, 'run', (_cordovaPlatform) => {
+        cordovaPlatform = _cordovaPlatform;
+
+        tasks.push('cordova-build');
+        return Promise.resolve();
+      });
+
+      td.replace(LinkTask.prototype, 'run', () => {
+        tasks.push('link');
+        return Promise.resolve();
+      });
+    }
+
+    it('exits cleanly', () => {
+      expect(runBuild).not.to.throw;
     });
 
-    td.replace(CdvBuildTask.prototype, 'run', () => {
-      tasks.push('cordova-build');
-      return Promise.resolve();
+    it('runs tasks in the correct order', () => {
+      runBuild();
+
+      //h-t ember-electron for the pattern
+      expect(tasks).to.deep.equal([
+        'hook beforeBuild',
+        'ember-build',
+        'link',
+        'cordova-build',
+        'hook afterBuild'
+      ]);
     });
 
-    td.replace(LinkTask.prototype, 'run', () => {
-      tasks.push('link');
-      return Promise.resolve();
+    it('passes env to ember build task', () => {
+      let passedEnv = 'development';
+
+      runBuild({
+        environment: passedEnv
+      });
+
+      expect(buildEnv).to.equal(passedEnv);
     });
 
-    BuildCmd.run(mockProject);
+    it('passes platform to cordova build task', () => {
+      let passedPlatform = 'ios';
 
-    //h-t ember-electron for the pattern
-    expect(tasks).to.deep.equal([
-      'hook beforeBuild',
-      'ember-build',
-      'link',
-      'cordova-build',
-      'hook afterBuild'
-    ]);
+      runBuild({
+        platform: passedPlatform
+      });
+
+      expect(cordovaPlatform).to.equal(passedPlatform);
+    });
   });
 
-  it('passes env to ember build task', () => {
-    td.replace(CdvBuildTask.prototype, 'run', () => {
-      return Promise.resolve();
-    });
-    td.replace(LinkTask.prototype, 'run', () => {
-      return Promise.resolve();
-    });
-    td.replace(HookTask.prototype, 'run',  (hookName) => {
-      return Promise.resolve();
+  context('when locationType is not hash', () => {
+    beforeEach(() => {
+      BuildCmd.project.config.locationType = 'auto';
     });
 
-    let buildDouble = td.replace(EmberBldTask.prototype, 'run');
-
-    BuildCmd.run({
-      environment: 'development'
+    it('throws', () => {
+      expect(runBuild).to.throw;
     });
-    td.verify(buildDouble('development'));
-  });
-
-  it('passes platform to cordova build task', () => {
-    td.replace(EmberBldTask.prototype, 'run', () => {
-      return Promise.resolve();
-    });
-    td.replace(LinkTask.prototype, 'run', () => {
-      return Promise.resolve();
-    });
-    td.replace(HookTask.prototype, 'run',  (hookName) => {
-      return Promise.resolve();
-    });
-
-    let cordovaDouble = td.replace(CdvBuildTask.prototype, 'run');
-
-    BuildCmd.run({
-      platform: 'ios'
-    });
-    td.verify(cordovaDouble('ios'));
   });
 });
