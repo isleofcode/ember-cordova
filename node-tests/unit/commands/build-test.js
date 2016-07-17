@@ -35,15 +35,15 @@ describe('Build Command', () => {
   }
 
   context('when locationType is hash', () => {
-    let tasks = [];
-    let buildEnv;
-    let cordovaPlatform;
+    let tasks, buildEnv, cordovaPlatform;
 
     beforeEach(() => {
-      mockTasks();
+      tasks = mockTasks();
     });
 
     function mockTasks() {
+      let tasks = [];
+
       td.replace(HookTask.prototype, 'run',  (hookName) => {
         tasks.push('hook ' + hookName);
         return Promise.resolve();
@@ -67,10 +67,12 @@ describe('Build Command', () => {
         tasks.push('link');
         return Promise.resolve();
       });
+
+      return tasks;
     }
 
     it('exits cleanly', () => {
-      expect(runBuild).not.to.throw;
+      expect(runBuild).not.to.throw(Error);
     });
 
     it('runs tasks in the correct order', () => {
@@ -116,8 +118,8 @@ describe('Build Command', () => {
       }
     });
 
-    xit('throws', () => {
-      expect(runBuild).to.throw;
+    it('throws', () => {
+      expect(runBuild).to.throw(Error);
     });
   });
 });
