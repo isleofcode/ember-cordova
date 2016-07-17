@@ -1,6 +1,6 @@
 {
   "name": "ember-cordova",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A tool for creating hybrid apps with Ember",
   "homepage": "https://github.com/isleofcode/ember-cordova",
   "repository": {
