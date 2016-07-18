@@ -29,8 +29,8 @@ const CORDOVA_EVENTS = new A([
 ]);
 
 export default Service.extend(Evented, {
-  _listeners: null,
-  _ready: null,
+  _listeners: undefined,
+  _ready: undefined,
   _readyHasTriggered: false,
 
   init() {
@@ -41,20 +41,6 @@ export default Service.extend(Evented, {
 
     this.setupReady();
     this.setupListeners();
-  },
-
-  willDestroy() {
-    this._super();
-    this.teardownListeners();
-
-    if (this._ready) {
-      this._ready.reject();
-      this._ready = null;
-    }
-  },
-
-  ready() {
-    return this._readyHasTriggered ? Promise.resolve() : this._ready.promise;
   },
 
   setupListeners() {
@@ -75,6 +61,27 @@ export default Service.extend(Evented, {
       this._ready.resolve();
       this._ready = null;
     });
+  },
+
+  on(event, handler) {
+    if (event === 'deviceready' && this._readyHasTriggered) {
+      run.join(handler);
+    }
+    return this._super(event, handler);
+  },
+
+  ready() {
+    return this._readyHasTriggered ? Promise.resolve() : this._ready.promise;
+  },
+
+  willDestroy() {
+    this._super();
+    this.teardownListeners();
+
+    if (this._ready) {
+      this._ready.reject();
+      this._ready = null;
+    }
   },
 
   teardownListeners() {
