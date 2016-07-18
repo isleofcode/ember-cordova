@@ -1,7 +1,7 @@
 'use strict';
 
 var CreateTask        = require('../../lib/tasks/create-cordova-project');
-var VerifyCordovaTask = require('../tasks/verify-cordova-installed');
+var VerifyCordovaTask = require('../../lib/tasks/verify-cordova-installed');
 var camelize          = require('../../lib/utils/string.js').camelize;
 
 module.exports = {
