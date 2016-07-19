@@ -30,7 +30,7 @@ If you are migrating from ember-cli-cordova, read the [migration
 guide](docs/migration-from-ember-cli.md).
 
 
-```
+```cli
   ember install ember-cordova
 ```
 
@@ -40,11 +40,11 @@ name will be used.
 
 If you already have a Cordova project here it will not be overwritten.
 
-1. ####Set your config.locationType to 'hash'.
+1. #### Set your config.locationType to 'hash'.
 
 2. As a final step, add your desired platforms, e.g.:
 
-```
+```cli
 ember cdv platform add ios
 ember cdv platform add android
 ember cdv platform add browser #experimental
@@ -56,7 +56,8 @@ Cordova working relies on the cordova.js script being injected. By default, this
 
 Some cordova/phonegap plugins have browser fallbacks. For example [phonegap-plugin-barcodescanner](https://github.com/phonegap/phonegap-plugin-barcodescanner) will ask you to manually type the barcode value. Using the browser platform, you'll be able to develop your cordova app as it was a regular ember app.
 
-##Features and Documentation
+## Features and Documentation
+
 * [CLI](docs/cli.md)
 * [Cordova Service & Event Bindings](docs/services/cordova.md)
 * Device:
@@ -68,24 +69,23 @@ Some cordova/phonegap plugins have browser fallbacks. For example [phonegap-plug
 * [Live reload](docs/livereload.md)
 * [Available Plugins](docs/plugins.md)
 
-##Upcoming Extensions
+## Upcoming Extensions
 
 We are working on four major items right now:
 
 1. Improving test coverage;
-2. Livereload improvements;
-3. Bindings to Cordova Plugins [see plugins](docs/plugins.md); and
-4. Either having ember install ember-cordova-plugin-foo install both the
+2. Bindings to Cordova Plugins [see plugins](docs/plugins.md); and
+3. Either having ember install ember-cordova-plugin-foo install both the
 ember addon & cordova plugin, or achieving the same through ember
 cdv:install foo.
 
-##Contributing
+## Contributing
 
 PRs are very welcome. You can read our style guides [here](https://github.com/isleofcode/style-guide).
 
 If you are unsure about your contribution idea, please feel free to
 open an Issue for feedback.
 
-##Credits
+## Credits
 
 ember-cordova is maintained by [Isle of Code](https://isleofcode.com), and started as a fork of [ember-cli-cordova](https://github.com/poetic/ember-cli-cordova).
