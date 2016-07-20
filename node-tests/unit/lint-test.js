@@ -5,7 +5,7 @@ var lint = require('mocha-eslint');
 var paths, options;
 
 // ht ember-cli
-paths = glob('tests/*').filter(function(path) {
+paths = glob('node-tests/*').filter(function(path) {
   return !/fixtures/.test(path);
 });
 
