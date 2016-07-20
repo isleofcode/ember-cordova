@@ -5,7 +5,6 @@ const expect        = require('../../helpers/expect');
 const Promise       = require('ember-cli/lib/ext/promise');
 
 const ServeCmd      = require('../../../lib/commands/serve');
-const EmberBldTask  = require('../../../lib/tasks/ember-build');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 const BashTask      = require('../../../lib/tasks/bash');
 
@@ -56,11 +55,6 @@ describe('Serve Command', () => {
 
     function mockTasks() {
       tasks = [];
-
-      td.replace(EmberBldTask.prototype, 'run', () => {
-        tasks.push('ember-build');
-        return Promise.resolve();
-      });
 
       td.replace(CdvBuildTask.prototype, 'run', () => {
         tasks.push('cordova-build');
