@@ -5,6 +5,7 @@ const expect        = require('../../helpers/expect');
 const Promise       = require('ember-cli/lib/ext/promise');
 
 const BuildCmd      = require('../../../lib/commands/build');
+const BuildTask     = require('../../../lib/tasks/ember-build');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 const HookTask      = require('../../../lib/tasks/run-hook');
 
@@ -33,7 +34,8 @@ describe('Build Command', () => {
   }
 
   context('when locationType is hash', () => {
-    let tasks, buildEnv, cordovaPlatform;
+    let tasks = [];
+    let cordovaPlatform;
 
     beforeEach(() => {
       tasks = mockTasks();
@@ -44,6 +46,10 @@ describe('Build Command', () => {
 
       td.replace(HookTask.prototype, 'run',  (hookName) => {
         tasks.push('hook ' + hookName);
+        return Promise.resolve();
+      });
+
+      td.replace(BuildTask.prototype, 'run', () => {
         return Promise.resolve();
       });
 
@@ -60,24 +66,15 @@ describe('Build Command', () => {
     });
 
     it('runs tasks in the correct order', () => {
-      runBuild();
-
-      //h-t ember-electron for the pattern
-      expect(tasks).to.deep.equal([
-        'hook beforeBuild',
-        'cordova-build',
-        'hook afterBuild'
-      ]);
-    });
-
-    it('passes env to ember build task', () => {
-      let passedEnv = 'development';
-
-      runBuild({
-        environment: passedEnv
-      });
-
-      expect(buildEnv).to.equal(passedEnv);
+      return runBuild()
+        .then(function() {
+          //h-t ember-electron for the pattern
+          expect(tasks).to.deep.equal([
+            'hook beforeBuild',
+            'cordova-build',
+            'hook afterBuild'
+          ]);
+        });
     });
 
     it('passes platform to cordova build task', () => {
