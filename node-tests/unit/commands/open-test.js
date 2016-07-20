@@ -18,8 +18,9 @@ describe('Open Command', () => {
   });
 
   it('runs Open App Task', () => {
-    let openDouble = td.replace(OpenTask.prototype, 'run');
-    OpenCmd.run();
+    let openDouble = td.replace(OpenTask.prototype, 'run', function() { return true; });
+
+    OpenCmd.run({ application: 'dummy', platform: 'ios' });
     td.verify(openDouble());
   });
 });

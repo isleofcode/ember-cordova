@@ -27,13 +27,15 @@ describe('Prepare Command', () => {
       return Promise.resolve();
     });
 
-    PrepareCmd.run(mockProject);
+    return PrepareCmd.run(mockProject)
+      .then(function() {
 
-    ////h-t ember-electron for the pattern
-    expect(tasks).to.deep.equal([
-      'hook beforePrepare',
-      'prepare',
-      'hook afterPrepare'
-    ]);
+        ////h-t ember-electron for the pattern
+        expect(tasks).to.deep.equal([
+          'hook beforePrepare',
+          'prepare',
+          'hook afterPrepare'
+        ]);
+      });
   });
 });
