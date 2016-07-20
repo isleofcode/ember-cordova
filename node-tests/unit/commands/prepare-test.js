@@ -11,12 +11,12 @@ const HookTask      = require('../../../lib/tasks/run-hook');
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 
 describe('Prepare Command', () => {
-  afterEach(() => {
-    td.reset();
-  });
+  let tasks;
 
-  it('runs tasks in the correct order', () => {
-    let tasks = [];
+  beforeEach(() => {
+    tasks = [];
+
+    PrepareTask.prototype.project = mockProject;
 
     td.replace(PrepareTask.prototype, 'run', (hookName) => {
       tasks.push('prepare');
@@ -26,8 +26,16 @@ describe('Prepare Command', () => {
       tasks.push('hook ' + hookName);
       return Promise.resolve();
     });
+  });
 
-    return PrepareCmd.run(mockProject)
+  afterEach(() => {
+    PrepareTask.prototype.project = undefined;
+
+    td.reset();
+  });
+
+  it('runs tasks in the correct order', () => {
+    return PrepareCmd.run.call({ project: mockProject }, {})
       .then(function() {
 
         ////h-t ember-electron for the pattern
