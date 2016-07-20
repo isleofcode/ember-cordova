@@ -2,43 +2,45 @@
 
 var commands              = require('./lib/commands');
 var cordovaPath           = require('./lib/utils/cordova-path');
-var isTargetCordova       = require('./lib/utils/is-target-cordova');
-var isCordovaLiveReload   = require('./lib/utils/is-cordova-live-reload');
+var getNetworkIp          = require('./lib/utils/get-network-ip');
 
 var chalk                 = require('chalk');
 var mergeTrees            = require('broccoli-merge-trees');
 var Funnel                = require('broccoli-funnel');
 var path                  = require('path');
+var copydir               = require('copy-dir');
 var fs                    = require('fs');
 
 module.exports = {
   name: 'ember-cordova',
 
-  config: function (env, baseConfig) {
-    if (isCordovaLiveReload()) {
+  config: function(/* env, baseConfig */) {
+    if (this.project.targetIncludesCordova) {
       var conf = {};
       //If cordova live reload, set the reload url
-      var reloadUrl = process.env.CORDOVA_RELOAD_ADDRESS;
+      var networkAddress = getNetworkIp();
+      var deviceServerUrl = 'http://' + networkAddress + ':4200';
+
       conf.cordova = {};
-      conf.cordova.reloadUrl = reloadUrl;
+      conf.cordova.reloadUrl = deviceServerUrl;
 
       return conf;
     }
   },
 
-  contentFor: function (type) {
-    if (isTargetCordova() && type === 'body') {
+  contentFor: function(type) {
+    if (this.project.targetIncludesCordova && type === 'body') {
       return '<script src="cordova.js"></script>';
     }
   },
 
-  includedCommands: function () {
+  includedCommands: function() {
     return commands;
   },
 
-  treeForPublic: function (tree) {
-    if (isCordovaLiveReload()) {
-      var platform = process.env.CORDOVA_PLATFORM;
+  treeForPublic: function(tree) {
+    if (this.project.targetIncludesCordova) {
+      var platform = this.project.CORDOVA_PLATFORM;
 
       var platformsPath = path.join(cordovaPath(this.project), 'platforms');
       var pluginsPath;
@@ -78,5 +80,14 @@ module.exports = {
     }
 
     return tree;
+  },
+
+  postBuild(outputDest) {
+    if (this.project.targetIncludesCordova) {
+      var cordovaOutputPath = path.join(this.project.root, './ember-cordova/cordova/www');
+      var cordovaInputPath = path.join(this.project.root, outputDest);
+
+      copydir.sync(cordovaInputPath, cordovaOutputPath);
+    }
   }
 };
