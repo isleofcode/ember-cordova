@@ -5,7 +5,6 @@ const BashTask      = require('../../../lib/tasks/bash');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const defaults      = require('lodash').defaults;
 const isObject      = td.matchers.isA(Object);
 
 describe('Cordova Build Task', () => {

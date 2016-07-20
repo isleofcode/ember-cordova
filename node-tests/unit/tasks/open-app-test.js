@@ -4,7 +4,6 @@ const td            = require('testdouble');
 const path          = require('path');
 const BashTask      = require('../../../lib/tasks/bash');
 const OpenAppTask   = require('../../../lib/tasks/open-app');
-const MockUI        = require('ember-cli/tests/helpers/mock-ui');
 const expect        = require('../../helpers/expect');
 const openCommand   = require('../../../lib/utils/open-app-command');
 
@@ -17,7 +16,11 @@ describe('Open App Task', () => {
 
   beforeEach(() => {
     bashDouble = td.replace(BashTask.prototype, 'runCommand');
-    cdvPath = path.resolve(__dirname, '..', '..', 'fixtures', 'ember-cordova-mock/ember-cordova/cordova');
+    cdvPath = path.resolve(
+      __dirname, '..', '..',
+      'fixtures',
+      'ember-cordova-mock/ember-cordova/cordova'
+    );
 
     openApp = new OpenAppTask(mockProject);
   });
