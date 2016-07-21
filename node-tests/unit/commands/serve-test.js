@@ -27,6 +27,12 @@ describe('Serve Command', () => {
     }
   });
 
+  function runServe(_options) {
+    let options = _options || {};
+
+    return ServeCmd.run(options);
+  }
+
   context('when locationType is hash', () => {
     let tasks = [];
 
@@ -35,7 +41,7 @@ describe('Serve Command', () => {
     });
 
     it('runs tasks in the correct order', () => {
-      ServeCmd.run({});
+      runServe();
 
       expect(tasks).to.deep.equal([
         'ember-build',
@@ -45,7 +51,7 @@ describe('Serve Command', () => {
     });
 
     it('exits cleanly', () => {
-      expect(ServeCmd.run({})).not.to.throw;
+      expect(runServe).not.to.throw(Error);
     });
 
     function mockTasks() {
@@ -77,8 +83,8 @@ describe('Serve Command', () => {
       };
     });
 
-    xit('throws', () => {
-      expect(ServeCmd.run({})).to.throw;
+    it('throws', () => {
+      expect(runServe).to.throw(Error);
     });
   });
 });
