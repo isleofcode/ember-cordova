@@ -2,7 +2,6 @@
 
 const td            = require('testdouble');
 const fs            = require('fs-extra');
-const BashTask      = require('../../../lib/tasks/bash');
 const LinkTask      = require('../../../lib/tasks/link-environment');
 const VerifyTask    = require('../../../lib/tasks/verify-dist');
 

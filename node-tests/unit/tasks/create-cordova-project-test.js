@@ -11,7 +11,7 @@ const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 const isObject      = td.matchers.isA(Object);
 
 describe('Cordova Create Task', () => {
-  let bashDouble, cordovaCreate, mkDir;
+  let bashDouble, cordovaCreate;
 
   beforeEach(() => {
     bashDouble = td.replace(BashTask.prototype, 'runCommand');
@@ -28,22 +28,31 @@ describe('Cordova Create Task', () => {
       return false;
     });
 
-    const expectedPath = path.resolve(__dirname, '..', '..', 'fixtures', 'ember-cordova-mock', 'ember-cordova');
+    const expectedPath = path.resolve(
+      __dirname, '..', '..',
+      'fixtures',
+      'ember-cordova-mock',
+      'ember-cordova'
+    );
 
     cordovaCreate.run();
     td.verify(fs.mkdirSync(expectedPath));
   });
 
   it('generates a cordova build command', () => {
+    const command = 'cordova create cordova emberCordovaMock emberCordovaMock';
+
     td.replace(fs, 'existsSync', () => {
       return false;
     });
 
     cordovaCreate.run();
-    td.verify(bashDouble('cordova create cordova emberCordovaMock emberCordovaMock', isObject));
+    td.verify(bashDouble(command, isObject));
   });
 
   it('forces camelcased ids and names', () => {
+    const command = 'cordova create cordova emberCordovaApp emberCordovaApp';
+
     td.replace(fs, 'existsSync', () => {
       return false;
     });
@@ -52,7 +61,7 @@ describe('Cordova Create Task', () => {
     cordovaCreate.name = 'ember-cordova-app';
 
     cordovaCreate.run();
-    td.verify(bashDouble('cordova create cordova emberCordovaApp emberCordovaApp', isObject));
+    td.verify(bashDouble(command, isObject));
   });
 
   it('raises a warning if cordova project already exists', () => {

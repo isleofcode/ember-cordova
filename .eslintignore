@@ -1,0 +1,4 @@
+tmp/*
+node_modules/*
+blueprints/**/files/**/*.js
+tests/fixtures/*

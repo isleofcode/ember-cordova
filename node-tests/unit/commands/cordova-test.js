@@ -2,7 +2,6 @@
 
 const td            = require('testdouble');
 const expect        = require('../../helpers/expect');
-const Promise       = require('ember-cli/lib/ext/promise');
 
 const CordovaCmd    = require('../../../lib/commands/cordova');
 const BashTask      = require('../../../lib/tasks/bash');

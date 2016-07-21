@@ -21,8 +21,10 @@ describe('Ember Build Task', () => {
   });
 
   it('generates ember build command with EMBER_CORDOVA flag', () => {
+    const command = 'EMBER_CORDOVA=true ember build --environment development';
+
     build.run('development');
 
-    td.verify(bashDouble('EMBER_CORDOVA=true ember build --environment development', isObject));
+    td.verify(bashDouble(command, isObject));
   });
 });

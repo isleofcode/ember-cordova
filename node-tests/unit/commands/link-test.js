@@ -1,7 +1,6 @@
 'use strict';
 
 const td            = require('testdouble');
-const Promise       = require('ember-cli/lib/ext/promise');
 
 const LinkCmd       = require('../../../lib/commands/prepare');
 const LinkTask      = require('../../../lib/tasks/prepare');
