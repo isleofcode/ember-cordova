@@ -22,7 +22,6 @@ describe('Open Command', () => {
   });
 
   it('runs Open App Task', () => {
-
     return OpenCmd.run.call({ project: mockProject }, { application: 'dummy', platform: 'ios' })
       .then(function() {
         return true;

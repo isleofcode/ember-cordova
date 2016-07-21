@@ -1,6 +1,8 @@
 'use strict';
 
 const td            = require('testdouble');
+
+const ui            = require('../../../lib/utils/ui');
 const expect        = require('../../helpers/expect');
 const Promise       = require('ember-cli/lib/ext/promise');
 
@@ -19,8 +21,8 @@ describe('Build Command', () => {
     BuildCmd.project.config = function() {
       return {
         locationType: 'hash'
-      }
-    }
+      };
+    };
   });
 
   afterEach(() => {
@@ -93,8 +95,13 @@ describe('Build Command', () => {
       BuildCmd.project.config = function() {
         return {
           locationType: 'auto'
-        }
-      }
+        };
+      };
+
+      td.replace(ui, 'writeLine',  () => {
+        throw new Error('Exit Called');
+      });
+
     });
 
     it('throws', () => {

@@ -4,6 +4,7 @@ const td            = require('testdouble');
 const expect        = require('../../helpers/expect');
 const Promise       = require('ember-cli/lib/ext/promise');
 
+const ui            = require('../../../lib/utils/ui');
 const ServeCmd      = require('../../../lib/commands/serve');
 const BuildWatchTask = require('../../../lib/tasks/ember-build-watch');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
@@ -94,8 +95,12 @@ describe('Serve Command', () => {
       ServeCmd.project.config = function() {
         return {
           locationType: 'auto'
-        }
+        };
       };
+
+      td.replace(ui, 'writeLine',  () => {
+        throw new Error('Exit Called');
+      });
     });
 
     it('throws', () => {
