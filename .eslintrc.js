@@ -70,7 +70,7 @@ module.exports = {
     /*** Strict Mode ***/
 
     // JSHint "strict"
-    'strict': [2, 'global'],
+    'strict': [0, 'global'],
 
 
     /*** Variables ***/

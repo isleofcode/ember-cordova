@@ -1,6 +1,7 @@
 'use strict';
 
 const td            = require('testdouble');
+const PromiseExt    = require('ember-cli/lib/ext/promise');
 
 const OpenCmd       = require('../../../lib/commands/open');
 const OpenTask      = require('../../../lib/tasks/open-app');
@@ -13,7 +14,11 @@ describe('Open Command', () => {
     OpenCmd.ui = mockProject.ui;
     OpenCmd.project = mockProject.project;
 
-    td.replace(OpenTask.prototype, 'run', function() { return Promise.resolve(); })
+    td.replace(
+      OpenTask.prototype,
+      'run',
+      function() { return PromiseExt.resolve(); }
+    );
   });
 
   afterEach(() => {
@@ -22,9 +27,9 @@ describe('Open Command', () => {
   });
 
   it('runs Open App Task', () => {
-    return OpenCmd.run.call({ project: mockProject }, { application: 'dummy', platform: 'ios' })
-      .then(function() {
-        return true;
-      });
+    var options =  { application: 'dummy', platform: 'ios' };
+
+    return OpenCmd.run.call({ project: mockProject }, options)
+      .then(function() { return true; });
   });
 });

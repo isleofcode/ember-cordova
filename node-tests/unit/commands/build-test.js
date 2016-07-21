@@ -36,15 +36,15 @@ describe('Build Command', () => {
   }
 
   context('when locationType is hash', () => {
-    let tasks = [];
+    let tasks;
     let cordovaPlatform;
 
     beforeEach(() => {
-      tasks = mockTasks();
+      mockTasks();
     });
 
     function mockTasks() {
-      let tasks = [];
+      tasks = [];
 
       td.replace(HookTask.prototype, 'run',  (hookName) => {
         tasks.push('hook ' + hookName);
