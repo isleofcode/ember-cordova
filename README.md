@@ -1,8 +1,8 @@
-#ember-cordova (beta)
+# Ember Cordova (beta)
 
 [![Build Status](https://travis-ci.org/isleofcode/ember-cordova.svg?branch=feat%2Ftravis)](https://travis-ci.org/isleofcode/ember-cordova)
 
-ember-cordova simplifies building Cordova applications with Ember.js.
+ember-cordova simplifies building Cordova and Crosswalk applications with Ember.js.
 
 It includes a CLI for builds, hooks, device event bindings, and handles splash screens, icons and a growing number of supported Ember/Cordova plugin bindings.
 
@@ -16,7 +16,7 @@ It includes a CLI for builds, hooks, device event bindings, and handles splash s
 It is a beta fork of ember-cli-cordova, but should have similar
 stability. It includes new features discussed below.
 
-##Platforms & Requirements
+## Platforms & Requirements
 
 ember-cordova has been tested and works on Ember 1.13 &
 greater, including 2+.
@@ -24,7 +24,7 @@ greater, including 2+.
 When push comes to shove we are likely to only support Ember 2.4 or
 greater.
 
-##Getting Started
+## Getting Started
 
 If you are migrating from ember-cli-cordova, read the [migration
 guide](docs/migration-from-ember-cli.md).
