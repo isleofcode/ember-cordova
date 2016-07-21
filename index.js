@@ -16,13 +16,15 @@ module.exports = {
 
   config: function(/* env, baseConfig */) {
     if (this.project.targetIncludesCordova) {
-      var conf = {};
-      //If cordova live reload, set the reload url
-      var networkAddress = getNetworkIp();
-      var deviceServerUrl = 'http://' + networkAddress + ':4200';
+      var conf = { cordova: {} };
 
-      conf.cordova = {};
-      conf.cordova.reloadUrl = deviceServerUrl;
+      if (!!this.project.RELOAD_PORT) {
+        //If cordova live reload, set the reload url
+        var networkAddress = getNetworkIp();
+        var deviceServerUrl = 'http://' + networkAddress + ':' + this.project.RELOAD_PORT;
+
+        conf.cordova.reloadUrl = deviceServerUrl;
+      }
 
       return conf;
     }
