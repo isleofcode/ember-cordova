@@ -35,7 +35,7 @@ describe('Build Command', () => {
   }
 
   context('when locationType is hash', () => {
-    let tasks, buildEnv, cordovaPlatform;
+    let tasks, emberBuildEnv, cordovaBuildEnv, cordovaPlatform;
 
     beforeEach(() => {
       tasks = mockTasks();
@@ -50,18 +50,23 @@ describe('Build Command', () => {
       });
 
       td.replace(EmberBldTask.prototype, 'run', (_buildEnv) => {
-        buildEnv = _buildEnv;
+        emberBuildEnv = _buildEnv;
 
         tasks.push('ember-build');
         return Promise.resolve();
       });
 
-      td.replace(CdvBuildTask.prototype, 'run', (_cordovaPlatform) => {
-        cordovaPlatform = _cordovaPlatform;
+      td.replace(
+        CdvBuildTask.prototype,
+        'run',
+        (_cordovaPlatform, _buildEnv) => {
+          cordovaPlatform = _cordovaPlatform;
+          cordovaBuildEnv = _buildEnv;
 
-        tasks.push('cordova-build');
-        return Promise.resolve();
-      });
+          tasks.push('cordova-build');
+          return Promise.resolve();
+        }
+      );
 
       td.replace(LinkTask.prototype, 'run', () => {
         tasks.push('link');
@@ -95,7 +100,7 @@ describe('Build Command', () => {
         environment: passedEnv
       });
 
-      expect(buildEnv).to.equal(passedEnv);
+      expect(emberBuildEnv).to.equal(passedEnv);
     });
 
     it('passes platform to cordova build task', () => {
@@ -106,6 +111,16 @@ describe('Build Command', () => {
       });
 
       expect(cordovaPlatform).to.equal(passedPlatform);
+    });
+
+    it('passes env to cordova build task', () => {
+      let passedEnv = 'production';
+
+      runBuild({
+        environment: passedEnv
+      });
+
+      expect(cordovaBuildEnv).to.equal(passedEnv);
     });
   });
 
