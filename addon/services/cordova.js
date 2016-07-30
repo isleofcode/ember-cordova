@@ -63,11 +63,11 @@ export default Service.extend(Evented, {
     });
   },
 
-  on(event, handler) {
-    if (event === 'deviceready' && this._readyHasTriggered) {
-      run.join(handler);
+  on(name, target, method) {
+    if (name === 'deviceready' && this._readyHasTriggered) {
+      run.join(method);
     }
-    return this._super(event, handler);
+    return this._super(name, target, method);
   },
 
   ready() {
