@@ -12,35 +12,28 @@ events defined and emitted by Cordova (e.g. `deviceready`, `pause`, `resume`).
 Many events require only simple callbacks, e.g. pausing / resuming listener
 functions, logging the event, etc.
 
-In these cases use the provided mixin, which will
-look for an `onCordova` object and run the provided functions when an event
-matching the key is emitted. For example:
+In these cases use the provided util, which provides a generator function that
+can subscribe to any `Ember.Evented`-conforming injected depency, with a
+function signature matching `Evented.on`:
 
 ```js
 import Ember from 'ember';
-import CordovaEventsMixin from 'ember-cordova/mixins/events';
+import subscribe from 'ember-cordova/utils/subscribe';
 
 const { Route } = Ember;
 
-export default Route.extend(
-  CordovaEventsMixin, {
+export default Route.extend({
+  cordova: inject.service(),
 
-  onCordova: {
-    pause: 'logPause',
-    resume: ['logResume', 'incrementCounter'],
-    volumeupbutton() { alert('a little bit louder now'); }
+  logPause: subscribe('cordova.pause', function() {
+    console.log('paused');
+  }),
+
+  logResume: subscribe('cordova.resume', function() {
+    console.log('resumed');
   },
-
-  logPause() { console.log('paused'); },
-  logResume() { console.log('resumed'); },
-
-  counter: 0,
-  incrementCounter() { this.incrementProperty('counter'); }
 });
 ```
-
-(Yes, `onCordova` supports arrays of named functions, single named functions,
-and anonymous functions!)
 
 **Advanced Usage:**
 
