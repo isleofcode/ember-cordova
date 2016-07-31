@@ -4,7 +4,8 @@ const {
   A,
   Service,
   Evented,
-  RSVP
+  RSVP,
+  run
 } = Ember;
 
 const { Promise } = RSVP;
@@ -65,7 +66,7 @@ export default Service.extend(Evented, {
 
   on(name, target, method) {
     if (name === 'deviceready' && this._readyHasTriggered) {
-      run.join(method);
+      run.join(target, method);
     }
     return this._super(name, target, method);
   },
