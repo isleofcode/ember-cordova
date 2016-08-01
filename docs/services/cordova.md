@@ -7,48 +7,64 @@ events defined and emitted by Cordova (e.g. `deviceready`, `pause`, `resume`).
 
 ### Usage
 
-**Simple Usage:**
+You can subscribe to ember-cordova events via generator function, or standard
+`Ember.Evented` syntax.
 
-Many events require only simple callbacks, e.g. pausing / resuming listener
-functions, logging the event, etc.
-
-In these cases use the provided mixin, which will
-look for an `onCordova` object and run the provided functions when an event
-matching the key is emitted. For example:
+#### Subscribe Util
+We recommend using the provided `subscribe` generator function, as it will
+clean up your object's listeners automatically. Usage looks like a standard
+`Ember.on` invocation, but supports registering listeners on injected deps:
 
 ```js
 import Ember from 'ember';
-import CordovaEventsMixin from 'ember-cordova/mixins/events';
+import subscribe from 'ember-cordova/utils/subscribe';
 
 const { Route } = Ember;
 
-export default Route.extend(
-  CordovaEventsMixin, {
+export default Route.extend({
+  cordova: inject.service(),
 
-  onCordova: {
-    pause: 'logPause',
-    resume: ['logResume', 'incrementCounter'],
-    volumeupbutton() { alert('a little bit louder now'); }
-  },
-
-  logPause() { console.log('paused'); },
-  logResume() { console.log('resumed'); },
-
-  counter: 0,
-  incrementCounter() { this.incrementProperty('counter'); }
+  logReady: subscribe('cordova.deviceready', function() {
+    console.log('ready');
+  })
 });
 ```
 
-(Yes, `onCordova` supports arrays of named functions, single named functions,
-and anonymous functions!)
+The `subscribe` util should be used at the top-level of your Ember object, much
+like a call to `Ember.computed` or `Ember.on`. In-function usage like the
+following is discouraged, as it generally won't "work" as you'd "expect".
+For this case use Ember.Evented (below).
 
-**Advanced Usage:**
+```
+import Ember from 'ember';
+import subscribe from 'ember-cordova/utils/subscribe';
 
-If you have more advanced needs, e.g. turning on/off an event subscription when
-an `Ember.Route` is activated/deactivated, or just prefer a more manual
-approach, you can inject the provided service and tinker away:
+const { Route } = Ember;
+
+export default Route.extend({
+  cordova: inject.service(),
+
+  beforeModel() {
+    // plz don't copy-pasta me; i'm not supposed to work
+    subscribe('cordova.deviceready', function() {
+      console.log('will never be ready');
+    }
+  }
+});
+```
+
+#### Ember.Evented
+Sometimes you want more control over listener handling, e.g. if the listener
+should be added conditionally, or if the listener should be removed prior to
+the object's `willDestroy` phase.
+
+In such cases, you can treat the Cordova service like any `Ember.Evented` object
+and register / unregister listeners from within any function (e.g. `beforeModel`
+or `activate` hooks):
 
 ```javascript
+import Ember from 'ember';
+
 const {
   Route,
   inject
@@ -58,7 +74,8 @@ export default Route.extend({
   cordova: inject.service(),
 
   activate: function() {
-    // use named function to unsubscribe later
+    if (this.shouldNotListen) { return; }
+
     this.get('cordova').on('pause', this, '_resumeListening');
   },
 
@@ -70,4 +87,30 @@ export default Route.extend({
     console.log('do your thing');
   }
 });
+```
+
+### Supported Events
+
+Supported events are listed [in the source](https://github.com/isleofcode/ember-cordova/blob/master/addon/services/cordova.js#L12-L29)
+and are pasted here for convenience:
+
+```
+// from https://cordova.apache.org/docs/en/4.0.0/cordova_events_events.md.html
+const CORDOVA_EVENTS = new A([
+  'deviceready',
+  'pause',
+  'resume',
+  'backbutton',
+  'menubutton',
+  'searchbutton',
+  'startcallbutton',
+  'endcallbutton',
+  'volumedownbutton',
+  'volumeupbutton',
+  'batterycritical',
+  'batterylow',
+  'batterystatus',
+  'online',
+  'offline'
+]);
 ```
