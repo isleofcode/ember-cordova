@@ -32,7 +32,8 @@ export default Route.extend({
 
 The `subscribe` util should be used at the top-level of your Ember object, much
 like a call to `Ember.computed` or `Ember.on`. In-function usage like the
-following is discouraged, as it generally won't "work" as you'd "expect":
+following is discouraged, as it generally won't "work" as you'd "expect".
+For this case use Ember.Evented (below).
 
 ```
 import Ember from 'ember';
