@@ -63,7 +63,8 @@
     "lodash": "^4.13.1",
     "rsvp": "^3.2.1",
     "splicon": "0.0.3",
-    "svg2png": "^3.0.0"
+    "svg2png": "^3.0.0",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
@@ -94,8 +95,6 @@
     "mocha": "^2.5.3",
     "mocha-eslint": "^2.1.1",
     "mocha-jshint": "^2.3.1",
-    "testdouble": "^1.4.3",
-    "xml2js": "^0.4.17"
-
+    "testdouble": "^1.4.3"
   }
 }
