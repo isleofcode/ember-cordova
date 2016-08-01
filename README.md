@@ -24,6 +24,12 @@ greater, including 2+.
 When push comes to shove we are likely to only support Ember 2.4 or
 greater.
 
+Before you can use this addon, you will need to have Cordova's CLI installed on your machine. If you do not already have it installed, you can install it with:
+
+```
+  npm install -g cordova
+```
+
 ## Getting Started
 
 If you are migrating from ember-cli-cordova, read the [migration
