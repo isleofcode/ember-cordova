@@ -61,6 +61,7 @@
     "copy-dir": "^0.3.0",
     "fs-extra": "^0.26.5",
     "lodash": "^4.13.1",
+    "portfinder": "^1.0.5",
     "rsvp": "^3.2.1",
     "splicon": "0.0.3",
     "svg2png": "^3.0.0",
