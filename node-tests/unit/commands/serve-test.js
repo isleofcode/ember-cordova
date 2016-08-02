@@ -60,7 +60,7 @@ describe('Serve Command', () => {
       });
 
       td.replace(BuildServeTask.prototype, 'run', () => {
-        tasks.push('ember-build-watch');
+        tasks.push('ember-build-serve');
         return Promise.resolve();
       });
 
@@ -75,7 +75,7 @@ describe('Serve Command', () => {
         .then(function() {
           expect(tasks).to.deep.equal([
             'hook beforeBuild',
-            'ember-build-watch',
+            'ember-build-serve',
             'cordova-build',
             'hook afterBuild',
           ]);
