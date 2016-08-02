@@ -6,11 +6,10 @@ const Promise       = require('ember-cli/lib/ext/promise');
 
 const ui            = require('../../../lib/utils/ui');
 const ServeCmd      = require('../../../lib/commands/serve');
-const BuildWatchTask = require('../../../lib/tasks/ember-build-watch');
+const BuildServeTask = require('../../../lib/tasks/ember-build-serve');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 const BashTask      = require('../../../lib/tasks/bash');
 const HookTask      = require('../../../lib/tasks/run-hook');
-const ServeTask     = require('../../../lib/tasks/serve-hang');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 
@@ -60,18 +59,13 @@ describe('Serve Command', () => {
         return Promise.resolve();
       });
 
-      td.replace(BuildWatchTask.prototype, 'run', () => {
+      td.replace(BuildServeTask.prototype, 'run', () => {
         tasks.push('ember-build-watch');
         return Promise.resolve();
       });
 
       td.replace(BashTask.prototype, 'run', () => {
         tasks.push('serve-bash');
-        return Promise.resolve();
-      });
-
-      td.replace(ServeTask.prototype, 'run', () => {
-        tasks.push('serve-hang');
         return Promise.resolve();
       });
     }
@@ -84,7 +78,6 @@ describe('Serve Command', () => {
             'ember-build-watch',
             'cordova-build',
             'hook afterBuild',
-            'serve-hang'
           ]);
         });
     });
