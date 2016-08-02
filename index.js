@@ -8,16 +8,14 @@ var chalk                 = require('chalk');
 var mergeTrees            = require('broccoli-merge-trees');
 var Funnel                = require('broccoli-funnel');
 var path                  = require('path');
-var copydir               = require('copy-dir');
 var fs                    = require('fs');
 
 module.exports = {
   name: 'ember-cordova',
 
   config: function(/* env, baseConfig */) {
-    if (this.project.targetIncludesCordova) {
+    if (this.project.targetIsCordova) {
       var conf = { cordova: {} };
-
       if (!!this.project.RELOAD_PORT) {
         //If cordova live reload, set the reload url
         var networkAddress = getNetworkIp();
@@ -31,7 +29,7 @@ module.exports = {
   },
 
   contentFor: function(type) {
-    if (this.project.targetIncludesCordova && type === 'body') {
+    if (this.project.targetIsCordova && type === 'body') {
       return '<script src="cordova.js"></script>';
     }
   },
@@ -41,7 +39,7 @@ module.exports = {
   },
 
   treeForPublic: function(tree) {
-    if (this.project.targetIncludesCordova) {
+    if (this.project.targetIsCordova) {
       var platform = this.project.CORDOVA_PLATFORM;
 
       var platformsPath = path.join(cordovaPath(this.project), 'platforms');
@@ -55,7 +53,7 @@ module.exports = {
         pluginsPath = path.join(platformsPath, 'browser', 'www');
       }
 
-      var files = ['cordova.js', 'cordova_plugins.js'];
+      var files = ['cordova_plugins.js'];
 
       files.forEach(function (file) {
         var filePath = path.join(pluginsPath, file);
@@ -82,14 +80,5 @@ module.exports = {
     }
 
     return tree;
-  },
-
-  postBuild(outputDest) {
-    if (this.project.targetIncludesCordova) {
-      var cordovaOutputPath = path.join(this.project.root, './ember-cordova/cordova/www');
-      var cordovaInputPath = path.join(this.project.root, outputDest);
-
-      copydir.sync(cordovaInputPath, cordovaOutputPath);
-    }
   }
 };
