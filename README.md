@@ -1,4 +1,4 @@
-# Ember Cordova (beta)
+# Ember Cordova
 
 [![Build Status](https://travis-ci.org/isleofcode/ember-cordova.svg?branch=feat%2Ftravis)](https://travis-ci.org/isleofcode/ember-cordova)
 
