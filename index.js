@@ -74,8 +74,6 @@ module.exports = {
         destDir: '/'
       });
 
-      this.ui.writeLine(chalk.green('ember-cordova: Device LiveReload is enabled'));
-
       return mergeTrees([tree, pluginsTree]);
     }
 
