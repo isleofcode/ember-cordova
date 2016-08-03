@@ -1,6 +1,6 @@
 # Device Live Reload
 
-Live reload is automatically enabled and configured for `ember-cordova`
+Live reload works for device & simulator builds. It is automatically enabled and configured for `ember-cordova`
 `>= 0.2.0`.  Instructions for advanced configuration are below.
 
 **Caveats**
@@ -14,12 +14,21 @@ updates to a production application.
 
 For help troubleshooting earlier versions, see the [old version guide](#old-version-guide).
 
+## Basic usage
+
+```
+  ember cdv:serve
+```
+
+You can use s as a shorthand. Serve takes a platform option (e.g. android
+or ios) and any options accepted by Ember serve.
+
 ## Advanced Configuration
 
 There are times you may find yourself wanting to enable live-reload 
 from a remote host and port, or to customize a local url.
 
-# Customize the device live-reload url
+## Customize the device live-reload url
 
 In all cases below, `<url>` refers to the full url including protocol,
 host, and port.
@@ -46,7 +55,7 @@ ember cdv:s -r "<url>"
 
 ---------------------------------------------------------------------
 
-## Old Version Guide
+# Old Version Guide
 
 There are a few manual steps to getting live reload working right now.
 We hope to eventually automate them.
