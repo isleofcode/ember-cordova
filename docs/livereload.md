@@ -12,6 +12,9 @@ Your computer and phone must be on the same network.
 ember-cli's live-reload in the browser). It is not a solution for delivering
 updates to a production application.
 
+- If you are on Android >4.0, you will need to also install the whitelist plugin:
+` ember cdv plugin add cordova-plugin-whitelist `
+
 For help troubleshooting earlier versions, see the [old version guide](#old-version-guide).
 
 ## Basic usage
