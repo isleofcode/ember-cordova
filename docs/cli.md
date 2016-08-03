@@ -83,5 +83,18 @@ here](livereload.md).
 
 Passes commands straight to cordova, without interference.
 
+Because this proxies to cordova-cli, you will need cordova-cli installed
+(this is not required for usage anywhere else).
+
+If you do not already have it installed, you can install it with:
+
+```
+  npm install -g cordova
+```
+
+Our hope is you won't need this command very much. If you are, open
+an issue and tell us.
+
 #### Examples
 + `ember cordova platform add ios`
++ `ember cordova plugin add foo`

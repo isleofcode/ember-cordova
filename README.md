@@ -13,9 +13,6 @@ It includes a CLI for builds, hooks, device event bindings, and handles splash s
 5. Contributing;
 6. Credits
 
-It is a beta fork of ember-cli-cordova, but should have similar
-stability. It includes new features discussed below.
-
 ## Platforms & Requirements
 
 ember-cordova has been tested and works on Ember 1.13 &
@@ -23,12 +20,6 @@ greater, including 2+.
 
 When push comes to shove we are likely to only support Ember 2.4 or
 greater.
-
-Before you can use this addon, you will need to have Cordova's CLI installed on your machine. If you do not already have it installed, you can install it with:
-
-```
-  npm install -g cordova
-```
 
 ## Getting Started
 
