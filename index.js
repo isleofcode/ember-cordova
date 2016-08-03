@@ -2,8 +2,7 @@
 
 var commands              = require('./lib/commands');
 var cordovaPath           = require('./lib/utils/cordova-path');
-var isTargetCordova       = require('./lib/utils/is-target-cordova');
-var isCordovaLiveReload   = require('./lib/utils/is-cordova-live-reload');
+var getNetworkIp          = require('./lib/utils/get-network-ip');
 
 var chalk                 = require('chalk');
 var mergeTrees            = require('broccoli-merge-trees');
@@ -14,31 +13,34 @@ var fs                    = require('fs');
 module.exports = {
   name: 'ember-cordova',
 
-  config: function (env, baseConfig) {
-    if (isCordovaLiveReload()) {
-      var conf = {};
-      //If cordova live reload, set the reload url
-      var reloadUrl = process.env.CORDOVA_RELOAD_ADDRESS;
-      conf.cordova = {};
-      conf.cordova.reloadUrl = reloadUrl;
+  config: function(/* env, baseConfig */) {
+    if (this.project.targetIsCordova) {
+      var conf = { cordova: {} };
+      if (!!this.project.RELOAD_PORT) {
+        //If cordova live reload, set the reload url
+        var networkAddress = getNetworkIp();
+        var deviceServerUrl = 'http://' + networkAddress + ':' + this.project.RELOAD_PORT;
+
+        conf.cordova.reloadUrl = deviceServerUrl;
+      }
 
       return conf;
     }
   },
 
-  contentFor: function (type) {
-    if (isTargetCordova() && type === 'body') {
+  contentFor: function(type) {
+    if (this.project.targetIsCordova && type === 'body') {
       return '<script src="cordova.js"></script>';
     }
   },
 
-  includedCommands: function () {
+  includedCommands: function() {
     return commands;
   },
 
-  treeForPublic: function (tree) {
-    if (isCordovaLiveReload()) {
-      var platform = process.env.CORDOVA_PLATFORM;
+  treeForPublic: function(tree) {
+    if (this.project.targetIsCordova) {
+      var platform = this.project.CORDOVA_PLATFORM;
 
       var platformsPath = path.join(cordovaPath(this.project), 'platforms');
       var pluginsPath;
@@ -51,7 +53,7 @@ module.exports = {
         pluginsPath = path.join(platformsPath, 'browser', 'www');
       }
 
-      var files = ['cordova.js', 'cordova_plugins.js'];
+      var files = ['cordova_plugins.js'];
 
       files.forEach(function (file) {
         var filePath = path.join(pluginsPath, file);
@@ -71,8 +73,6 @@ module.exports = {
         include: files,
         destDir: '/'
       });
-
-      this.ui.writeLine(chalk.green('ember-cordova: Device LiveReload is enabled'));
 
       return mergeTrees([tree, pluginsTree]);
     }

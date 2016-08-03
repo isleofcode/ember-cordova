@@ -1,11 +1,69 @@
-##Live reload
+# Device Live Reload
+
+Live reload works for device & simulator builds. It is automatically enabled and configured for `ember-cordova`
+`>= 0.2.0`.  Instructions for advanced configuration are below.
+
+**Caveats**
+
+- Live reload will not run in production or test environments.
+Your computer and phone must be on the same network.
+
+- Live reload is for assistance in developing your application (just like
+ember-cli's live-reload in the browser). It is not a solution for delivering
+updates to a production application.
+
+- If you are on Android >4.0, you will need to also install the whitelist plugin:
+` ember cdv plugin add cordova-plugin-whitelist `
+
+For help troubleshooting earlier versions, see the [old version guide](#old-version-guide).
+
+## Basic usage
+
+```
+  ember cdv:serve
+```
+
+You can use s as a shorthand. Serve takes a platform option (e.g. android
+or ios) and any options accepted by Ember serve.
+
+## Advanced Configuration
+
+There are times you may find yourself wanting to enable live-reload 
+from a remote host and port, or to customize a local url.
+
+## Customize the device live-reload url
+
+In all cases below, `<url>` refers to the full url including protocol,
+host, and port.
+
+*via commandline arg*
+
+```cli
+ember cdv:serve --reload-url="<url>"
+```
+
+or
+
+```cli
+ember cdv:s -r "<url>"
+```
+
+*via .ember-cli*
+
+```json
+{
+  deviceLiveReloadUrl: "<url>"
+}
+```
+
+---------------------------------------------------------------------
+
+# Old Version Guide
 
 There are a few manual steps to getting live reload working right now.
 We hope to eventually automate them.
 
-live reload will not run in production or test environments. Your computer and phone must be on the same network.
-
-* Modify Cordovas config.xml to allow-navigation to http based urls. You can either specify localhost:4200, your local IP,
+* Modify Cordova's config.xml to allow-navigation to http based urls. You can either specify localhost:4200, your local IP,
 or a wildcard. Wildcards are generally unsafe, and you should comment them out before production builds.
 
 ```
@@ -43,7 +101,7 @@ You can run the app on an emulator or any device connected to your local network
 * Because cordova:serve creates a new build, you should re-build when
   you are finished.
 
-###Troubleshooting / Finding your Network IP
+#### Troubleshooting / Finding your Network IP
 
 * If the defaults don't work, you will need to find your computers network ip and use
 the reload-url param. For Mac Users, you can find your Network IP at System Preferences -> Network.

@@ -4,10 +4,12 @@ const td            = require('testdouble');
 const expect        = require('../../helpers/expect');
 const Promise       = require('ember-cli/lib/ext/promise');
 
+const ui            = require('../../../lib/utils/ui');
 const ServeCmd      = require('../../../lib/commands/serve');
-const EmberBldTask  = require('../../../lib/tasks/ember-build');
+const BuildServeTask = require('../../../lib/tasks/ember-build-serve');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 const BashTask      = require('../../../lib/tasks/bash');
+const HookTask      = require('../../../lib/tasks/run-hook');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 
@@ -40,16 +42,6 @@ describe('Serve Command', () => {
       mockTasks();
     });
 
-    it('runs tasks in the correct order', () => {
-      runServe();
-
-      expect(tasks).to.deep.equal([
-        'ember-build',
-        'cordova-build',
-        'serve-bash'
-      ]);
-    });
-
     it('exits cleanly', () => {
       expect(runServe).not.to.throw(Error);
     });
@@ -57,8 +49,8 @@ describe('Serve Command', () => {
     function mockTasks() {
       tasks = [];
 
-      td.replace(EmberBldTask.prototype, 'run', () => {
-        tasks.push('ember-build');
+      td.replace(HookTask.prototype, 'run',  (hookName) => {
+        tasks.push('hook ' + hookName);
         return Promise.resolve();
       });
 
@@ -67,11 +59,32 @@ describe('Serve Command', () => {
         return Promise.resolve();
       });
 
+      td.replace(BuildServeTask.prototype, 'run', () => {
+        tasks.push('ember-build-serve');
+        return Promise.resolve();
+      });
+
       td.replace(BashTask.prototype, 'run', () => {
         tasks.push('serve-bash');
         return Promise.resolve();
       });
+
+      td.replace(ServeCmd, '_serveHang', function() {
+        return Promise.resolve();
+      });
     }
+
+    it('runs tasks in the correct order', () => {
+      return ServeCmd.run({})
+        .then(function() {
+          expect(tasks).to.deep.equal([
+            'hook beforeBuild',
+            'ember-build-serve',
+            'cordova-build',
+            'hook afterBuild',
+          ]);
+        });
+    });
   });
 
   context('when locationType is not hash', () => {
@@ -79,8 +92,12 @@ describe('Serve Command', () => {
       ServeCmd.project.config = function() {
         return {
           locationType: 'auto'
-        }
+        };
       };
+
+      td.replace(ui, 'writeLine',  () => {
+        throw new Error('Exit Called');
+      });
     });
 
     it('throws', () => {
