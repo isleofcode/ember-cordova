@@ -68,6 +68,10 @@ describe('Serve Command', () => {
         tasks.push('serve-bash');
         return Promise.resolve();
       });
+
+      td.replace(ServeCmd, '_serveHang', function() {
+        return Promise.resolve();
+      });
     }
 
     it('runs tasks in the correct order', () => {
