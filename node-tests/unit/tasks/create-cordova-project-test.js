@@ -72,12 +72,12 @@ describe('Cordova Create Task', () => {
 
     create.run();
 
+    /* eslint-disable max-len */
     td.verify(cdvCreate(isString, 'emberCordovaApp', 'emberCordovaApp', isObject));
+    /* eslint-enable max-len */
   });
 
   it('raises a warning if cordova project already exists', () => {
-    let cdvCreate = td.replace('cordova-lib/src/cordova/create');
-
     td.replace(fs, 'existsSync', function() {
       return true;
     });
