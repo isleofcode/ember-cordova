@@ -3,12 +3,14 @@
 const BashTask      = require('../../../lib/tasks/bash');
 const td            = require('testdouble');
 const expect        = require('../../helpers/expect');
-
 const Promise       = require('ember-cli/lib/ext/promise');
+
 td.replace('../../../lib/tasks/verify-cordova-installed', function() {
   return {
     run: function() {
-      return Promise.resolve();
+      return new Promise(function(resolve) {
+        resolve();
+      });
     }
   }
 });
@@ -18,6 +20,7 @@ const isObject      = td.matchers.isA(Object);
 
 const setupCordovaCmd = function() {
   const CordovaCmd = require('../../../lib/commands/cordova');
+
   CordovaCmd.ui = mockProject.ui;
   CordovaCmd.project = mockProject.project;
   return CordovaCmd;
