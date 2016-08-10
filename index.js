@@ -13,15 +13,19 @@ var fs                    = require('fs');
 module.exports = {
   name: 'ember-cordova',
 
-  config: function(/* env, baseConfig */) {
+  config: function(env, baseConfig) {
     if (this.project.targetIsCordova) {
       var conf = { cordova: {} };
       if (!!this.project.RELOAD_PORT) {
         //If cordova live reload, set the reload url
-        var networkAddress = getNetworkIp();
-        var deviceServerUrl = 'http://' + networkAddress + ':' + this.project.RELOAD_PORT;
+        if (baseConfig.cordova && baseConfig.cordova.deviceUrl) {
+          conf.cordova.reloadUrl = baseConfig.cordova.deviceUrl;
+        } else {
+          var networkAddress = getNetworkIp();
+          var deviceServerUrl = 'http://' + networkAddress + ':' + this.project.RELOAD_PORT;
 
-        conf.cordova.reloadUrl = deviceServerUrl;
+          conf.cordova.reloadUrl = deviceServerUrl;
+        }
       }
 
       return conf;
