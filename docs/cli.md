@@ -85,3 +85,18 @@ Passes commands straight to cordova, without interference.
 
 #### Examples
 + `ember cordova platform add ios`
+
+##Setting default Platform
+
+If you are only ever building for one platform, you can set a default
+in config.environment.js.
+
+This is handy if the defaults don't work out for you, e.g. you are
+only shipping for Android.
+
+in config/environment.js:
+```
+cordova: {
+  platform: 'android'
+}
+```
