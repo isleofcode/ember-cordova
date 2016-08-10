@@ -1,7 +1,6 @@
 'use strict';
 
 const td            = require('testdouble');
-const expect        = require('../../helpers/expect');
 const PluginCmd     = require('../../../lib/commands/plugin');
 const CdvRawTask    = require('../../../lib/tasks/cordova-raw');
 
