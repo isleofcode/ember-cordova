@@ -18,8 +18,8 @@ module.exports = {
       var conf = { cordova: {} };
       if (!!this.project.RELOAD_PORT) {
         //If cordova live reload, set the reload url
-        if (baseConfig.cordova && baseConfig.cordova.deviceUrl) {
-          conf.cordova.reloadUrl = baseConfig.cordova.deviceUrl;
+        if (baseConfig.cordova && baseConfig.cordova.reloadUrl) {
+          conf.cordova.reloadUrl = baseConfig.cordova.reloadUrl;
         } else {
           var networkAddress = getNetworkIp();
           var deviceServerUrl = 'http://' + networkAddress + ':' + this.project.RELOAD_PORT;
