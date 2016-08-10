@@ -10,6 +10,8 @@ ember-cordova interference with ember cdv build, vs. ember cdv:build.
 * ember cdv:open
 * ember cdv:build
 * ember cdv:link
+* ember cdv:plaform
+* ember cdv:plugin
 * ember cdv:prepare
 * ember cdv:serve
 * ember cordova
@@ -51,6 +53,32 @@ this, as build will do this for you.
 
 #### Examples
 + `ember cordova:link`
+
+### Platform
+
+#### Description
+Add or remove cordova platforms. Use the save flag to persist new
+platforms to config.xml (default is true).
+
+#### Available options
++ save (default:true)
+
+#### Examples
++ `ember cdv:platform add ios`
++ `ember cdv:platform rm ios`
+
+### Plugin
+
+#### Description
+Add or remove cordova plugins. Use the save flag to persist new
+platforms to config.xml (default is true).
+
+#### Available options
++ save (default:true)
+
+#### Examples
++ `ember cdv:plugin add cordova-plugin-name`
++ `ember cdv:plugin rm cordova-plugin-name`
 
 ### Prepare
 
