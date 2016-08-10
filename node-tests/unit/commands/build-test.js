@@ -89,11 +89,11 @@ describe('Build Command', () => {
     it('passes platform to cordova build task', () => {
       let passedPlatform = 'ios';
 
-      runBuild({
+      return runBuild({
         platform: passedPlatform
+      }).then(function() {
+        expect(cordovaPlatform).to.equal(passedPlatform);
       });
-
-      expect(cordovaPlatform).to.equal(passedPlatform);
     });
   });
 
