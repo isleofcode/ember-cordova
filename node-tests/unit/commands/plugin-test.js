@@ -6,7 +6,7 @@ const PluginCmd     = require('../../../lib/commands/plugin');
 const PluginTask    = require('../../../lib/tasks/cordova-plugin');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const isAnything    = td.matchers.isAnything;
+const isAnything    = td.matchers.anything();
 const isArray       = td.matchers.isA(Array);
 
 describe('Build Command', () => {
