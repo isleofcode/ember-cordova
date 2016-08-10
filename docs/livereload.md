@@ -29,12 +29,13 @@ or ios) and any options accepted by Ember serve.
 ## Advanced Configuration
 
 There are times you may find yourself wanting to enable live-reload 
-from a remote host and port, or to customize a local url.
+from a remote host and port, or to customize a local url because we are
+not detecting it correctly.
 
 ## Customize the device live-reload url
 
 In all cases below, `<url>` refers to the full url including protocol,
-host, and port.
+host, and port, e.g. http://localhost:4200
 
 *via commandline arg*
 
@@ -48,11 +49,13 @@ or
 ember cdv:s -r "<url>"
 ```
 
-*via .ember-cli*
+*via config/environment.js*
 
 ```json
 {
-  deviceLiveReloadUrl: "<url>"
+  cordova: {
+    reloadUrl: "<url>"
+  }
 }
 ```
 
