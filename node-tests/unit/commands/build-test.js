@@ -10,6 +10,7 @@ const BuildCmd      = require('../../../lib/commands/build');
 const BuildTask     = require('../../../lib/tasks/ember-build');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 const HookTask      = require('../../../lib/tasks/run-hook');
+const PlatformTask  = require('../../../lib/tasks/validate-platform');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 
@@ -46,6 +47,11 @@ describe('Build Command', () => {
     function mockTasks() {
       tasks = [];
 
+      td.replace(PlatformTask.prototype, 'run', () => {
+        tasks.push('check-platform');
+        return Promise.resolve();
+      });
+
       td.replace(HookTask.prototype, 'run',  (hookName) => {
         tasks.push('hook ' + hookName);
         return Promise.resolve();
@@ -72,6 +78,7 @@ describe('Build Command', () => {
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
+            'check-platform',
             'hook beforeBuild',
             'cordova-build',
             'hook afterBuild'
@@ -82,11 +89,11 @@ describe('Build Command', () => {
     it('passes platform to cordova build task', () => {
       let passedPlatform = 'ios';
 
-      runBuild({
+      return runBuild({
         platform: passedPlatform
+      }).then(function() {
+        expect(cordovaPlatform).to.equal(passedPlatform);
       });
-
-      expect(cordovaPlatform).to.equal(passedPlatform);
     });
   });
 

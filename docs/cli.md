@@ -96,5 +96,19 @@ Our hope is you won't need this command very much. If you are, open
 an issue and tell us.
 
 #### Examples
-+ `ember cordova platform add ios`
-+ `ember cordova plugin add foo`
++ `ember cordova info`
+
+##Setting default Platform
+
+If you are only ever building for one platform, you can set a default
+in config.environment.js.
+
+This is handy if the defaults don't work out for you, e.g. you are
+only shipping for Android.
+
+in config/environment.js:
+```
+cordova: {
+  platform: 'android'
+}
+```

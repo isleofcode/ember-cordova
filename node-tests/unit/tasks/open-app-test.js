@@ -7,8 +7,8 @@ const OpenAppTask   = require('../../../lib/tasks/open-app');
 const expect        = require('../../helpers/expect');
 const openCommand   = require('../../../lib/utils/open-app-command');
 
-
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const _merge         = require('lodash').merge;
 const isObject      = td.matchers.isA(Object);
 
 describe('Open App Task', () => {
@@ -22,7 +22,7 @@ describe('Open App Task', () => {
       'ember-cordova-mock/ember-cordova/cordova'
     );
 
-    openApp = new OpenAppTask(mockProject);
+    openApp = new OpenAppTask(_merge(mockProject, { platform: 'ios' }));
   });
 
   afterEach(() => {

@@ -7,10 +7,15 @@ module.exports = {
   env: 'development',
   id: 'ember-cordova-mock',
   name: 'ember-cordova-mock',
-  platform: 'ios',
+  cordova: {
+    platform: 'ios'
+  },
 
   project: {
     root: path.resolve(__dirname, '..', '..', 'fixtures', 'ember-cordova-mock')
   },
+
+  config: function() {},
+
   ui: new MockUI()
 }

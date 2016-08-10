@@ -39,7 +39,9 @@ If you already have a Cordova project here it will not be overwritten.
 
 1. #### Set your config.locationType to 'hash'.
 
-2. As a final step, add your desired platforms, e.g.:
+2. Cordova requires relative asset paths so check that none of yours are absolute. For ember-cli v2.7.0 and newer, you'll want to remove the references to `{{rootURL}}` from the asset paths in `app/index.html`.
+
+3. As a final step, add your desired platforms, e.g.:
 
 ```cli
 ember cdv platform add ios
