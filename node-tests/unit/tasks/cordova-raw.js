@@ -9,9 +9,9 @@ const isAnything    = td.matchers.anything();
 describe('Cordova Plugin Task', () => {
   it('passes params to cordova-run util', () => {
     let runDouble = td.replace('../../../lib/utils/cordova-run');
-    let PluginTask = require('../../../lib/tasks/cordova-plugin');
+    let CordovaRaw = require('../../../lib/tasks/cordova-raw');
 
-    let plugin = new PluginTask(mockProject);
+    let plugin = new CordovaRaw(mockProject);
     plugin.run();
 
     td.verify(runDouble(isAnything, isObject, isArray));
