@@ -22,7 +22,7 @@ export default function subscribe(path, method) {
       this.get(service).off(event, _listener);
       _listener = null;
       computedFn = null;
-      _super();
+      _super.call(this);
     });
 
     // proxy the event
