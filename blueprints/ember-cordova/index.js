@@ -34,7 +34,6 @@ module.exports = {
     var projectName = this.project.name();
 
     var check = new VerifyCordovaTask({
-      command: 'ember g ember-cordova',
       ui: this.ui
     });
 
