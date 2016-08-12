@@ -10,6 +10,8 @@ ember-cordova interference with ember cdv build, vs. ember cdv:build.
 * ember cdv:open
 * ember cdv:build
 * ember cdv:link
+* ember cdv:plaform
+* ember cdv:plugin
 * ember cdv:prepare
 * ember cdv:serve
 * ember cordova
@@ -52,6 +54,32 @@ this, as build will do this for you.
 #### Examples
 + `ember cordova:link`
 
+### Platform
+
+#### Description
+Add or remove cordova platforms. Use the save flag to persist new
+platforms to config.xml (default is true).
+
+#### Available options
++ save (default:true)
+
+#### Examples
++ `ember cdv:platform add ios`
++ `ember cdv:platform rm ios`
+
+### Plugin
+
+#### Description
+Add or remove cordova plugins. Use the save flag to persist new
+platforms to config.xml (default is true).
+
+#### Available options
++ save (default:true)
+
+#### Examples
++ `ember cdv:plugin add cordova-plugin-name`
++ `ember cdv:plugin rm cordova-plugin-name`
+
 ### Prepare
 
 #### Description
@@ -83,8 +111,20 @@ here](livereload.md).
 
 Passes commands straight to cordova, without interference.
 
+Because this proxies to cordova-cli, you will need cordova-cli installed
+(this is not required for usage anywhere else).
+
+If you do not already have it installed, you can install it with:
+
+```
+  npm install -g cordova
+```
+
+Our hope is you won't need this command very much. If you are, open
+an issue and tell us.
+
 #### Examples
-+ `ember cordova platform add ios`
++ `ember cordova info`
 
 ##Setting default Platform
 

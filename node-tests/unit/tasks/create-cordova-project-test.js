@@ -4,19 +4,22 @@ const td            = require('testdouble');
 const fs            = require('fs');
 const path          = require('path');
 const expect        = require('../../helpers/expect');
-const BashTask      = require('../../../lib/tasks/bash');
-const CreateCdvTask = require('../../../lib/tasks/create-cordova-project');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 const isObject      = td.matchers.isA(Object);
+const isString      = td.matchers.isA(String);
+const isArray       = td.matchers.isA(Array);
+
+const setupCreateTask = function() {
+  const CreateCdvTask = require('../../../lib/tasks/create-cordova-project');
+  return new CreateCdvTask(mockProject);
+};
 
 describe('Cordova Create Task', () => {
-  let bashDouble, cordovaCreate;
-
   beforeEach(() => {
-    bashDouble = td.replace(BashTask.prototype, 'runCommand');
-    cordovaCreate = new CreateCdvTask(mockProject);
-    td.replace(fs, 'mkdirSync');
+    td.replace(fs, 'mkdirSync', () => {
+      return true;
+    });
   });
 
   afterEach(() => {
@@ -24,10 +27,6 @@ describe('Cordova Create Task', () => {
   });
 
   it('creates an ember-cordova directory if one does not exist', () => {
-    td.replace(fs, 'existsSync', () => {
-      return false;
-    });
-
     const expectedPath = path.resolve(
       __dirname, '..', '..',
       'fixtures',
@@ -35,33 +34,47 @@ describe('Cordova Create Task', () => {
       'ember-cordova'
     );
 
-    cordovaCreate.run();
+    let create = setupCreateTask();
+
+    td.replace(fs, 'existsSync', function() {
+      return false;
+    });
+    td.replace(fs, 'mkdirSync');
+
+    create.run();
+
     td.verify(fs.mkdirSync(expectedPath));
   });
 
   it('generates a cordova build command', () => {
-    const command = 'cordova create cordova emberCordovaMock emberCordovaMock';
+    let cdvCreate = td.replace('cordova-lib/src/cordova/create');
 
-    td.replace(fs, 'existsSync', () => {
+    td.replace(fs, 'existsSync', function() {
       return false;
     });
 
-    cordovaCreate.run();
-    td.verify(bashDouble(command, isObject));
+    let create = setupCreateTask();
+    create.run();
+
+    td.verify(cdvCreate(isString, isString, isString, isObject));
   });
 
   it('forces camelcased ids and names', () => {
-    const command = 'cordova create cordova emberCordovaApp emberCordovaApp';
+    let cdvCreate = td.replace('cordova-lib/src/cordova/create');
 
-    td.replace(fs, 'existsSync', () => {
+    td.replace(fs, 'existsSync', function() {
       return false;
     });
 
-    cordovaCreate.id = 'ember-cordova-app';
-    cordovaCreate.name = 'ember-cordova-app';
+    let create = setupCreateTask();
+    create.id = 'ember-cordova-app';
+    create.name = 'ember-cordova-app';
 
-    cordovaCreate.run();
-    td.verify(bashDouble(command, isObject));
+    create.run();
+
+    /* eslint-disable max-len */
+    td.verify(cdvCreate(isString, 'emberCordovaApp', 'emberCordovaApp', isObject));
+    /* eslint-enable max-len */
   });
 
   it('raises a warning if cordova project already exists', () => {
@@ -69,7 +82,21 @@ describe('Cordova Create Task', () => {
       return true;
     });
 
-    cordovaCreate.run();
-    expect(cordovaCreate.ui.output).to.contain('project already exists');
+    let create = setupCreateTask();
+    create.run();
+
+    expect(create.ui.output).to.contain('project already exists');
+  });
+
+  it('proxies via cordova run', () => {
+    const cordovaRun = td.replace('../../../lib/utils/cordova-run');
+
+    td.replace(fs, 'existsSync', function() {
+      return false;
+    });
+
+    let create = setupCreateTask();
+    create.run();
+    td.verify(cordovaRun(isObject, isObject, isArray));
   });
 });

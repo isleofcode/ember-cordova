@@ -59,6 +59,7 @@
     "broccoli-merge-trees": "^1.1.1",
     "chalk": "^0.4.0",
     "copy-dir": "^0.3.0",
+    "cordova-lib": "^6.3.0",
     "fs-extra": "^0.26.5",
     "lodash": "^4.13.1",
     "portfinder": "^1.0.5",
