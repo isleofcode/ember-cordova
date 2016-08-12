@@ -1,14 +1,14 @@
 'use strict';
 
 var commands              = require('./lib/commands');
-var cordovaPath           = require('./lib/utils/cordova-path');
 var getNetworkIp          = require('./lib/utils/get-network-ip');
+var getPlatformAssets     = require('./lib/utils/get-platform-assets');
 
+var fs                    = require('fs');
+var path                  = require('path');
 var chalk                 = require('chalk');
 var mergeTrees            = require('broccoli-merge-trees');
 var Funnel                = require('broccoli-funnel');
-var path                  = require('path');
-var fs                    = require('fs');
 
 module.exports = {
   name: 'ember-cordova',
@@ -42,43 +42,32 @@ module.exports = {
     return commands;
   },
 
+  cordovaAssetTree: function(tree, assets) {
+    var pluginsTree = new Funnel(this.treeGenerator(assets.path), {
+      srcDir:  '/',
+      include: assets.files,
+      destDir: '/'
+    });
+
+    return mergeTrees([tree, pluginsTree]);
+  },
+
   treeForPublic: function(tree) {
     if (this.project.targetIsCordova) {
-      var platform = this.project.CORDOVA_PLATFORM;
+      var platformAssets = getPlatformAssets();
 
-      var platformsPath = path.join(cordovaPath(this.project), 'platforms');
-      var pluginsPath;
+      if (platformAssets.path === undefined) {
+        throw new Error('ember-cordova: Did not receive platform asset path, canot not build');
+      };
 
-      if (platform === 'ios') {
-        pluginsPath = path.join(platformsPath, 'ios', 'www');
-      } else if (platform === 'android') {
-        pluginsPath = path.join(platformsPath, 'android', 'assets', 'www');
-      } else if (platform === 'browser') {
-        pluginsPath = path.join(platformsPath, 'browser', 'www');
+      var filePath = path.join(platformAssets.path, 'cordova_plugins.js');
+      if (!fs.existsSync(filePath)) {
+        var err = new Error('ember-cordova: cordova_plugins did not exist. It is required for Device LiveReload to work.');
+        err.stack = null;
+        throw err;
       }
 
-      var files = ['cordova_plugins.js'];
-
-      files.forEach(function (file) {
-        var filePath = path.join(pluginsPath, file);
-        if (!fs.existsSync(filePath)) {
-          var err = new Error('ember-cordova: ' + filePath + ' did not exist. It is required for Device LiveReload to work.');
-          err.stack = null;
-          throw err;
-        }
-      });
-
-      if (fs.existsSync(path.join(pluginsPath, 'plugins'))) {
-        files.push('plugins/**');
-      }
-
-      var pluginsTree = new Funnel(this.treeGenerator(pluginsPath), {
-        srcDir:  '/',
-        include: files,
-        destDir: '/'
-      });
-
-      return mergeTrees([tree, pluginsTree]);
+      return this.cordovaAssetTree(tree, platformAssets);
     }
 
     return tree;
