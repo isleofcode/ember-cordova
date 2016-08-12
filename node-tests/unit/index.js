@@ -1,8 +1,7 @@
 'use strict';
 
 const td            = require('testdouble');
-var fs                    = require('fs');
-
+var fs              = require('fs');
 const expect        = require('../helpers/expect');
 
 const stubIndex = function() {
