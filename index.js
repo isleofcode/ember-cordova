@@ -54,7 +54,7 @@ module.exports = {
 
   treeForPublic: function(tree) {
     if (this.project.targetIsCordova) {
-      var platformAssets = getPlatformAssets();
+      var platformAssets = getPlatformAssets(this.project);
 
       if (platformAssets.path === undefined) {
         throw new Error('ember-cordova: Did not receive platform asset path, canot not build');

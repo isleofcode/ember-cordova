@@ -3,6 +3,7 @@
 const td            = require('testdouble');
 var fs              = require('fs');
 const expect        = require('../helpers/expect');
+const isObject      = td.matchers.isA(Object);
 
 const stubIndex = function() {
   let stub = require('../../index');
@@ -90,7 +91,7 @@ describe('Index', () => {
           projectIndex.treeForPublic()
         }).to.throw(Error);
 
-        td.verify(getAssetDouble());
+        td.verify(getAssetDouble(isObject));
       });
 
       it('throws an error if platformAssets.path is undefined', function() {
