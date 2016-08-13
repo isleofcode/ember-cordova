@@ -12,6 +12,7 @@ const BashTask      = require('../../../lib/tasks/bash');
 const HookTask      = require('../../../lib/tasks/run-hook');
 const PlatformTask  = require('../../../lib/tasks/validate-platform');
 const PluginTask    = require('../../../lib/tasks/validate-plugin');
+const EmberBuildTask  = require('../../../lib/tasks/ember-build');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 
@@ -66,6 +67,11 @@ describe('Serve Command', () => {
         return Promise.resolve();
       });
 
+      td.replace(EmberBuildTask.prototype, 'run', () => {
+        tasks.push('ember-build');
+        return Promise.resolve();
+      });
+
       td.replace(CdvBuildTask.prototype, 'run', () => {
         tasks.push('cordova-build');
         return Promise.resolve();
@@ -93,9 +99,10 @@ describe('Serve Command', () => {
             'validate-platform',
             'validate-plugin',
             'hook beforeBuild',
-            'ember-build-serve',
+            'ember-build',
             'cordova-build',
             'hook afterBuild',
+            'ember-build-serve'
           ]);
         });
     });
