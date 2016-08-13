@@ -19,7 +19,10 @@ clean up your object's listeners automatically. Usage looks like a standard
 import Ember from 'ember';
 import subscribe from 'ember-cordova/utils/subscribe';
 
-const { Route } = Ember;
+const {
+  Route,
+  inject
+} = Ember;
 
 export default Route.extend({
   cordova: inject.service(),
@@ -39,7 +42,10 @@ For this case use Ember.Evented (below).
 import Ember from 'ember';
 import subscribe from 'ember-cordova/utils/subscribe';
 
-const { Route } = Ember;
+const {
+  Route,
+  inject
+} = Ember;
 
 export default Route.extend({
   cordova: inject.service(),
