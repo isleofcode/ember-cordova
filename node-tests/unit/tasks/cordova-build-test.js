@@ -2,7 +2,7 @@
 
 const td            = require('testdouble');
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const isObject      = td.matchers.isA(Object);
+const CdvRawTask    = require('../../../lib/tasks/cordova-raw');
 
 const setupBuildTask = function() {
   const CdvBuildTask = require('../../../lib/tasks/cordova-build');
@@ -14,47 +14,35 @@ describe('Cordova Build Task', () => {
     td.reset();
   });
 
-  it('generates a cordova build command', () => {
-    const cdvBuild = td.replace('cordova-lib/src/cordova/build');
+  it('creates a raw build task', () => {
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
     let build = setupBuildTask();
     build.run('ios');
 
-    var match = td.matchers.contains({platforms: ['ios']});
-    td.verify(cdvBuild(match, isObject));
+    td.verify(cdvBuild({platforms: ['ios'], options: ['--debug']}));
   });
 
   it('sets platform to android', () => {
-    const cdvBuild = td.replace('cordova-lib/src/cordova/build');
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
     let build = setupBuildTask();
     build.run('android');
 
-    var match = td.matchers.contains({platforms: ['android']});
-    td.verify(cdvBuild(match, isObject));
+    td.verify(cdvBuild({platforms: ['android'], options: ['--debug']}));
   });
 
   it('passes debug flag by default', () => {
-    const cdvBuild = td.replace('cordova-lib/src/cordova/build');
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
     let build = setupBuildTask();
     build.run('ios', false);
 
-    var match = td.matchers.contains({options: ['--debug']});
-    td.verify(cdvBuild(match, isObject));
+    td.verify(cdvBuild({platforms: ['ios'], options: ['--debug']}));
   });
 
   it('sets release flag when passed', () => {
-    const cdvBuild = td.replace('cordova-lib/src/cordova/build');
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
     let build = setupBuildTask();
     build.run('ios', true);
 
-    var match = td.matchers.contains({options: ['--release']});
-    td.verify(cdvBuild(match, isObject));
-  });
-
-  it('proxies via cordova run', () => {
-    const cordovaRun = td.replace('../../../lib/utils/cordova-run');
-    let build = setupBuildTask();
-
-    build.run();
-    td.verify(cordovaRun(isObject, isObject, isObject));
+    td.verify(cdvBuild({platforms: ['ios'], options: ['--release']}));
   });
 });

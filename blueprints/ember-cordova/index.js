@@ -1,7 +1,6 @@
 'use strict';
 
 var CreateTask        = require('../../lib/tasks/create-cordova-project');
-var VerifyCordovaTask = require('../../lib/tasks/verify-cordova-installed');
 var camelize          = require('../../lib/utils/string.js').camelize;
 
 module.exports = {
@@ -33,11 +32,6 @@ module.exports = {
   afterInstall: function(options) {
     var projectName = this.project.name();
 
-    var check = new VerifyCordovaTask({
-      command: 'ember g ember-cordova',
-      ui: this.ui
-    });
-
     var create = new CreateTask({
       id: options.cordovaid || camelize(projectName),
       name: options.name || camelize(projectName),
@@ -45,7 +39,6 @@ module.exports = {
       ui: this.ui
     });
 
-    return check.run()
-      .then(function() { return create.run(); });
+    return create.run();
   }
 };

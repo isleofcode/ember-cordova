@@ -6,7 +6,6 @@ const CdvRawTask    = require('../../../lib/tasks/cordova-raw');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 const isAnything    = td.matchers.anything();
-const isArray       = td.matchers.isA(Array);
 
 describe('Platform Command', () => {
   let rawDouble;
@@ -22,14 +21,14 @@ describe('Platform Command', () => {
     td.reset();
   });
 
-  it('passes command to Plugin Task', () => {
+  it('passes command to Cordova Raw Task', () => {
     PlatformCmd.run({}, ['add', 'cordova-plugin'])
-    td.verify(rawDouble('add', isArray, isAnything));
+    td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
   });
 
   it('passes the save flag', () => {
     var opts = { save: false };
     PlatformCmd.run(opts, ['add', 'cordova-plugin']);
-    td.verify(rawDouble('add', isArray, false));
+    td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));
   });
 });

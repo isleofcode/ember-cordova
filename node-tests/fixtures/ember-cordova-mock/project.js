@@ -12,7 +12,8 @@ module.exports = {
   },
 
   project: {
-    root: path.resolve(__dirname, '..', '..', 'fixtures', 'ember-cordova-mock')
+    root: path.resolve(__dirname, '..', '..', 'fixtures', 'ember-cordova-mock'),
+    name: function() { return 'ember-cordova-mock' }
   },
 
   config: function() {},
