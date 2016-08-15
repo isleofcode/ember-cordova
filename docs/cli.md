@@ -41,6 +41,7 @@ Build the ember and cordova project together running in the simulator or on a de
 + environment (default:development)
 + platform (default:ios)
 + release (default: debug)
++ cordova-output-path (default: ember-cordova/cordova/www)
 
 #### Examples
 + `ember cordova:build`
@@ -101,6 +102,7 @@ here](livereload.md).
 #### Available options
 + platform (default:ios)
 + reloadUrl (default:localhost:4200)
++ cordova-output-path (default: ember-cordova/cordova/www)
 
 #### Examples
 + `ember cdv:serve`
