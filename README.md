@@ -31,11 +31,17 @@ guide](docs/migration-from-ember-cli.md).
   ember install ember-cordova
 ```
 
-You can optionally pass name & cordovaid params, which will set the id &
-display name of your Cordova application. If none exist, your Ember Apps
-name will be used.
+You can optionally pass the following params:
+- name: AppName (defaults to your ember app name)
+- cordovaid: String (defaults to your app name)
+- templatePath: String path to cordova template
 
-If you already have a Cordova project here it will not be overwritten.
+```cli
+ember install ember-cordova --name=AppName
+--cordovaid=com.isleofcode.app --templatePath=../template
+```
+
+If you already have a Cordova project at ember-cordova/cordova it will not be overwritten.
 
 1. #### Set your config.locationType to 'hash'.
 

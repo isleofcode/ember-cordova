@@ -13,6 +13,9 @@ module.exports = {
     }, {
       name: 'cordovaid',
       type: String
+    }, {
+      name: 'template-path',
+      type: String
     }
   ],
 
@@ -39,6 +42,6 @@ module.exports = {
       ui: this.ui
     });
 
-    return create.run();
+    return create.run(options.templatePath);
   }
 };
