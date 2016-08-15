@@ -40,7 +40,7 @@ Build the ember and cordova project together running in the simulator or on a de
 #### Available options
 + environment (default:development)
 + platform (default:ios)
-+ --release (default: debug)
++ release (default: debug)
 
 #### Examples
 + `ember cordova:build`
