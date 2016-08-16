@@ -4,7 +4,7 @@ var commands              = require('./lib/commands');
 var getNetworkIp          = require('./lib/utils/get-network-ip');
 var getPlatformAssets     = require('./lib/utils/get-platform-assets');
 
-var fs                    = require('fs');
+var existsSync            = require('fs').existsSync;
 var path                  = require('path');
 var chalk                 = require('chalk');
 var mergeTrees            = require('broccoli-merge-trees');
@@ -52,7 +52,9 @@ module.exports = {
     return mergeTrees([tree, pluginsTree]);
   },
 
-  treeForPublic: function(tree) {
+  treeForPublic: function() {
+    var tree = this._super.treeForPublic.apply(this, arguments);
+
     if (this.project.targetIsCordova) {
       var platformAssets = getPlatformAssets(this.project);
 
@@ -60,11 +62,14 @@ module.exports = {
         throw new Error('ember-cordova: Did not receive platform asset path, canot not build');
       };
 
-      var filePath = path.join(platformAssets.path, 'cordova_plugins.js');
-      if (!fs.existsSync(filePath)) {
-        var err = new Error('ember-cordova: cordova_plugins did not exist. It is required for Device LiveReload to work.');
-        err.stack = null;
-        throw err;
+      var platformPath = path.join(platformAssets.path, 'cordova.js');
+      var pluginPath = path.join(platformAssets.path, 'cordova_plugins.js');
+      if (!existsSync(platformPath) || !existsSync(pluginPath)) {
+        this.ui.writeLine(chalk.yellow(
+          'WARNING: ember-cordova: Did not find cordova.js or cordova_plugins.js at ' +
+          platformAssets.path +
+          '. Ember App LiveReload will still work, but device & plugin APIS will fail.'
+        ));
       }
 
       return this.cordovaAssetTree(tree, platformAssets);
