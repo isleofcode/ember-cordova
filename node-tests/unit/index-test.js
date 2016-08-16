@@ -1,7 +1,8 @@
 'use strict';
 
 const td            = require('testdouble');
-var fs              = require('fs');
+const fs            = require('fs');
+const mockProject   = require('../fixtures/ember-cordova-mock/project');
 const expect        = require('../helpers/expect');
 const isObject      = td.matchers.isA(Object);
 
@@ -12,9 +13,12 @@ const stubIndex = function() {
     RELOAD_PORT: 1,
     CORDOVA_PLATFORM: 'ios'
   };
+  stub.ui = mockProject.ui;
 
   stub._super = {};
   stub._super.treeForPublic = function(tree) { return tree };
+
+  td.replace(stub, 'cordovaAssetTree');
 
   return stub;
 };
@@ -79,6 +83,15 @@ describe('Index', () => {
     });
 
     describe('treeForPublic', function() {
+      beforeEach(function() {
+        td.replace('../../lib/utils/get-platform-assets', function() {
+          return {
+            path: 'path',
+            files: []
+          }
+        });
+      });
+
       it('attempts to add cordova assets to tree', function() {
         td.replace(fs, 'existsSync', function() {
           return true;
@@ -110,27 +123,29 @@ describe('Index', () => {
         );
       });
 
-      /* eslint-disable max-len */
-      it('throws an error if cordova_plugins does not exist', function() {
-        td.replace(fs, 'existsSync', function() {
-          return false;
-        });
-
-        td.replace('../../lib/utils/get-platform-assets', function() {
-          return {
-            path: 'path',
-            files: []
-          }
+      it('throws an error if cordova.js does not exist', function() {
+        td.replace(fs, 'existsSync', function(path) {
+          return path !== 'path/cordova.js'
         });
 
         let projectIndex = stubIndex();
-        expect(function() {
-          projectIndex.treeForPublic()
-        }).to.throw(
-        'ember-cordova: cordova_plugins did not exist. It is required for Device LiveReload to work.'
-        );
+        projectIndex.treeForPublic();
+
+        expect(projectIndex.ui.output).to.contain('WARNING: ember-cordova:');
+        expect(projectIndex.ui.output).to.contain('cordova.js');
       });
-      /* eslint-enable max-len */
+
+      it('throws an error if cordova_plugins.js does not exist', function() {
+        td.replace(fs, 'existsSync', function(path) {
+          return path !== 'path/cordova_plugins.js'
+        });
+
+        let projectIndex = stubIndex();
+        projectIndex.treeForPublic();
+
+        expect(projectIndex.ui.output).to.contain('WARNING: ember-cordova:');
+        expect(projectIndex.ui.output).to.contain('cordova_plugins.js');
+      });
     });
   });
 });
