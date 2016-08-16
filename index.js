@@ -53,6 +53,8 @@ module.exports = {
   },
 
   treeForPublic: function(tree) {
+    tree = this._super.treeForPublic.apply(this, arguments);
+
     if (this.project.targetIsCordova) {
       var platformAssets = getPlatformAssets(this.project);
 
