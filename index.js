@@ -52,8 +52,8 @@ module.exports = {
     return mergeTrees([tree, pluginsTree]);
   },
 
-  treeForPublic: function(tree) {
-    tree = this._super.treeForPublic.apply(this, arguments);
+  treeForPublic: function() {
+    var tree = this._super.treeForPublic.apply(this, arguments);
 
     if (this.project.targetIsCordova) {
       var platformAssets = getPlatformAssets(this.project);

@@ -13,7 +13,9 @@ const stubIndex = function() {
     CORDOVA_PLATFORM: 'ios'
   };
 
-  td.replace(stub, 'cordovaAssetTree');
+  stub._super = {};
+  stub._super.treeForPublic = function(tree) { return tree };
+
   return stub;
 };
 
@@ -77,13 +79,11 @@ describe('Index', () => {
     });
 
     describe('treeForPublic', function() {
-      beforeEach(function() {
+      it('attempts to add cordova assets to tree', function() {
         td.replace(fs, 'existsSync', function() {
           return true;
         });
-      });
 
-      it('attempts to add cordova assets to tree', function() {
         let getAssetDouble = td.replace('../../lib/utils/get-platform-assets');
         let projectIndex = stubIndex();
 
@@ -101,23 +101,36 @@ describe('Index', () => {
             files: []
           }
         });
-        let projectIndex = stubIndex();
 
+        let projectIndex = stubIndex();
         expect(function() {
           projectIndex.treeForPublic()
-        }).to.throw(Error);
+        }).to.throw(
+        'ember-cordova: Did not receive platform asset path, canot not build'
+        );
       });
 
+      /* eslint-disable max-len */
       it('throws an error if cordova_plugins does not exist', function() {
         td.replace(fs, 'existsSync', function() {
           return false;
         });
-        let projectIndex = stubIndex();
 
+        td.replace('../../lib/utils/get-platform-assets', function() {
+          return {
+            path: 'path',
+            files: []
+          }
+        });
+
+        let projectIndex = stubIndex();
         expect(function() {
           projectIndex.treeForPublic()
-        }).to.throw(Error);
+        }).to.throw(
+        'ember-cordova: cordova_plugins did not exist. It is required for Device LiveReload to work.'
+        );
       });
+      /* eslint-enable max-len */
     });
   });
 });
