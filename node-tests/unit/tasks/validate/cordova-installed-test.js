@@ -9,7 +9,7 @@ describe('Verify Cordova Installed Task', () => {
   beforeEach(() => {
     execDouble = td.replace(childProcess, 'execSync');
 
-    const VerifyTask = require('../../../lib/tasks/verify-cordova-installed');
+    const VerifyTask = require('../../../../lib/tasks/validate/cordova-installed');
     verifyCmd = new VerifyTask({
       command: 'foo',
       options: {}
