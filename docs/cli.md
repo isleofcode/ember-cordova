@@ -9,7 +9,7 @@ ember-cordova interference with ember cdv build, vs. ember cdv:build.
 ### Available Commands
 * ember cdv:open
 * ember cdv:build
-* ember cdv:link
+* ember cdv:link (DEPRECATED)
 * ember cdv:plaform
 * ember cdv:plugin
 * ember cdv:prepare
@@ -50,12 +50,7 @@ Build the ember and cordova project together running in the simulator or on a de
 
 ### Link
 
-#### Description
-Symlinks your dist/ to Cordovas www. You generally won't need to run
-this, as build will do this for you.
-
-#### Examples
-+ `ember cordova:link`
+DEPRECATED
 
 ### Platform
 
@@ -130,17 +125,16 @@ an issue and tell us.
 #### Examples
 + `ember cordova info`
 
-##Setting default Platform
+##Configuration / Defaults
 
-If you are only ever building for one platform, you can set a default
-in config.environment.js.
+If you find yourself needing to override CLI defaults, you can set
+new defaults in your .ember-cli file.
 
-This is handy if the defaults don't work out for you, e.g. you are
-only shipping for Android.
+e.g. If you are only ever building for one (android), or want to
+set a permanent default reload-url.
 
-in config/environment.js:
+in .ember-cl:
 ```
-cordova: {
-  platform: 'android'
-}
+platform: 'android',
+reloadUrl: 'http://mycomputer:4200'
 ```
