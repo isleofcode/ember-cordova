@@ -10,6 +10,11 @@ describe('Run Hook Task', () => {
     expect(hookTask.run('hook')).to.be.fulfilled;
   });
 
+  it('runs a hook at the provided path that has an error', () => {
+    let hookTask = new HookTask(mockProject);
+    expect(hookTask.run('hook-with-error')).to.be.rejected;
+  });
+
   it('is rejected if the hook does not exist', () => {
     let hookTask = new HookTask(mockProject);
     expect(hookTask.run('invalid')).to.be.rejected;
