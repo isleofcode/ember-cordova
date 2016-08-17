@@ -63,7 +63,7 @@ Some cordova/phonegap plugins have browser fallbacks. For example [phonegap-plug
 
 ## Features and Documentation
 
-* [CLI](docs/cli.md)
+* [CLI & Configuration](docs/cli.md)
 * [Cordova Service & Event Bindings](docs/services/cordova.md)
 * Device:
 *  *  [Platform Service](docs/services/platform.md)
