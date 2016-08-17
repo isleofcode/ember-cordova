@@ -10,7 +10,7 @@ const BuildCmd      = require('../../../lib/commands/build');
 const BuildTask     = require('../../../lib/tasks/ember-build');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 const HookTask      = require('../../../lib/tasks/run-hook');
-const PlatformTask  = require('../../../lib/tasks/validate-platform');
+const PlatformTask  = require('../../../lib/tasks/validate/platform');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 
