@@ -22,13 +22,15 @@ describe('Plugin Command', () => {
   });
 
   it('passes command to Cordova Raw', () => {
-    PluginCmd.run({}, ['add', 'cordova-plugin'])
-    td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
+    return PluginCmd.run({}, ['add', 'cordova-plugin']).then(function() {
+      td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
+    });
   });
 
   it('passes the save flag', () => {
     var opts = { save: false };
-    PluginCmd.run(opts, ['add', 'cordova-plugin']);
-    td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));
+    return PluginCmd.run(opts, ['add', 'cordova-plugin']).then(function() {
+      td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));
+    });
   });
 });

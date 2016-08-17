@@ -6,13 +6,13 @@ const Promise       = require('ember-cli/lib/ext/promise');
 
 const ui            = require('../../../lib/utils/ui');
 const ServeCmd      = require('../../../lib/commands/serve');
-const BuildServeTask = require('../../../lib/tasks/ember-build-serve');
+const ServeTask     = require('../../../lib/tasks/serve');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 const BashTask      = require('../../../lib/tasks/bash');
 const HookTask      = require('../../../lib/tasks/run-hook');
-const PlatformTask  = require('../../../lib/tasks/validate-platform');
-const PluginTask    = require('../../../lib/tasks/validate-plugin');
-const EmberBuildTask  = require('../../../lib/tasks/ember-build');
+const PlatformTask  = require('../../../lib/tasks/validate/platform');
+const PluginTask    = require('../../../lib/tasks/validate/plugin');
+const LRloadShellTask = require('../../../lib/tasks/create-livereload-shell');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 
@@ -45,10 +45,6 @@ describe('Serve Command', () => {
       mockTasks();
     });
 
-    it('exits cleanly', () => {
-      expect(runServe).not.to.throw(Error);
-    });
-
     function mockTasks() {
       tasks = [];
 
@@ -67,8 +63,8 @@ describe('Serve Command', () => {
         return Promise.resolve();
       });
 
-      td.replace(EmberBuildTask.prototype, 'run', () => {
-        tasks.push('ember-build');
+      td.replace(LRloadShellTask.prototype, 'run', () => {
+        tasks.push('create-livereload-shell');
         return Promise.resolve();
       });
 
@@ -77,7 +73,7 @@ describe('Serve Command', () => {
         return Promise.resolve();
       });
 
-      td.replace(BuildServeTask.prototype, 'run', () => {
+      td.replace(ServeTask.prototype, 'run', () => {
         tasks.push('ember-build-serve');
         return Promise.resolve();
       });
@@ -92,6 +88,10 @@ describe('Serve Command', () => {
       });
     }
 
+    it('exits cleanly', () => {
+      expect(runServe).not.to.throw(Error);
+    });
+
     it('runs tasks in the correct order', () => {
       return ServeCmd.run({})
         .then(function() {
@@ -99,7 +99,7 @@ describe('Serve Command', () => {
             'validate-platform',
             'validate-plugin',
             'hook beforeBuild',
-            'ember-build',
+            'create-livereload-shell',
             'cordova-build',
             'hook afterBuild',
             'ember-build-serve'

@@ -22,13 +22,15 @@ describe('Platform Command', () => {
   });
 
   it('passes command to Cordova Raw Task', () => {
-    PlatformCmd.run({}, ['add', 'cordova-plugin'])
-    td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
+    return PlatformCmd.run({}, ['add', 'cordova-plugin']).then(function() {
+      td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
+    });
   });
 
   it('passes the save flag', () => {
     var opts = { save: false };
-    PlatformCmd.run(opts, ['add', 'cordova-plugin']);
-    td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));
+    return PlatformCmd.run(opts, ['add', 'cordova-plugin']).then(function() {
+      td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));
+    });
   });
 });

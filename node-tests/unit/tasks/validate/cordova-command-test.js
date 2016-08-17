@@ -1,7 +1,9 @@
 'use strict';
 
+/* eslint-disable max-len */
 const expect          = require('../../../helpers/expect');
 const ValidateCordova = require('../../../../lib/tasks/validate/cordova-installed');
+/* eslint-enable max-len */
 
 describe('Validate Cordova Installed Command', () => {
   let validateCordova;

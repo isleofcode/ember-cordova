@@ -9,7 +9,10 @@ describe('Verify Cordova Installed Task', () => {
   beforeEach(() => {
     execDouble = td.replace(childProcess, 'execSync');
 
+    /* eslint-disable max-len */
     const VerifyTask = require('../../../../lib/tasks/validate/cordova-installed');
+    /* eslint-enable max-len */
+
     verifyCmd = new VerifyTask({
       command: 'foo',
       options: {}
