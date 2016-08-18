@@ -10,7 +10,7 @@ const mockProject   = require('../../fixtures/ember-cordova-mock/project');
 const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
 
 describe('Open Command', () => {
-  let open, openDouble;
+  let open;
 
   beforeEach(() => {
     open = new OpenCmd({
@@ -19,7 +19,7 @@ describe('Open Command', () => {
       analytics: mockAnalytics
     });
 
-    openDouble = td.replace(
+    td.replace(
       OpenTask.prototype,
       'run',
       function() { return PromiseExt.resolve(); }
