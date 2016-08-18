@@ -81,8 +81,13 @@ platforms to config.xml (default is true).
 ### Prepare
 
 #### Description
-Handles running prepare, but will also fire the
-beforePrepare/afterPrepare hooks.
+Runs cordova prepare, but also fires beforePrepare/afterPrepare hooks.
+
+If plugins or platforms have been installed to a project with ember
+cdv:plugin/platform add foo, running ember cdv:prepare installs these
+packages on a fresh clone.
+
+Think of the usage similar to package.json /w npm install.
 
 #### Examples
 + `ember cordova:prepare`
