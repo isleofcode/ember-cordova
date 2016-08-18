@@ -9,6 +9,7 @@ const expect        = require('../../helpers/expect');
 const Promise       = require('ember-cli/lib/ext/promise');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
 const isObject      = td.matchers.isA(Object);
 
 describe('Cordova Command', () => {
@@ -19,9 +20,11 @@ describe('Cordova Command', () => {
       return Promise.resolve();
     });
 
-    CordovaCmd.ui = mockProject.ui;
-    CordovaCmd.project = mockProject.project;
-    cmd = CordovaCmd;
+    cmd = new CordovaCmd({
+      project: mockProject.project,
+      ui: mockProject.ui
+    });
+    cmd.analytics = mockAnalytics;
   });
 
   afterEach(() => {

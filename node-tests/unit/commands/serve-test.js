@@ -15,28 +15,28 @@ const PluginTask    = require('../../../lib/tasks/validate/plugin');
 const LRloadShellTask = require('../../../lib/tasks/create-livereload-shell');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
 
 describe('Serve Command', () => {
+  var serveCmd;
+
   afterEach(() => {
     td.reset();
   });
 
   beforeEach(() => {
-    ServeCmd.ui = mockProject.ui;
+    serveCmd = new ServeCmd({
+      project: mockProject.project,
+      ui: mockProject.ui
+    });
 
-    ServeCmd.project = mockProject.project;
-    ServeCmd.project.config = function() {
+    serveCmd.analytics = mockAnalytics;
+    serveCmd.project.config = function() {
       return {
         locationType: 'hash'
       }
     }
   });
-
-  function runServe(_options) {
-    let options = _options || {};
-
-    return ServeCmd.run(options);
-  }
 
   context('when locationType is hash', () => {
     let tasks = [];
@@ -89,28 +89,29 @@ describe('Serve Command', () => {
     }
 
     it('exits cleanly', () => {
-      expect(runServe).not.to.throw(Error);
+      return expect(function() {
+        serveCmd.run({})
+      }).not.to.throw(Error);
     });
 
     it('runs tasks in the correct order', () => {
-      return ServeCmd.run({})
-        .then(function() {
-          expect(tasks).to.deep.equal([
-            'validate-platform',
-            'validate-plugin',
-            'hook beforeBuild',
-            'create-livereload-shell',
-            'cordova-build',
-            'hook afterBuild',
-            'ember-build-serve'
-          ]);
-        });
+      return serveCmd.run({}).then(function() {
+        expect(tasks).to.deep.equal([
+          'validate-platform',
+          'validate-plugin',
+          'hook beforeBuild',
+          'create-livereload-shell',
+          'cordova-build',
+          'hook afterBuild',
+          'ember-build-serve'
+        ]);
+      });
     });
   });
 
   context('when locationType is not hash', () => {
     beforeEach(() => {
-      ServeCmd.project.config = function() {
+      serveCmd.project.config = function() {
         return {
           locationType: 'auto'
         };
@@ -122,7 +123,9 @@ describe('Serve Command', () => {
     });
 
     it('throws', () => {
-      expect(runServe).to.throw(Error);
+      return expect(function() {
+        serveCmd.run({})
+      }).to.throw(Error);
     });
   });
 });
