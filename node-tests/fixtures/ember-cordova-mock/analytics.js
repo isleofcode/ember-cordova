@@ -1,4 +1,5 @@
 module.exports = {
-  track: function() {
-  }
+  track: function() {},
+  trackTiming: function() {},
+  trackError: function() {}
 }
