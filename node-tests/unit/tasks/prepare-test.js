@@ -1,9 +1,7 @@
 'use strict';
 
 const td            = require('testdouble');
-const expect        = require('../../helpers/expect');
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const isObject      = td.matchers.isA(Object);
 const CdvRawTask    = require('../../../lib/tasks/cordova-raw');
 
 const setupPrepareTask = function() {
