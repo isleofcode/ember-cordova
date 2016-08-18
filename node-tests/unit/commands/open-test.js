@@ -7,12 +7,17 @@ const OpenCmd       = require('../../../lib/commands/open');
 const OpenTask      = require('../../../lib/tasks/open-app');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
 
 describe('Open Command', () => {
+  let open;
+
   beforeEach(() => {
-    OpenTask.prototype.project = mockProject;
-    OpenCmd.ui = mockProject.ui;
-    OpenCmd.project = mockProject.project;
+    open = new OpenCmd({
+      project: mockProject.project,
+      ui: mockProject.ui,
+      analytics: mockAnalytics
+    });
 
     td.replace(
       OpenTask.prototype,
@@ -22,14 +27,16 @@ describe('Open Command', () => {
   });
 
   afterEach(() => {
-    OpenTask.prototype.project = undefined;
     td.reset();
   });
 
   it('runs Open App Task', () => {
     var options =  { application: 'dummy', platform: 'ios' };
 
-    return OpenCmd.run.call({ project: mockProject }, options)
-      .then(function() { return true; });
+    console.log('running', open.analytics);
+    return open.run(options)
+      .then(function() {
+        return true;
+      });
   });
 });
