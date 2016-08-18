@@ -13,25 +13,6 @@ var Funnel                = require('broccoli-funnel');
 module.exports = {
   name: 'ember-cordova',
 
-  config: function(env, baseConfig) {
-    if (this.project.targetIsCordova) {
-      var conf = { cordova: {} };
-      if (!!this.project.RELOAD_PORT) {
-        //If cordova live reload, set the reload url
-        if (baseConfig.cordova && baseConfig.cordova.reloadUrl) {
-          conf.cordova.reloadUrl = baseConfig.cordova.reloadUrl;
-        } else {
-          var networkAddress = getNetworkIp();
-          var deviceServerUrl = 'http://' + networkAddress + ':' + this.project.RELOAD_PORT;
-
-          conf.cordova.reloadUrl = deviceServerUrl;
-        }
-      }
-
-      return conf;
-    }
-  },
-
   contentFor: function(type) {
     if (this.project.targetIsCordova && type === 'body') {
       return '<script src="cordova.js"></script>';

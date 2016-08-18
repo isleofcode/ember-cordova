@@ -1,6 +1,6 @@
 {
   "name": "ember-cordova",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Tooling for cordova and crosswalk hybrid applications built with Ember",
   "homepage": "https://github.com/isleofcode/ember-cordova",
   "repository": {
@@ -64,6 +64,7 @@
     "fs-extra": "^0.26.5",
     "lodash": "^4.13.1",
     "portfinder": "^1.0.5",
+    "rimraf": "^2.5.4",
     "rsvp": "^3.2.1",
     "splicon": "0.0.3",
     "svg2png": "^3.0.0",

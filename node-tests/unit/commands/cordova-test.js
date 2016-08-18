@@ -2,7 +2,7 @@
 
 const BashTask      = require('../../../lib/tasks/bash');
 const CordovaCmd    = require('../../../lib/commands/cordova');
-const VerifyInstall = require('../../../lib/tasks/verify-cordova-installed');
+const VerifyInstall = require('../../../lib/tasks/validate/cordova-installed');
 
 const td            = require('testdouble');
 const expect        = require('../../helpers/expect');

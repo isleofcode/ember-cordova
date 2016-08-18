@@ -1,15 +1,15 @@
 'use strict';
 
 const td            = require('testdouble');
-const expect        = require('../../helpers/expect');
+const expect        = require('../../../helpers/expect');
 const Promise       = require('ember-cli/lib/ext/promise');
 
-const PlatformTask  = require('../../../lib/tasks/validate-platform');
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const CordovaValidator = require('../../../lib/utils/cordova-validator');
+const PluginTask    = require('../../../../lib/tasks/validate/plugin');
+const mockProject   = require('../../../fixtures/ember-cordova-mock/project');
+const CordovaValidator = require('../../../../lib/utils/cordova-validator');
 
-describe('Validate Platform Tasks', () => {
-  let tasks, validatePlatform;
+describe('Validate Plugin Tasks', () => {
+  let tasks, validatePlugin;
 
   afterEach(() => {
     td.reset();
@@ -17,7 +17,8 @@ describe('Validate Platform Tasks', () => {
 
   beforeEach(() => {
     tasks = [];
-    validatePlatform = new PlatformTask({
+
+    validatePlugin = new PluginTask({
       project: mockProject.project,
       platform: 'ios'
     });
@@ -36,6 +37,11 @@ describe('Validate Platform Tasks', () => {
       return Promise.resolve();
     });
 
+    td.replace(CordovaValidator.prototype, 'validatePluginJSON', () => {
+      tasks.push('validate-plugin-json');
+      return Promise.resolve();
+    });
+
     td.replace(CordovaValidator.prototype, 'validateDirExists', () => {
       tasks.push('validate-dir');
       return Promise.resolve();
@@ -43,16 +49,12 @@ describe('Validate Platform Tasks', () => {
   }
 
   it('runs validations in the correct order', () => {
-    var validatePlatform = new PlatformTask({
-      project: mockProject.project,
-      platform: 'ios'
-    });
-
-    return validatePlatform.run()
+    return validatePlugin.run()
     .then(function() {
       expect(tasks).to.deep.equal([
         'validate-cordova-config',
         'validate-cordova-json',
+        'validate-plugin-json',
         'validate-dir'
       ]);
     });
@@ -62,19 +64,19 @@ describe('Validate Platform Tasks', () => {
     var validator;
 
     beforeEach(() => {
-      validator = validatePlatform.createValidator();
+      validator = validatePlugin.createValidator();
     });
 
-    it('sets type to platform', () => {
-      expect(validator.type).to.equal('platform');
+    it('sets type to plugin', () => {
+      expect(validator.type).to.equal('plugin');
     });
 
-    it('sets dir to platforms/', () => {
-      expect(validator.dir).to.equal('platforms/');
+    it('sets dir to plugins/', () => {
+      expect(validator.dir).to.equal('plugins/');
     });
 
     it('sets correct fetch json path', () => {
-      expect(validator.jsonPath).to.equal('platforms/platforms.json');
+      expect(validator.jsonPath).to.equal('plugins/fetch.json');
     });
   });
 });
