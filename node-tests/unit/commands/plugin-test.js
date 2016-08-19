@@ -5,14 +5,18 @@ const PluginCmd     = require('../../../lib/commands/plugin');
 const CdvRawTask    = require('../../../lib/tasks/cordova-raw');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
 const isAnything    = td.matchers.anything();
 
 describe('Plugin Command', () => {
-  let rawDouble;
+  let rawDouble, plugin;
 
   beforeEach(() => {
-    PluginCmd.ui = mockProject.ui;
-    PluginCmd.project = mockProject.project;
+    plugin = new PluginCmd({
+      project: mockProject.project,
+      ui: mockProject.ui
+    });
+    plugin.analytics = mockAnalytics;
 
     rawDouble = td.replace(CdvRawTask.prototype, 'run');
   });
@@ -22,13 +26,15 @@ describe('Plugin Command', () => {
   });
 
   it('passes command to Cordova Raw', () => {
-    PluginCmd.run({}, ['add', 'cordova-plugin'])
-    td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
+    return plugin.run({}, ['add', 'cordova-plugin']).then(function() {
+      td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
+    });
   });
 
   it('passes the save flag', () => {
     var opts = { save: false };
-    PluginCmd.run(opts, ['add', 'cordova-plugin']);
-    td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));
+    return plugin.run(opts, ['add', 'cordova-plugin']).then(function() {
+      td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));
+    });
   });
 });

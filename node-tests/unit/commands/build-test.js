@@ -10,31 +10,32 @@ const BuildCmd      = require('../../../lib/commands/build');
 const BuildTask     = require('../../../lib/tasks/ember-build');
 const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
 const HookTask      = require('../../../lib/tasks/run-hook');
-const PlatformTask  = require('../../../lib/tasks/validate-platform');
+const PlatformTask  = require('../../../lib/tasks/validate/platform');
 
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
 
 describe('Build Command', () => {
-  beforeEach(() => {
-    BuildCmd.ui = mockProject.ui;
+  let build;
 
-    BuildCmd.project = mockProject.project;
-    BuildCmd.project.config = function() {
+  beforeEach(() => {
+    var project = mockProject.project;
+    project.config = function() {
       return {
         locationType: 'hash'
       };
-    };
+    }
+
+    build = new BuildCmd({
+      project: project,
+      ui: mockProject.ui
+    });
+    build.analytics = mockAnalytics;
   });
 
   afterEach(() => {
     td.reset();
   });
-
-  function runBuild(_options) {
-    let options = _options || mockProject;
-
-    return BuildCmd.run(options);
-  }
 
   context('when locationType is hash', () => {
     let tasks;
@@ -70,11 +71,13 @@ describe('Build Command', () => {
     }
 
     it('exits cleanly', () => {
-      expect(runBuild).not.to.throw(Error);
+      return expect(function() {
+        build.run({});
+      }).not.to.throw(Error);
     });
 
     it('runs tasks in the correct order', () => {
-      return runBuild()
+      return build.run({})
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
@@ -89,7 +92,7 @@ describe('Build Command', () => {
     it('passes platform to cordova build task', () => {
       let passedPlatform = 'ios';
 
-      return runBuild({
+      return build.run({
         platform: passedPlatform
       }).then(function() {
         expect(cordovaPlatform).to.equal(passedPlatform);
@@ -99,7 +102,7 @@ describe('Build Command', () => {
 
   context('when locationType is not hash', () => {
     beforeEach(() => {
-      BuildCmd.project.config = function() {
+      build.project.config = function() {
         return {
           locationType: 'auto'
         };
@@ -112,7 +115,9 @@ describe('Build Command', () => {
     });
 
     it('throws', () => {
-      expect(runBuild).to.throw(Error);
+      return expect(function() {
+        build.run({});
+      }).to.throw(Error);
     });
   });
 });

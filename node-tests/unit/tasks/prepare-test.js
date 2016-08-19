@@ -2,7 +2,7 @@
 
 const td            = require('testdouble');
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const isObject      = td.matchers.isA(Object);
+const CdvRawTask    = require('../../../lib/tasks/cordova-raw');
 
 const setupPrepareTask = function() {
   const PrepareTask = require('../../../lib/tasks/prepare');
@@ -15,18 +15,10 @@ describe('Prepare Task', () => {
   });
 
   it('runs cordova prepare', () => {
-    const cdvPrepare = td.replace('cordova-lib/src/cordova/prepare');
+    let rawDouble = td.replace(CdvRawTask.prototype, 'run');
     let prepare = setupPrepareTask();
-
     prepare.run();
-    td.verify(cdvPrepare(isObject));
-  });
 
-  it('proxies via cordova run', () => {
-    const cordovaRun = td.replace('../../../lib/utils/cordova-run');
-    let prepare = setupPrepareTask();
-
-    prepare.run();
-    td.verify(cordovaRun(isObject, isObject, []));
+    td.verify(rawDouble());
   });
 });

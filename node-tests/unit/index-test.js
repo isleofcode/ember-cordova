@@ -29,47 +29,6 @@ describe('Index', () => {
   });
 
   context('with target cordova', function() {
-    describe('config', function() {
-      it('stubs a cordova conf object', function() {
-        let projectIndex = stubIndex();
-        delete projectIndex.project.RELOAD_PORT;
-
-        expect(projectIndex.config('', {})).to.deep.equal({ cordova: {} });
-      });
-
-      context('with liveReload', function() {
-        it('defaults reloadUrl to conf.reloadUrl', function() {
-          let projectIndex = stubIndex();
-
-          let args = {
-            cordova: {
-              reloadUrl: 'http://192.0.0.1:4200'
-            }
-          };
-
-          expect(
-            projectIndex.config('', args)
-          ).to.deep.equal(args)
-        });
-
-        it('detects reloadUrl if no default', function() {
-          td.replace('../../lib/utils/get-network-ip', function() {
-            return '192.0.0.2';
-          });
-          let projectIndex = stubIndex();
-
-          expect(
-            projectIndex.config('', {})
-          ).to.deep.equal({
-            cordova: {
-              reloadUrl: 'http://192.0.0.2:1'
-            }
-          })
-        });
-      });
-
-    });
-
     describe('contentFor', function() {
       it('adds a cordova script tag', function() {
         let projectIndex = stubIndex();
