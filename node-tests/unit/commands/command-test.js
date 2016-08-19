@@ -27,7 +27,7 @@ describe('Command', function() {
   });
 
   it('sets uuid if none exists', function(done) {
-    var uuidDouble = td.replace(Command.prototype, 'getUUID', function() {
+    td.replace(Command.prototype, 'getUUID', function() {
       done();
       return 'name';
     });
