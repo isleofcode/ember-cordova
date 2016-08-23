@@ -1,14 +1,16 @@
 'use strict';
 
 const td            = require('testdouble');
+const expect        = require('../../helpers/expect');
 const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+const Promise       = require('ember-cli/lib/ext/promise');
 const CreateCordova = require('../../../lib/tasks/create-cordova-project');
+const GitIgnore     = require('../../../lib/tasks/update-gitignore');
 
 describe('Blueprint Index', () => {
-  let index, createDouble;
+  let index;
 
   beforeEach(function() {
-    createDouble = td.replace(CreateCordova.prototype, 'run');
     index = require('../../../blueprints/ember-cordova/index');
     index.project = mockProject.project;
   });
@@ -17,13 +19,33 @@ describe('Blueprint Index', () => {
     td.reset();
   });
 
-  it('attempts to create a cordova project', function() {
-    index.afterInstall({});
-    td.verify(createDouble(undefined));
+
+  it('runs tasks in the correct order', function() {
+    let tasks = [];
+
+    td.replace(CreateCordova.prototype, 'run', function() {
+      tasks.push('create-cordova-project');
+      return Promise.resolve();
+    });
+
+    td.replace(GitIgnore.prototype, 'run', function() {
+      tasks.push('update-gitignore');
+      return Promise.resolve();
+    });
+
+    return index.afterInstall({}).then(function() {
+      expect(tasks).to.deep.equal([
+        'create-cordova-project',
+        'update-gitignore'
+      ]);
+    });
   });
 
   it('passes template path', function() {
+    td.replace(CreateCordova.prototype, 'run', function(path) {
+      expect(path).to.equal('templatePath');
+      return Promise.resolve();
+    });
     index.afterInstall({templatePath: 'templatePath'});
-    td.verify(createDouble('templatePath'));
   });
 });

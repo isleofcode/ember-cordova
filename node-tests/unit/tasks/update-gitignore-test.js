@@ -27,7 +27,7 @@ describe('Update gitignore Task', () => {
   });
 
   it('outputs an error message and resolves if write fails', function() {
-    var appendDouble = td.replace(fs, 'appendFileSync', function() {
+    td.replace(fs, 'appendFileSync', function() {
       throw new Error();
     });
     var task = createTask();
