@@ -1,6 +1,7 @@
 'use strict';
 
 var CreateTask        = require('../../lib/tasks/create-cordova-project');
+var GitIgnoreTask     = require('../../lib/tasks/update-gitignore');
 var camelize          = require('../../lib/utils/string.js').camelize;
 
 module.exports = {
@@ -42,6 +43,12 @@ module.exports = {
       ui: this.ui
     });
 
-    return create.run(options.templatePath);
+    var gitIgnore = new GitIgnoreTask({
+      project: this.project,
+      ui: this.ui
+    });
+
+    return create.run(options.templatePath)
+           .then(gitIgnore.prepare());
   }
 };
