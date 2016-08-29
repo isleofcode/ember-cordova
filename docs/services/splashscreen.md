@@ -19,6 +19,7 @@ https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-splashscreen/
 
 ### Usage
 
+#### Mixin
 The SplashScreenMixin (you'll likely want to use this) will add a callback to hide the splash screen in the `afterModel` hook of your Ember route.
 
 ```js
@@ -37,9 +38,8 @@ export default Route.extend(SplashscreenMixin, {
 });
 ```
 
+#### Service
 Alternately, you can inject the service into your route and use it directly:
-
-### Service Location
 
 ```js
 // app/routes/application.js
@@ -60,6 +60,12 @@ export default Route.extend(SplashscreenMixin, {
   }
   // ...
 });
+```
+
+### Service Location
+
+```js
+lookup('service:device/splashscreen');
 ```
 
 ### Service API
