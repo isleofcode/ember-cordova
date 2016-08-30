@@ -15,9 +15,9 @@ describe('Open Command', function() {
   beforeEach(function() {
     open = new OpenCmd({
       project: mockProject.project,
-      ui: mockProject.ui,
-      analytics: mockAnalytics
+      ui: mockProject.ui
     });
+    open.analytics = mockAnalytics;
 
     td.replace(
       OpenTask.prototype,
@@ -33,7 +33,6 @@ describe('Open Command', function() {
   it('runs Open App Task', function() {
     var options =  { application: 'dummy', platform: 'ios' };
 
-    console.log('running', open.analytics);
     return open.run(options)
       .then(function() {
         return true;

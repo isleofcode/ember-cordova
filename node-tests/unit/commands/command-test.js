@@ -13,12 +13,9 @@ describe('Command', function() {
   });
 
   var setupCmd = function() {
-    var cmd = new Command({
+    return new Command({
       project: mockProject.project
     });
-
-    cmd.analytics = mockAnalytics;
-    return cmd;
   };
 
   it('creates an analytics object on init', function() {
@@ -32,6 +29,7 @@ describe('Command', function() {
       return 'name';
     });
     var cmd = setupCmd();
+    cmd.analytics = mockAnalytics;
 
     cmd.run();
   });
