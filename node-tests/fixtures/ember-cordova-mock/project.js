@@ -1,7 +1,7 @@
 'use strict';
 
-const path   = require('path');
-const MockUI = require('ember-cli/tests/helpers/mock-ui');
+var path            = require('path');
+var MockUI          = require('ember-cli/tests/helpers/mock-ui');
 
 module.exports = {
   env: 'development',
