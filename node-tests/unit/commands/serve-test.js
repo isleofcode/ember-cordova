@@ -48,17 +48,17 @@ describe('Serve Command', function() {
     function mockTasks() {
       tasks = [];
 
-      td.replace(HookTask.prototype, 'run',  (hookName) => {
+      td.replace(HookTask.prototype, 'run', function(hookName) {
         tasks.push('hook ' + hookName);
         return Promise.resolve();
       });
 
-      td.replace(PlatformTask.prototype, 'run', (hookName) => {
+      td.replace(PlatformTask.prototype, 'run', function(hookName) {
         tasks.push('validate-platform');
         return Promise.resolve();
       });
 
-      td.replace(PluginTask.prototype, 'run', (hookName) => {
+      td.replace(PluginTask.prototype, 'run', function(hookName) {
         tasks.push('validate-plugin');
         return Promise.resolve();
       });

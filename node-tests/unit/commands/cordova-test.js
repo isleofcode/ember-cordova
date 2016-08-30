@@ -41,7 +41,7 @@ describe('Cordova Command', function() {
     expect(cmd.ui.output).to.contain('unknown Cordova command');
   });
 
-  it('proxies argument commands', (done) => {
+  it('proxies argument commands', function(done) {
     var bashDouble = td.replace(BashTask.prototype, 'runCommand');
 
     cmd.validateAndRun(['plugin add foo']).then(function() {

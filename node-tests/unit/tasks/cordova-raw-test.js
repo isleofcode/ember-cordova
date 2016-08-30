@@ -20,7 +20,7 @@ describe('Cordova Raw Task', function() {
     td.reset();
   });
 
-  it('attempts to run a raw cordova call', (done) => {
+  it('attempts to run a raw cordova call', function(done) {
     td.replace(cordovaProj.raw, 'platform', function() {
       done();
     });

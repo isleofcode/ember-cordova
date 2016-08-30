@@ -31,7 +31,7 @@ describe('Open App Task', function() {
 
   it('runs open command for ios', function() {
     openApp.run();
-    var expectedPath = `${cdvPath}/platforms/ios/*.xcodeproj`;
+    var expectedPath = cdvPath + '/platforms/ios/*.xcodeproj';
     var expectedCmd  = openCommand(expectedPath);
     td.verify(bashDouble(expectedCmd, isObject));
   });
@@ -40,7 +40,7 @@ describe('Open App Task', function() {
     openApp.platform = 'android';
     openApp.run();
 
-    var expectedPath = `${cdvPath}/platforms/android/.project`;
+    var expectedPath = cdvPath + '/platforms/android/.project';
     var expectedCmd  = openCommand(expectedPath);
     td.verify(bashDouble(expectedCmd, isObject));
   }),

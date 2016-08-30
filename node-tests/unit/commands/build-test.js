@@ -53,7 +53,7 @@ describe('Build Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(HookTask.prototype, 'run',  (hookName) => {
+      td.replace(HookTask.prototype, 'run', function(hookName) {
         tasks.push('hook ' + hookName);
         return Promise.resolve();
       });
@@ -62,7 +62,7 @@ describe('Build Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(CdvBuildTask.prototype, 'run', (_cordovaPlatform) => {
+      td.replace(CdvBuildTask.prototype, 'run', function(_cordovaPlatform) {
         cordovaPlatform = _cordovaPlatform;
 
         tasks.push('cordova-build');

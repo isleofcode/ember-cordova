@@ -22,11 +22,11 @@ describe('Prepare Command', function() {
     });
     prepare.analytics = mockAnalytics;
 
-    td.replace(PrepareTask.prototype, 'run', (hookName) => {
+    td.replace(PrepareTask.prototype, 'run', function(hookName) {
       tasks.push('prepare');
     });
 
-    td.replace(HookTask.prototype, 'run',  (hookName) => {
+    td.replace(HookTask.prototype, 'run', function(hookName) {
       tasks.push('hook ' + hookName);
       return Promise.resolve();
     });
