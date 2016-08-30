@@ -44,11 +44,10 @@ Alternately, you can inject the service into your route and use it directly:
 ```js
 // app/routes/application.js
 import Ember from 'ember';
-import SplashscreenMixin from 'ember-cordova/mixins/device/splashscreen';
 
 const { Route } = Ember;
 
-export default Route.extend(SplashscreenMixin, {
+export default Route.extend({
   splashScreenService: Ember.inject.service('device/splashscreen'),
 
   beforeModel() {
