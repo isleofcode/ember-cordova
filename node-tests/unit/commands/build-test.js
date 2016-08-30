@@ -1,24 +1,24 @@
 'use strict';
 
-const td            = require('testdouble');
+var td              = require('testdouble');
 
-const ui            = require('../../../lib/utils/ui');
-const expect        = require('../../helpers/expect');
-const Promise       = require('ember-cli/lib/ext/promise');
+var ui              = require('../../../lib/utils/ui');
+var expect          = require('../../helpers/expect');
+var Promise         = require('ember-cli/lib/ext/promise');
 
-const BuildCmd      = require('../../../lib/commands/build');
-const BuildTask     = require('../../../lib/tasks/ember-build');
-const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
-const HookTask      = require('../../../lib/tasks/run-hook');
-const PlatformTask  = require('../../../lib/tasks/validate/platform');
+var BuildCmd        = require('../../../lib/commands/build');
+var BuildTask       = require('../../../lib/tasks/ember-build');
+var CdvBuildTask    = require('../../../lib/tasks/cordova-build');
+var HookTask        = require('../../../lib/tasks/run-hook');
+var PlatformTask    = require('../../../lib/tasks/validate/platform');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
 
-describe('Build Command', () => {
-  let build;
+describe('Build Command', function() {
+  var build;
 
-  beforeEach(() => {
+  beforeEach(function() {
     var project = mockProject.project;
     project.config = function() {
       return {
@@ -33,22 +33,22 @@ describe('Build Command', () => {
     build.analytics = mockAnalytics;
   });
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  context('when locationType is hash', () => {
-    let tasks;
-    let cordovaPlatform;
+  context('when locationType is hash', function() {
+    var tasks;
+    var cordovaPlatform;
 
-    beforeEach(() => {
+    beforeEach(function() {
       mockTasks();
     });
 
     function mockTasks() {
       tasks = [];
 
-      td.replace(PlatformTask.prototype, 'run', () => {
+      td.replace(PlatformTask.prototype, 'run', function() {
         tasks.push('check-platform');
         return Promise.resolve();
       });
@@ -58,7 +58,7 @@ describe('Build Command', () => {
         return Promise.resolve();
       });
 
-      td.replace(BuildTask.prototype, 'run', () => {
+      td.replace(BuildTask.prototype, 'run', function() {
         return Promise.resolve();
       });
 
@@ -70,13 +70,13 @@ describe('Build Command', () => {
       });
     }
 
-    it('exits cleanly', () => {
+    it('exits cleanly', function() {
       return expect(function() {
         build.run({});
       }).not.to.throw(Error);
     });
 
-    it('runs tasks in the correct order', () => {
+    it('runs tasks in the correct order', function() {
       return build.run({})
         .then(function() {
           //h-t ember-electron for the pattern
@@ -89,8 +89,8 @@ describe('Build Command', () => {
         });
     });
 
-    it('passes platform to cordova build task', () => {
-      let passedPlatform = 'ios';
+    it('passes platform to cordova build task', function() {
+      var passedPlatform = 'ios';
 
       return build.run({
         platform: passedPlatform
@@ -100,21 +100,21 @@ describe('Build Command', () => {
     });
   });
 
-  context('when locationType is not hash', () => {
-    beforeEach(() => {
+  context('when locationType is not hash', function() {
+    beforeEach(function() {
       build.project.config = function() {
         return {
           locationType: 'auto'
         };
       };
 
-      td.replace(ui, 'writeLine',  () => {
+      td.replace(ui, 'writeLine',  function() {
         throw new Error('Exit Called');
       });
 
     });
 
-    it('throws', () => {
+    it('throws', function() {
       return expect(function() {
         build.run({});
       }).to.throw(Error);

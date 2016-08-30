@@ -1,22 +1,22 @@
 'use strict';
 
-const BashTask      = require('../../../lib/tasks/bash');
-const CordovaCmd    = require('../../../lib/commands/cordova');
-const VerifyInstall = require('../../../lib/tasks/validate/cordova-installed');
+var BashTask      = require('../../../lib/tasks/bash');
+var CordovaCmd    = require('../../../lib/commands/cordova');
+var VerifyInstall = require('../../../lib/tasks/validate/cordova-installed');
 
-const td            = require('testdouble');
-const expect        = require('../../helpers/expect');
-const Promise       = require('ember-cli/lib/ext/promise');
+var td            = require('testdouble');
+var expect        = require('../../helpers/expect');
+var Promise       = require('ember-cli/lib/ext/promise');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
-const isObject      = td.matchers.isA(Object);
+var mockProject   = require('../../fixtures/ember-cordova-mock/project');
+var mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
+var isObject      = td.matchers.isA(Object);
 
-describe('Cordova Command', () => {
-  let cmd;
+describe('Cordova Command', function() {
+  var cmd;
 
-  beforeEach(() => {
-    td.replace(VerifyInstall.prototype, 'run', () => {
+  beforeEach(function() {
+    td.replace(VerifyInstall.prototype, 'run', function() {
       return Promise.resolve();
     });
 
@@ -27,24 +27,24 @@ describe('Cordova Command', () => {
     cmd.analytics = mockAnalytics;
   });
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  it('warns if an ember-cordova command is used', () => {
+  it('warns if an ember-cordova command is used', function() {
     cmd.validateAndRun(['build']);
     expect(cmd.ui.output).to.contain('bypassed ember-cordova command');
   });
 
-  it('warns if cordova command is unknown', () => {
+  it('warns if cordova command is unknown', function() {
     cmd.validateAndRun(['foo']);
     expect(cmd.ui.output).to.contain('unknown Cordova command');
   });
 
   it('proxies argument commands', (done) => {
-    const bashDouble = td.replace(BashTask.prototype, 'runCommand');
+    var bashDouble = td.replace(BashTask.prototype, 'runCommand');
 
-    cmd.validateAndRun(['plugin add foo']).then(() => {
+    cmd.validateAndRun(['plugin add foo']).then(function() {
       td.verify(bashDouble('cordova plugin add foo', isObject));
       done();
     }).catch(function(err) {

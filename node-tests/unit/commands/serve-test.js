@@ -1,30 +1,30 @@
 'use strict';
 
-const td            = require('testdouble');
-const expect        = require('../../helpers/expect');
-const Promise       = require('ember-cli/lib/ext/promise');
+var td              = require('testdouble');
+var expect          = require('../../helpers/expect');
+var Promise         = require('ember-cli/lib/ext/promise');
 
-const ui            = require('../../../lib/utils/ui');
-const ServeCmd      = require('../../../lib/commands/serve');
-const ServeTask     = require('../../../lib/tasks/serve');
-const CdvBuildTask  = require('../../../lib/tasks/cordova-build');
-const BashTask      = require('../../../lib/tasks/bash');
-const HookTask      = require('../../../lib/tasks/run-hook');
-const PlatformTask  = require('../../../lib/tasks/validate/platform');
-const PluginTask    = require('../../../lib/tasks/validate/plugin');
-const LRloadShellTask = require('../../../lib/tasks/create-livereload-shell');
+var ui              = require('../../../lib/utils/ui');
+var ServeCmd        = require('../../../lib/commands/serve');
+var ServeTask       = require('../../../lib/tasks/serve');
+var CdvBuildTask    = require('../../../lib/tasks/cordova-build');
+var BashTask        = require('../../../lib/tasks/bash');
+var HookTask        = require('../../../lib/tasks/run-hook');
+var PlatformTask    = require('../../../lib/tasks/validate/platform');
+var PluginTask      = require('../../../lib/tasks/validate/plugin');
+var LRloadShellTask = require('../../../lib/tasks/create-livereload-shell');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
 
-describe('Serve Command', () => {
+describe('Serve Command', function() {
   var serveCmd;
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  beforeEach(() => {
+  beforeEach(function() {
     serveCmd = new ServeCmd({
       project: mockProject.project,
       ui: mockProject.ui
@@ -38,10 +38,10 @@ describe('Serve Command', () => {
     }
   });
 
-  context('when locationType is hash', () => {
-    let tasks = [];
+  context('when locationType is hash', function() {
+    var tasks = [];
 
-    beforeEach(() => {
+    beforeEach(function() {
       mockTasks();
     });
 
@@ -63,22 +63,22 @@ describe('Serve Command', () => {
         return Promise.resolve();
       });
 
-      td.replace(LRloadShellTask.prototype, 'run', () => {
+      td.replace(LRloadShellTask.prototype, 'run', function() {
         tasks.push('create-livereload-shell');
         return Promise.resolve();
       });
 
-      td.replace(CdvBuildTask.prototype, 'run', () => {
+      td.replace(CdvBuildTask.prototype, 'run', function() {
         tasks.push('cordova-build');
         return Promise.resolve();
       });
 
-      td.replace(ServeTask.prototype, 'run', () => {
+      td.replace(ServeTask.prototype, 'run', function() {
         tasks.push('ember-build-serve');
         return Promise.resolve();
       });
 
-      td.replace(BashTask.prototype, 'run', () => {
+      td.replace(BashTask.prototype, 'run', function() {
         tasks.push('serve-bash');
         return Promise.resolve();
       });
@@ -88,13 +88,13 @@ describe('Serve Command', () => {
       });
     }
 
-    it('exits cleanly', () => {
+    it('exits cleanly', function() {
       return expect(function() {
         serveCmd.run({})
       }).not.to.throw(Error);
     });
 
-    it('runs tasks in the correct order', () => {
+    it('runs tasks in the correct order', function() {
       return serveCmd.run({}).then(function() {
         expect(tasks).to.deep.equal([
           'validate-platform',
@@ -109,20 +109,20 @@ describe('Serve Command', () => {
     });
   });
 
-  context('when locationType is not hash', () => {
-    beforeEach(() => {
+  context('when locationType is not hash', function() {
+    beforeEach(function() {
       serveCmd.project.config = function() {
         return {
           locationType: 'auto'
         };
       };
 
-      td.replace(ui, 'writeLine',  () => {
+      td.replace(ui, 'writeLine',  function() {
         throw new Error('Exit Called');
       });
     });
 
-    it('throws', () => {
+    it('throws', function() {
       return expect(function() {
         serveCmd.run({})
       }).to.throw(Error);

@@ -1,27 +1,27 @@
 'use strict';
 
 /* eslint-disable max-len */
-const expect          = require('../../../helpers/expect');
-const ValidateCordova = require('../../../../lib/tasks/validate/cordova-installed');
+var expect          = require('../../../helpers/expect');
+var ValidateCordova = require('../../../../lib/tasks/validate/cordova-installed');
 /* eslint-enable max-len */
 
-describe('Validate Cordova Installed Command', () => {
-  let validateCordova;
+describe('Validate Cordova Installed Command', function() {
+  var validateCordova;
   beforeEach(function() {
     validateCordova = new ValidateCordova();
   });
 
-  it('exits if command is not add or remove', () => {
+  it('exits if command is not add or remove', function() {
     expect(validateCordova.run([''])).to.eventually.be.rejected;
   });
 
-  it('correctly pulls a single plugin name', () => {
+  it('correctly pulls a single plugin name', function() {
     expect(
       validateCordova.run(['add', 'cordova-plugin'])
     ).to.eventually.deep.equal({command: 'add', args: ['cordova-plugin']});
   });
 
-  it('correctly pulls multiple plugin names', () => {
+  it('correctly pulls multiple plugin names', function() {
     var plugins = ['cordova-plugin', 'cordova-plugin-2'];
     expect(
       validateCordova.run(['add', 'cordova-plugin', 'cordova-plugin-2'])

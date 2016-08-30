@@ -1,14 +1,14 @@
 'use strict';
 
-const td            = require('testdouble');
-const expect        = require('../../helpers/expect');
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const Promise       = require('ember-cli/lib/ext/promise');
-const CreateCordova = require('../../../lib/tasks/create-cordova-project');
-const GitIgnore     = require('../../../lib/tasks/update-gitignore');
+var td              = require('testdouble');
+var expect          = require('../../helpers/expect');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var Promise         = require('ember-cli/lib/ext/promise');
+var CreateCordova   = require('../../../lib/tasks/create-cordova-project');
+var GitIgnore       = require('../../../lib/tasks/update-gitignore');
 
-describe('Blueprint Index', () => {
-  let index;
+describe('Blueprint Index', function() {
+  var index;
 
   beforeEach(function() {
     index = require('../../../blueprints/ember-cordova/index');
@@ -21,7 +21,7 @@ describe('Blueprint Index', () => {
 
 
   it('runs tasks in the correct order', function() {
-    let tasks = [];
+    var tasks = [];
 
     td.replace(CreateCordova.prototype, 'run', function() {
       tasks.push('create-cordova-project');

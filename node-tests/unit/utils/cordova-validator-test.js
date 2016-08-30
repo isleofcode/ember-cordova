@@ -1,16 +1,16 @@
 'use strict';
 
-const expect        = require('../../helpers/expect');
-const td            = require('testdouble');
-const fs            = require('fs');
+var expect          = require('../../helpers/expect');
+var td              = require('testdouble');
+var fs              = require('fs');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const CordovaValidator = require('../../../lib/utils/cordova-validator');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var CordovaValidator = require('../../../lib/utils/cordova-validator');
 
-describe('Cordova Validator', () => {
-  let validator;
+describe('Cordova Validator', function() {
+  var validator;
 
-  beforeEach(() => {
+  beforeEach(function() {
     td.replace(CordovaValidator.prototype, 'throwError');
 
     validator = new CordovaValidator({
@@ -23,18 +23,18 @@ describe('Cordova Validator', () => {
     });
   });
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  context('validateCordovaConfig', () => {
-    it('fulfills when config.xml holds the key', () => {
+  context('validateCordovaConfig', function() {
+    it('fulfills when config.xml holds the key', function() {
       return expect(
         validator.validateCordovaConfig()
       ).to.eventually.be.fulfilled;
     });
 
-    it('rejects when config.xml does not hold the key', () => {
+    it('rejects when config.xml does not hold the key', function() {
       validator.desiredKeyName = 'i-dont-exist';
       return expect(
         validator.validateCordovaConfig()
@@ -42,30 +42,30 @@ describe('Cordova Validator', () => {
     });
   });
 
-  context('validateCordovaJSON', () => {
-    it('fulfills when key is in json file', () => {
+  context('validateCordovaJSON', function() {
+    it('fulfills when key is in json file', function() {
       return expect(validator.validateCordovaJSON()).to.eventually.be.fulfilled;
     });
 
-    it('rejects when key is not in json file', () => {
+    it('rejects when key is not in json file', function() {
       validator.desiredKeyName = 'i-dont-exist';
       return expect(validator.validateCordovaJSON()).to.eventually.be.rejected;
     });
   });
 
-  context('validatePluginJSON', () => {
-    it('fulfills when key is in plugin json file', () => {
+  context('validatePluginJSON', function() {
+    it('fulfills when key is in plugin json file', function() {
       return expect(validator.validatePluginJSON()).to.eventually.be.fulfilled;
     });
 
-    it('rejects when key is not in plugin json file', () => {
+    it('rejects when key is not in plugin json file', function() {
       validator.desiredKeyName = 'i-dont-exist';
       return expect(validator.validatePluginJSON()).to.eventually.be.rejected;
     });
   });
 
-  context('validateDirExists', () => {
-    it('fulfills when plugin dir exists', () => {
+  context('validateDirExists', function() {
+    it('fulfills when plugin dir exists', function() {
       td.replace(fs, 'existsSync', function() {
         return true;
       });
@@ -73,7 +73,7 @@ describe('Cordova Validator', () => {
       return expect(validator.validateDirExists()).to.eventually.be.fulfilled;
     });
 
-    it('rejects when plugin dir does not exist', () => {
+    it('rejects when plugin dir does not exist', function() {
       td.replace(fs, 'existsSync', function() {
         return false;
       });

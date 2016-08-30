@@ -1,22 +1,22 @@
 'use strict';
 
-const RawTask       = require('../../../lib/tasks/cordova-raw');
-const td            = require('testdouble');
-const expect        = require('../../helpers/expect');
-const cordovaPath   = require('../../../lib/utils/cordova-path');
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const Promise       = require('ember-cli/lib/ext/promise');
-const cordovaProj   = require('cordova-lib').cordova;
+var RawTask         = require('../../../lib/tasks/cordova-raw');
+var td              = require('testdouble');
+var expect          = require('../../helpers/expect');
+var cordovaPath     = require('../../../lib/utils/cordova-path');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var Promise         = require('ember-cli/lib/ext/promise');
+var cordovaProj     = require('cordova-lib').cordova;
 
-describe('Cordova Raw Task', () => {
-  const setupTask = function() {
+describe('Cordova Raw Task', function() {
+  var setupTask = function() {
     return new RawTask({
       rawApi: 'platform',
       project: mockProject.project
     });
   };
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
@@ -25,12 +25,12 @@ describe('Cordova Raw Task', () => {
       done();
     });
 
-    let raw = setupTask();
+    var raw = setupTask();
     return raw.run();
   });
 
   describe('with a mock function', function() {
-    let chdirDouble;
+    var chdirDouble;
 
     beforeEach(function() {
       chdirDouble = td.replace(process, 'chdir');
@@ -40,18 +40,18 @@ describe('Cordova Raw Task', () => {
       });
     });
 
-    it('changes to cordova dir', () => {
+    it('changes to cordova dir', function() {
       var cdvPath = cordovaPath(mockProject.project);
-      let raw = setupTask();
+      var raw = setupTask();
 
       return raw.run().then(function() {
         td.verify(chdirDouble(cdvPath));
       });
     });
 
-    it('changes back to ember dir on completion', () => {
+    it('changes back to ember dir on compvarion', function() {
       var emberPath = process.cwd();
-      let raw = setupTask();
+      var raw = setupTask();
 
       return expect(
         raw.run().then(function() {
