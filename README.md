@@ -15,11 +15,8 @@ It includes a CLI for builds, hooks, device event bindings, and handles splash s
 
 ## Platforms & Requirements
 
-ember-cordova has been tested and works on Ember 1.13 &
-greater, including 2+.
-
-When push comes to shove we are likely to only support Ember 2.4 or
-greater.
+- Ember 1.13 & above. Lower will probably work but is untested;
+- node 0.12 & above. 0.11/10 will probably work, but are untested;
 
 ## Getting Started
 
