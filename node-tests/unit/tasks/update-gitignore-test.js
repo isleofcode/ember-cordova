@@ -1,12 +1,12 @@
 'use strict';
 
-const td            = require('testdouble');
-const fs            = require('fs');
-const expect        = require('../../helpers/expect');
-const GitIgnore     = require('../../../lib/tasks/update-gitignore');
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+var td              = require('testdouble');
+var fs              = require('fs');
+var expect          = require('../../helpers/expect');
+var GitIgnore       = require('../../../lib/tasks/update-gitignore');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 
-describe('Update gitignore Task', () => {
+describe('Update gitignore Task', function() {
   beforeEach(function() {
     td.reset();
   });

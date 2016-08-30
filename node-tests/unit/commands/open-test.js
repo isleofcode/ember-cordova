@@ -1,18 +1,18 @@
 'use strict';
 
-const td            = require('testdouble');
-const PromiseExt    = require('ember-cli/lib/ext/promise');
+var td              = require('testdouble');
+var PromiseExt      = require('ember-cli/lib/ext/promise');
 
-const OpenCmd       = require('../../../lib/commands/open');
-const OpenTask      = require('../../../lib/tasks/open-app');
+var OpenCmd         = require('../../../lib/commands/open');
+var OpenTask        = require('../../../lib/tasks/open-app');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
 
-describe('Open Command', () => {
-  let open;
+describe('Open Command', function() {
+  var open;
 
-  beforeEach(() => {
+  beforeEach(function() {
     open = new OpenCmd({
       project: mockProject.project,
       ui: mockProject.ui,
@@ -26,11 +26,11 @@ describe('Open Command', () => {
     );
   });
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  it('runs Open App Task', () => {
+  it('runs Open App Task', function() {
     var options =  { application: 'dummy', platform: 'ios' };
 
     console.log('running', open.analytics);

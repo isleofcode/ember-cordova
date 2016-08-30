@@ -1,26 +1,26 @@
 'use strict';
 
-const td            = require('testdouble');
-const fs            = require('fs');
-const path          = require('path');
-const expect        = require('../../helpers/expect');
+var td              = require('testdouble');
+var fs              = require('fs');
+var path            = require('path');
+var expect          = require('../../helpers/expect');
 
-const cordovaProj   = require('cordova-lib').cordova;
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const isObject      = td.matchers.isA(Object);
-const isString      = td.matchers.isA(String);
+var cordovaProj     = require('cordova-lib').cordova;
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var isObject        = td.matchers.isA(Object);
+var isString        = td.matchers.isA(String);
 
-describe('Cordova Create Task', () => {
-  let create, rawDouble;
+describe('Cordova Create Task', function() {
+  var create, rawDouble;
 
-  const setupCreateTask = function() {
+  var setupCreateTask = function() {
     rawDouble = td.replace(cordovaProj.raw, 'create');
-    const CreateCdvTask = require('../../../lib/tasks/create-cordova-project');
+    var CreateCdvTask = require('../../../lib/tasks/create-cordova-project');
     create = new CreateCdvTask(mockProject);
   };
 
-  beforeEach(() => {
-    td.replace(fs, 'mkdirSync', () => {
+  beforeEach(function() {
+    td.replace(fs, 'mkdirSync', function() {
       return true;
     });
 
@@ -29,12 +29,12 @@ describe('Cordova Create Task', () => {
     });
   });
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  it('creates an ember-cordova directory if one does not exist', () => {
-    const expectedPath = path.resolve(
+  it('creates an ember-cordova directory if one does not exist', function() {
+    var expectedPath = path.resolve(
       __dirname, '..', '..',
       'fixtures',
       'ember-cordova-mock',
@@ -48,13 +48,13 @@ describe('Cordova Create Task', () => {
     td.verify(fs.mkdirSync(expectedPath));
   });
 
-  it('calls cordova.create.raw', () => {
+  it('calls cordova.create.raw', function() {
     setupCreateTask();
     create.run();
     td.verify(rawDouble(isString, isString, isString, {}));
   });
 
-  it('forces camelcased ids and names', () => {
+  it('forces camelcased ids and names', function() {
     setupCreateTask();
     create.id = 'ember-cordova-app';
     create.name = 'ember-cordova-app';
@@ -66,7 +66,7 @@ describe('Cordova Create Task', () => {
     /* eslint-enable max-len */
   });
 
-  it('raises a warning if cordova project already exists', () => {
+  it('raises a warning if cordova project already exists', function() {
     td.replace(fs, 'existsSync', function() {
       return true;
     });

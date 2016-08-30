@@ -1,21 +1,21 @@
 'use strict';
 
-const td            = require('testdouble');
-const expect        = require('../../../helpers/expect');
-const Promise       = require('ember-cli/lib/ext/promise');
+var td              = require('testdouble');
+var expect          = require('../../../helpers/expect');
+var Promise         = require('ember-cli/lib/ext/promise');
 
-const PluginTask    = require('../../../../lib/tasks/validate/plugin');
-const mockProject   = require('../../../fixtures/ember-cordova-mock/project');
-const CordovaValidator = require('../../../../lib/utils/cordova-validator');
+var PluginTask      = require('../../../../lib/tasks/validate/plugin');
+var mockProject     = require('../../../fixtures/ember-cordova-mock/project');
+var CordovaValidator = require('../../../../lib/utils/cordova-validator');
 
-describe('Validate Plugin Tasks', () => {
-  let tasks, validatePlugin;
+describe('Validate Plugin Tasks', function() {
+  var tasks, validatePlugin;
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  beforeEach(() => {
+  beforeEach(function() {
     tasks = [];
 
     validatePlugin = new PluginTask({
@@ -27,28 +27,28 @@ describe('Validate Plugin Tasks', () => {
   });
 
   function mockTasks() {
-    td.replace(CordovaValidator.prototype, 'validateCordovaConfig', () => {
+    td.replace(CordovaValidator.prototype, 'validateCordovaConfig', function() {
       tasks.push('validate-cordova-config');
       return Promise.resolve();
     });
 
-    td.replace(CordovaValidator.prototype, 'validateCordovaJSON', () => {
+    td.replace(CordovaValidator.prototype, 'validateCordovaJSON', function() {
       tasks.push('validate-cordova-json');
       return Promise.resolve();
     });
 
-    td.replace(CordovaValidator.prototype, 'validatePluginJSON', () => {
+    td.replace(CordovaValidator.prototype, 'validatePluginJSON', function() {
       tasks.push('validate-plugin-json');
       return Promise.resolve();
     });
 
-    td.replace(CordovaValidator.prototype, 'validateDirExists', () => {
+    td.replace(CordovaValidator.prototype, 'validateDirExists', function() {
       tasks.push('validate-dir');
       return Promise.resolve();
     });
   }
 
-  it('runs validations in the correct order', () => {
+  it('runs validations in the correct order', function() {
     return validatePlugin.run()
     .then(function() {
       expect(tasks).to.deep.equal([
@@ -63,19 +63,19 @@ describe('Validate Plugin Tasks', () => {
   context('validator object', function() {
     var validator;
 
-    beforeEach(() => {
+    beforeEach(function() {
       validator = validatePlugin.createValidator();
     });
 
-    it('sets type to plugin', () => {
+    it('sets type to plugin', function() {
       expect(validator.type).to.equal('plugin');
     });
 
-    it('sets dir to plugins/', () => {
+    it('sets dir to plugins/', function() {
       expect(validator.dir).to.equal('plugins/');
     });
 
-    it('sets correct fetch json path', () => {
+    it('sets correct fetch json path', function() {
       expect(validator.jsonPath).to.equal('plugins/fetch.json');
     });
   });
