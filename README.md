@@ -47,9 +47,9 @@ If you already have a Cordova project at ember-cordova/cordova it will not be ov
 3. As a final step, add your desired platforms, e.g.:
 
 ```cli
-ember cdv platform add ios
-ember cdv platform add android
-ember cdv platform add browser #experimental
+ember cdv:platform add ios
+ember cdv:platform add android
+ember cdv:platform add browser #experimental
 ```
 
 Cordova working relies on the cordova.js script being injected. By default, this happens using ember cdv commands. Your vanilla ember build && ember s commands will not inject cordova.js by design.
