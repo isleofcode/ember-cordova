@@ -4,9 +4,13 @@ var td              = require('testdouble');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var CdvRawTask      = require('../../../lib/tasks/cordova-raw');
 
-var setupBuildTask = function() {
-  var CdvBuildTask = require('../../../lib/tasks/cordova-build');
-  return new CdvBuildTask(mockProject);
+const setupBuildTask = function() {
+  const CdvBuildTask = require('../../../lib/tasks/cordova-build');
+  return new CdvBuildTask({
+    project: mockProject.project,
+    ui: mockProject.ui,
+    platform: 'ios'
+  });
 };
 
 describe('Cordova Build Task', function() {
@@ -14,35 +18,61 @@ describe('Cordova Build Task', function() {
     td.reset();
   });
 
-  it('creates a raw build task', function() {
-    var cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    var build = setupBuildTask();
-    build.run('ios');
+  it('creates a raw build task', () => {
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
+    let build = setupBuildTask();
+    build.run();
 
-    td.verify(cdvBuild({platforms: ['ios'], options: ['--debug']}));
+    td.verify(cdvBuild({
+      platforms: ['ios'],
+      options: ['--debug', '--emulator']
+    }));
   });
 
-  it('sets platform to android', function() {
-    var cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    var build = setupBuildTask();
-    build.run('android');
+  it('sets platform to android', () => {
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
+    let build = setupBuildTask();
+    build.platform = 'android';
+    build.run();
 
-    td.verify(cdvBuild({platforms: ['android'], options: ['--debug']}));
+    td.verify(cdvBuild({
+      platforms: ['android'],
+      options: ['--debug', '--emulator']
+    }));
   });
 
-  it('passes debug flag by default', function() {
-    var cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    var build = setupBuildTask();
-    build.run('ios', false);
+  it('passes debug flag by default', () => {
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
+    let build = setupBuildTask();
+    build.run();
 
-    td.verify(cdvBuild({platforms: ['ios'], options: ['--debug']}));
+    td.verify(cdvBuild({
+      platforms: ['ios'],
+      options: ['--debug', '--emulator']
+    }));
   });
 
-  it('sets release flag when passed', function() {
-    var cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    var build = setupBuildTask();
-    build.run('ios', true);
+  it('sets release flag when passed', () => {
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
+    let build = setupBuildTask();
+    build.isRelease = true;
+    build.run();
 
-    td.verify(cdvBuild({platforms: ['ios'], options: ['--release']}));
+    td.verify(cdvBuild({
+      platforms: ['ios'],
+      options: ['--release', '--emulator']
+    }));
+  });
+
+  it('sets device flag when passed', () => {
+    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
+    let build = setupBuildTask();
+    build.isEmulator = false;
+    build.run();
+
+    td.verify(cdvBuild({
+      platforms: ['ios'],
+      options: ['--debug', '--device']
+    }));
   });
 });
