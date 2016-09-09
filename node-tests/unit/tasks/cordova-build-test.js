@@ -13,60 +13,182 @@ const setupBuildTask = function() {
   });
 };
 
-describe('Cordova Build Task', function() {
-  afterEach(function() {
+describe('Cordova Build Task', () => {
+  let cdvBuild, build;
+
+  beforeEach(() => {
+    cdvBuild = td.replace(CdvRawTask.prototype, 'run');
+    build = setupBuildTask();
+  });
+
+  afterEach(() => {
     td.reset();
   });
 
-  it('creates a raw build task', () => {
-    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    let build = setupBuildTask();
-    build.run();
+  describe('platform', () => {
+    const DEFAULT_OPTS = ['--debug', '--emulator'];
 
-    td.verify(cdvBuild({
-      platforms: ['ios'],
-      options: ['--debug', '--emulator']
-    }));
+    context('when ios', () => {
+      it('creates a raw ios build task', () => {
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: ['ios'],
+          options: DEFAULT_OPTS
+        }));
+      });
+    });
+
+    context('when android', () => {
+      it('sets platform to android', () => {
+        build.platform = 'android';
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: ['android'],
+          options: DEFAULT_OPTS
+        }));
+      });
+    });
   });
 
-  it('sets platform to android', () => {
-    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    let build = setupBuildTask();
-    build.platform = 'android';
-    build.run();
+  describe('isRelease', () => {
+    const DEFAULT_PLATFORMS = ['ios'];
+    const BASE_OPTIONS = ['--emulator'];
 
-    td.verify(cdvBuild({
-      platforms: ['android'],
-      options: ['--debug', '--emulator']
-    }));
+    context('when not explicitly defined', () => {
+      it('passes --debug', () => {
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: ['--debug'].concat(BASE_OPTIONS)
+        }));
+      });
+    });
+
+    context('when true', () => {
+      it('passes --release', () => {
+        build.isRelease = true;
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: ['--release'].concat(BASE_OPTIONS)
+        }));
+      });
+    });
+
+    context('when false', () => {
+      it('passes --debug', () => {
+        build.isRelease = false;
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: ['--debug'].concat(BASE_OPTIONS)
+        }));
+      });
+    });
   });
 
-  it('passes debug flag by default', () => {
-    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    let build = setupBuildTask();
-    build.run();
+  describe('isEmulator', () => {
+    const DEFAULT_PLATFORMS = ['ios'];
+    const DEFAULT_OPTS = ['--debug'];
 
-    td.verify(cdvBuild({
-      platforms: ['ios'],
-      options: ['--debug', '--emulator']
-    }));
+    context('when not explicitly defined', () => {
+      it('passes --emulator', () => {
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: DEFAULT_OPTS.concat('--emulator')
+        }));
+      });
+    });
+
+    context('when true', () => {
+      it('passes --device', () => {
+        build.isEmulator = true;
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: DEFAULT_OPTS.concat('--emulator')
+        }));
+      });
+    });
+
+    context('when false', () => {
+      it('passes --emulator', () => {
+        build.isEmulator = false;
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: DEFAULT_OPTS.concat('--device')
+        }));
+      });
+    });
   });
 
-  it('sets release flag when passed', () => {
-    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    let build = setupBuildTask();
-    build.isRelease = true;
-    build.run();
+  describe('buildConfig', () => {
+    const DEFAULT_PLATFORMS = ['ios'];
+    const DEFAULT_OPTS = ['--debug', '--emulator'];
 
-    td.verify(cdvBuild({
-      platforms: ['ios'],
-      options: ['--release', '--emulator']
-    }));
+    context('when not passed', () => {
+      it('does not pass buildConfig', () => {
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: DEFAULT_OPTS
+        }));
+      });
+    });
+
+    context('when passed', () => {
+      it('passes --buildConfig', () => {
+        build.buildConfig = 'foo';
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: DEFAULT_OPTS.concat('--buildConfig=foo')
+        }));
+      });
+    });
+  });
+
+  describe('platformOpts', () => {
+    const DEFAULT_PLATFORMS = ['ios'];
+    const DEFAULT_OPTS = ['--debug', '--emulator'];
+
+    context('when not passed', () => {
+      it('does not pass platformOpts', () => {
+        build.run();
+
+        td.verify(cdvBuild({
+          platforms: DEFAULT_PLATFORMS,
+          options: DEFAULT_OPTS
+        }));
+      });
+    });
+
+    context('when key values are undefined', () => {
+      it('does not pass platformOpts', () => {
+
+      });
+    });
+
+    context('when key values are defined', () => {
+      it('does not pass platformOpts', () => {
+
+      });
+    });
   });
 
   it('sets device flag when passed', () => {
-    const cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    let build = setupBuildTask();
     build.isEmulator = false;
     build.run();
 

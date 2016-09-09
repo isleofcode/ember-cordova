@@ -89,13 +89,82 @@ describe('Build Command', function() {
         });
     });
 
-    it('passes platform to cordova build task', function() {
-      var passedPlatform = 'ios';
+    describe('platform', () => {
+      context('when no platform is passed', () => {
+        it('platform eq ios', () => {
+          // ...
+        });
+      });
+      context('when passedPlatform is ios', () => {
+        it('platform eq ios', () => {
+          // ...
+        });
+      });
+      context('when passedPlatform is android', () => {
+        it('platform eq android', () => {
+          // ...
+        });
+      });
+    });
 
-      return build.run({
-        platform: passedPlatform
-      }).then(function() {
-        expect(cordovaPlatform).to.equal(passedPlatform);
+    describe('isRelease', () => {
+      context('when release is false', () => {
+        it('isRelease eq false', () => {
+          // ...
+        });
+      });
+      context('when release is true', () => {
+        it('isRelease eq true', () => {
+          // ...
+        });
+      });
+    });
+
+    describe('isEmulator', () => {
+      context('when device is false', () => {
+        it('isEmulator eq true', () => {
+          // ...
+        });
+      });
+      context('when device is true', () => {
+        it('device eq false', () => {
+          // ...
+        });
+      });
+    });
+
+    describe('buildConfig', () => {
+      context('when not passed', () => {
+        it('does not append buildConfig to options', () => {
+          // ...
+        });
+      });
+      context('when buildConfig is passed', () => {
+        it('appends buildConfig options to options', () => {
+          // ...
+        });
+      });
+    });
+
+    describe('platformOpts', () => {
+      context('when platform is ios', () => {
+        it('passes ios options to CdvBuildTask', () => {
+          // ...
+        });
+
+        it('filters out android options', () => {
+          // ...
+        });
+      });
+
+      context('when platform is android', () => {
+        it('passes android options to CdvBuildTask', () => {
+          // ...
+        });
+
+        it('filters out ios options', () => {
+          // ...
+        });
       });
     });
   });
