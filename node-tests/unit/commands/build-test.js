@@ -89,20 +89,25 @@ describe('Build Command', function() {
         });
     });
 
-    describe('platform', () => {
-      context('when no platform is passed', () => {
-        it('platform eq ios', () => {
-          // ...
+    context('when passedPlatform is ios', () => {
+      it('platform eq ios', () => {
+        let passedPlatform = 'ios';
+
+        return build.run({
+          platform: passedPlatform
+        }).then(function() {
+          expect(cordovaPlatform).to.equal(passedPlatform);
         });
       });
-      context('when passedPlatform is ios', () => {
-        it('platform eq ios', () => {
-          // ...
-        });
-      });
-      context('when passedPlatform is android', () => {
-        it('platform eq android', () => {
-          // ...
+    });
+    context('when passedPlatform is android', () => {
+      it('platform eq android', () => {
+        let passedPlatform = 'android';
+
+        return build.run({
+          platform: passedPlatform
+        }).then(function() {
+          expect(cordovaPlatform).to.equal(passedPlatform);
         });
       });
     });
@@ -127,7 +132,7 @@ describe('Build Command', function() {
         });
       });
       context('when device is true', () => {
-        it('device eq false', () => {
+        it('isEmulator eq false', () => {
           // ...
         });
       });
