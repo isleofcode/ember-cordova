@@ -1,4 +1,5 @@
 'use strict';
+const parsePlatformOpts = require('../../../lib/utils/parse-platform-opts');
 
 var td              = require('testdouble');
 
@@ -37,9 +38,9 @@ describe('Build Command', function() {
     td.reset();
   });
 
-  context('when locationType is hash', function() {
-    var tasks;
-    var cordovaPlatform;
+  context('when locationType is hash', () => {
+    let tasks;
+    let cordovaOptions;
 
     beforeEach(function() {
       mockTasks();
@@ -62,8 +63,8 @@ describe('Build Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(CdvBuildTask.prototype, 'run', function(_cordovaPlatform) {
-        cordovaPlatform = _cordovaPlatform;
+      td.replace(CdvBuildTask.prototype, 'run', (_cordovaOptions) => {
+        cordovaOptions = _cordovaOptions;
 
         tasks.push('cordova-build');
         return Promise.resolve();
@@ -96,7 +97,7 @@ describe('Build Command', function() {
         return build.run({
           platform: passedPlatform
         }).then(function() {
-          expect(cordovaPlatform).to.equal(passedPlatform);
+          expect(cordovaOptions.platform).to.equal(passedPlatform);
         });
       });
     });
@@ -107,7 +108,7 @@ describe('Build Command', function() {
         return build.run({
           platform: passedPlatform
         }).then(function() {
-          expect(cordovaPlatform).to.equal(passedPlatform);
+          expect(cordovaOptions.platform).to.equal(passedPlatform);
         });
       });
     });
@@ -115,12 +116,28 @@ describe('Build Command', function() {
     describe('isRelease', () => {
       context('when release is false', () => {
         it('isRelease eq false', () => {
-          // ...
+          let passedPlatform = 'ios';
+          let passedRelease = false;
+
+          return build.run({
+            platform: passedPlatform,
+            isRelease: passedRelease,
+          }).then(function() {
+            expect(cordovaOptions.isRelease).to.equal(passedRelease);
+          });
         });
       });
       context('when release is true', () => {
         it('isRelease eq true', () => {
-          // ...
+          let passedPlatform = 'ios';
+          let passedRelease = true;
+
+          return build.run({
+            platform: passedPlatform,
+            isRelease: passedRelease,
+          }).then(function() {
+            expect(cordovaOptions.isRelease).to.equal(passedRelease);
+          });
         });
       });
     });
@@ -128,12 +145,28 @@ describe('Build Command', function() {
     describe('isEmulator', () => {
       context('when device is false', () => {
         it('isEmulator eq true', () => {
-          // ...
+          let passedPlatform = 'ios';
+          let passedDevice = false;
+
+          return build.run({
+            platform: passedPlatform,
+            isEmulator: passedDevice,
+          }).then(function() {
+            expect(cordovaOptions.isEmulator).to.equal(passedDevice);
+          });
         });
       });
       context('when device is true', () => {
         it('isEmulator eq false', () => {
-          // ...
+          let passedPlatform = 'ios';
+          let passedDevice = true;
+
+          return build.run({
+            platform: passedPlatform,
+            isEmulator: passedDevice,
+          }).then(function() {
+            expect(cordovaOptions.isEmulator).to.equal(passedDevice);
+          });
         });
       });
     });
@@ -141,12 +174,27 @@ describe('Build Command', function() {
     describe('buildConfig', () => {
       context('when not passed', () => {
         it('does not append buildConfig to options', () => {
-          // ...
+          let passedPlatform = 'ios';
+          let passedBuildConfig = undefined;
+
+          return build.run({
+            platform: passedPlatform,
+          }).then(function() {
+            expect(cordovaOptions.buildConfig).to.equal(passedBuildConfig);
+          });
         });
       });
       context('when buildConfig is passed', () => {
         it('appends buildConfig options to options', () => {
-          // ...
+          let passedPlatform = 'ios';
+          let passedBuildConfig = '/foo';
+
+          return build.run({
+            platform: passedPlatform,
+            buildConfig: passedBuildConfig,
+          }).then(function() {
+            expect(cordovaOptions.buildConfig).to.equal(passedBuildConfig);
+          });
         });
       });
     });
@@ -154,21 +202,69 @@ describe('Build Command', function() {
     describe('platformOpts', () => {
       context('when platform is ios', () => {
         it('passes ios options to CdvBuildTask', () => {
-          // ...
+          let passedPlatform = 'ios';
+          let platformOpts = parsePlatformOpts(
+            cordovaOptions.platform,
+            cordovaOptions
+          );
+
+          return build.run({
+            platform: passedPlatform,
+            platformOpts: platformOpts
+          }).then(function() {
+            expect('codeSignIdentity' in cordovaOptions.platformOpts)
+            .to.equal('codeSignIdentity' in platformOpts);
+          });
         });
 
         it('filters out android options', () => {
-          // ...
+          let passedPlatform = 'ios';
+          let platformOpts = parsePlatformOpts(
+            cordovaOptions.platform,
+            cordovaOptions
+          );
+
+          return build.run({
+            platform: passedPlatform,
+            platformOpts: platformOpts
+          }).then(function() {
+            expect('alias' in cordovaOptions.platformOpts)
+            .to.equal('alias' in platformOpts);
+          });
         });
       });
 
       context('when platform is android', () => {
         it('passes android options to CdvBuildTask', () => {
-          // ...
+          let passedPlatform = 'android';
+          let platformOpts = parsePlatformOpts(
+            cordovaOptions.platform,
+            cordovaOptions
+          );
+
+          return build.run({
+            platform: passedPlatform,
+            platformOpts: platformOpts
+          }).then(function() {
+            expect('alias' in cordovaOptions.platformOpts)
+            .to.equal('alias' in platformOpts);
+          });
         });
 
         it('filters out ios options', () => {
-          // ...
+          let passedPlatform = 'android';
+          let platformOpts = parsePlatformOpts(
+            cordovaOptions.platform,
+            cordovaOptions
+          );
+
+          return build.run({
+            platform: passedPlatform,
+            platformOpts: platformOpts
+          }).then(function() {
+            expect('codeSignIdentity' in cordovaOptions.platformOpts)
+            .to.equal('codeSignIdentity' in platformOpts);
+          });
         });
       });
     });
