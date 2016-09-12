@@ -48,7 +48,7 @@ describe('Parse Platform Options Util', () => {
       )
 
       expect('codeSignIdentity' in platformOpts)
-      .to.equal('codeSignIdentity' in platformOpts);
+      .to.equal(true);
     });
   });
   describe('for android', function() {
@@ -58,7 +58,7 @@ describe('Parse Platform Options Util', () => {
         options
       )
       expect('alias' in platformOpts)
-      .to.equal('alias' in platformOpts);
+      .to.equal(true);
     });
   });
 });
