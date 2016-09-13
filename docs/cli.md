@@ -130,6 +130,15 @@ an issue and tell us.
 #### Examples
 + `ember cordova info`
 
+####Troubleshooting
+When running a proxy command, file paths are relative to
+your cordova directory.
+
+So for example, if you for reasons unkwown run `ember cdv plugin add ../local-plugin-path`
+(hint: just use `ember cdv:plugin add ../local-plugin-path`), from your
+ember projects root, it will probably fail. You most likely need `ember
+cordova plugin add ../../../local-plugin-path`.
+
 ##Configuration / Defaults
 
 If you find yourself needing to override CLI defaults, you can set
