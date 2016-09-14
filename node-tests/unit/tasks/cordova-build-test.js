@@ -4,8 +4,8 @@ var td              = require('testdouble');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var CdvRawTask      = require('../../../lib/tasks/cordova-raw');
 
-const setupBuildTask = function() {
-  const CdvBuildTask = require('../../../lib/tasks/cordova-build');
+var setupBuildTask = function() {
+  var CdvBuildTask = require('../../../lib/tasks/cordova-build');
   return new CdvBuildTask({
     project: mockProject.project,
     ui: mockProject.ui,
@@ -13,10 +13,10 @@ const setupBuildTask = function() {
   });
 };
 
-describe('Cordova Build Task', () => {
-  let cdvBuild, build;
+describe('Cordova Build Task', function() {
+  var cdvBuild, build;
 
-  beforeEach(() => {
+  beforeEach(function() {
     cdvBuild = td.replace(CdvRawTask.prototype, 'run');
     build = setupBuildTask();
   });
@@ -25,11 +25,11 @@ describe('Cordova Build Task', () => {
     td.reset();
   });
 
-  describe('platform', () => {
-    const DEFAULT_OPTS = ['--debug', '--emulator'];
+  describe('platform', function() {
+    var DEFAULT_OPTS = ['--debug', '--emulator'];
 
-    context('when ios', () => {
-      it('creates a raw ios build task', () => {
+    context('when ios', function() {
+      it('creates a raw ios build task', function() {
         build.run();
 
         td.verify(cdvBuild({
@@ -39,8 +39,8 @@ describe('Cordova Build Task', () => {
       });
     });
 
-    context('when android', () => {
-      it('sets platform to android', () => {
+    context('when android', function() {
+      it('sets platform to android', function() {
         build.platform = 'android';
         build.run();
 
@@ -52,12 +52,12 @@ describe('Cordova Build Task', () => {
     });
   });
 
-  describe('isRelease', () => {
-    const DEFAULT_PLATFORMS = ['ios'];
-    const BASE_OPTIONS = ['--emulator'];
+  describe('isRelease', function() {
+    var DEFAULT_PLATFORMS = ['ios'];
+    var BASE_OPTIONS = ['--emulator'];
 
-    context('when not explicitly defined', () => {
-      it('passes --debug', () => {
+    context('when not explicitly defined', function() {
+      it('passes --debug', function() {
         build.run();
 
         td.verify(cdvBuild({
@@ -67,8 +67,8 @@ describe('Cordova Build Task', () => {
       });
     });
 
-    context('when true', () => {
-      it('passes --release', () => {
+    context('when true', function() {
+      it('passes --release', function() {
         build.isRelease = true;
         build.run();
 
@@ -79,8 +79,8 @@ describe('Cordova Build Task', () => {
       });
     });
 
-    context('when false', () => {
-      it('passes --debug', () => {
+    context('when false', function() {
+      it('passes --debug', function() {
         build.isRelease = false;
         build.run();
 
@@ -92,12 +92,12 @@ describe('Cordova Build Task', () => {
     });
   });
 
-  describe('isEmulator', () => {
-    const DEFAULT_PLATFORMS = ['ios'];
-    const DEFAULT_OPTS = ['--debug'];
+  describe('isEmulator', function() {
+    var DEFAULT_PLATFORMS = ['ios'];
+    var DEFAULT_OPTS = ['--debug'];
 
-    context('when not explicitly defined', () => {
-      it('passes --emulator', () => {
+    context('when not explicitly defined', function() {
+      it('passes --emulator', function() {
         build.run();
 
         td.verify(cdvBuild({
@@ -107,8 +107,8 @@ describe('Cordova Build Task', () => {
       });
     });
 
-    context('when true', () => {
-      it('passes --device', () => {
+    context('when true', function() {
+      it('passes --device', function() {
         build.isEmulator = true;
         build.run();
 
@@ -119,8 +119,8 @@ describe('Cordova Build Task', () => {
       });
     });
 
-    context('when false', () => {
-      it('passes --emulator', () => {
+    context('when false', function() {
+      it('passes --emulator', function() {
         build.isEmulator = false;
         build.run();
 
@@ -132,12 +132,12 @@ describe('Cordova Build Task', () => {
     });
   });
 
-  describe('buildConfig', () => {
-    const DEFAULT_PLATFORMS = ['ios'];
-    const DEFAULT_OPTS = ['--debug', '--emulator'];
+  describe('buildConfig', function() {
+    var DEFAULT_PLATFORMS = ['ios'];
+    var DEFAULT_OPTS = ['--debug', '--emulator'];
 
-    context('when not passed', () => {
-      it('does not pass buildConfig', () => {
+    context('when not passed', function() {
+      it('does not pass buildConfig', function() {
         build.run();
 
         td.verify(cdvBuild({
@@ -147,8 +147,8 @@ describe('Cordova Build Task', () => {
       });
     });
 
-    context('when passed', () => {
-      it('passes --buildConfig', () => {
+    context('when passed', function() {
+      it('passes --buildConfig', function() {
         build.buildConfig = 'foo';
         build.run();
 
@@ -160,12 +160,12 @@ describe('Cordova Build Task', () => {
     });
   });
 
-  describe('platformOpts', () => {
-    const DEFAULT_PLATFORMS = ['ios'];
-    const DEFAULT_OPTS = ['--debug', '--emulator'];
+  describe('platformOpts', function() {
+    var DEFAULT_PLATFORMS = ['ios'];
+    var DEFAULT_OPTS = ['--debug', '--emulator'];
 
-    context('when not passed', () => {
-      it('does not pass platformOpts', () => {
+    context('when not passed', function() {
+      it('does not pass platformOpts', function() {
         build.run();
 
         td.verify(cdvBuild({
@@ -175,20 +175,20 @@ describe('Cordova Build Task', () => {
       });
     });
 
-    context('when key values are undefined', () => {
-      it('does not pass platformOpts', () => {
+    context('when key values are undefined', function() {
+      it('does not pass platformOpts', function() {
 
       });
     });
 
-    context('when key values are defined', () => {
-      it('does not pass platformOpts', () => {
+    context('when key values are defined', function() {
+      it('does not pass platformOpts', function() {
 
       });
     });
   });
 
-  it('sets device flag when passed', () => {
+  it('sets device flag when passed', function() {
     build.isEmulator = false;
     build.run();
 
