@@ -38,7 +38,7 @@ describe('Build Command', function() {
     td.reset();
   });
 
-  context('when locationType is hash', () => {
+  context('when locationType is hash', function() {
     let tasks;
     let cordovaOptions;
 
@@ -63,7 +63,7 @@ describe('Build Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(CdvBuildTask.prototype, 'run', (_cordovaOptions) => {
+      td.replace(CdvBuildTask.prototype, 'run', function(_cordovaOptions) {
         cordovaOptions = _cordovaOptions;
 
         tasks.push('cordova-build');
@@ -90,8 +90,8 @@ describe('Build Command', function() {
         });
     });
 
-    context('when passedPlatform is ios', () => {
-      it('platform eq ios', () => {
+    context('when passedPlatform is ios', function() {
+      it('platform eq ios', function() {
         let passedPlatform = 'ios';
 
         return build.run({
@@ -101,8 +101,8 @@ describe('Build Command', function() {
         });
       });
     });
-    context('when passedPlatform is android', () => {
-      it('platform eq android', () => {
+    context('when passedPlatform is android', function() {
+      it('platform eq android', function() {
         let passedPlatform = 'android';
 
         return build.run({
@@ -113,9 +113,9 @@ describe('Build Command', function() {
       });
     });
 
-    describe('isRelease', () => {
-      context('when release is false', () => {
-        it('isRelease eq false', () => {
+    describe('isRelease', function() {
+      context('when release is false', function() {
+        it('isRelease eq false', function() {
           let passedPlatform = 'ios';
           let passedRelease = false;
 
@@ -127,8 +127,8 @@ describe('Build Command', function() {
           });
         });
       });
-      context('when release is true', () => {
-        it('isRelease eq true', () => {
+      context('when release is true', function() {
+        it('isRelease eq true', function() {
           let passedPlatform = 'ios';
           let passedRelease = true;
 
@@ -142,9 +142,9 @@ describe('Build Command', function() {
       });
     });
 
-    describe('isEmulator', () => {
-      context('when device is false', () => {
-        it('isEmulator eq true', () => {
+    describe('isEmulator', function() {
+      context('when device is false', function() {
+        it('isEmulator eq true', function() {
           let passedPlatform = 'ios';
           let passedDevice = false;
 
@@ -156,8 +156,8 @@ describe('Build Command', function() {
           });
         });
       });
-      context('when device is true', () => {
-        it('isEmulator eq false', () => {
+      context('when device is true', function() {
+        it('isEmulator eq false', function() {
           let passedPlatform = 'ios';
           let passedDevice = true;
 
@@ -171,9 +171,9 @@ describe('Build Command', function() {
       });
     });
 
-    describe('buildConfig', () => {
-      context('when not passed', () => {
-        it('does not append buildConfig to options', () => {
+    describe('buildConfig', function() {
+      context('when not passed', function() {
+        it('does not append buildConfig to options', function() {
           let passedPlatform = 'ios';
           let passedBuildConfig = undefined;
 
@@ -184,8 +184,8 @@ describe('Build Command', function() {
           });
         });
       });
-      context('when buildConfig is passed', () => {
-        it('appends buildConfig options to options', () => {
+      context('when buildConfig is passed', function() {
+        it('appends buildConfig options to options', function() {
           let passedPlatform = 'ios';
           let passedBuildConfig = '/foo';
 
@@ -200,8 +200,8 @@ describe('Build Command', function() {
     });
 
     describe('platformOpts', () => {
-      context('when platform is ios', () => {
-        it('passes ios options to CdvBuildTask', () => {
+      context('when platform is ios', function() {
+        it('passes ios options to CdvBuildTask', function()  {
           let passedPlatform = 'ios';
           let platformOpts = parsePlatformOpts(
             cordovaOptions.platform,
@@ -217,7 +217,7 @@ describe('Build Command', function() {
           });
         });
 
-        it('filters out android options', () => {
+        it('filters out android options', function() {
           let passedPlatform = 'ios';
           let platformOpts = parsePlatformOpts(
             cordovaOptions.platform,
@@ -234,8 +234,8 @@ describe('Build Command', function() {
         });
       });
 
-      context('when platform is android', () => {
-        it('passes android options to CdvBuildTask', () => {
+      context('when platform is android', function() {
+        it('passes android options to CdvBuildTask', function() {
           let passedPlatform = 'android';
           let platformOpts = parsePlatformOpts(
             cordovaOptions.platform,
@@ -251,7 +251,7 @@ describe('Build Command', function() {
           });
         });
 
-        it('filters out ios options', () => {
+        it('filters out ios options', function() {
           let passedPlatform = 'android';
           let platformOpts = parsePlatformOpts(
             cordovaOptions.platform,
