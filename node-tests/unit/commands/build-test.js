@@ -12,9 +12,9 @@ var CdvBuildTask    = require('../../../lib/tasks/cordova-build');
 var HookTask        = require('../../../lib/tasks/run-hook');
 var PlatformTask    = require('../../../lib/tasks/validate/platform');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
-const parsePlatformOpts = require('../../../lib/utils/parse-platform-opts');
+var mockProject   = require('../../fixtures/ember-cordova-mock/project');
+var mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
+var parsePlatformOpts = require('../../../lib/utils/parse-platform-opts');
 
 describe('Build Command', function() {
   var build;
