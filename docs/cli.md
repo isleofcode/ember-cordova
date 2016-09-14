@@ -63,7 +63,7 @@ platforms to config.xml (default is true).
 
 #### Examples
 + `ember cdv:platform add ios`
-+ `ember cdv:platform rm ios`
++ `ember cdv:platform remove ios`
 
 ### Plugin
 
