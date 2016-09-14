@@ -1,11 +1,11 @@
 'use strict';
 
-const expect        = require('../../helpers/expect');
+var expect        = require('../../helpers/expect');
 
-const parsePlatformOpts = require('../../../lib/utils/parse-platform-opts');
+var parsePlatformOpts = require('../../../lib/utils/parse-platform-opts');
 
 /* eslint-disable max-len */
-const options = [
+var options = [
   { name: 'platform',                            type: String,  default: 'ios' },
   { name: 'verbose',                             type: Boolean, default: false,                       aliases: ['v'] },
   { name: 'environment',                         type: String,  default: 'development',               aliases: ['e', 'env', { 'dev': 'development' }, { 'prod': 'production' }] },
@@ -39,10 +39,10 @@ const options = [
 ];
 /* eslint-enable max-len */
 
-describe('Parse Platform Options Util', () => {
+describe('Parse Platform Options Util', function() {
   describe('for ios', function() {
     it('returns ios options', function() {
-      let platformOpts = parsePlatformOpts(
+      var platformOpts = parsePlatformOpts(
         'ios',
         options
       )
@@ -53,7 +53,7 @@ describe('Parse Platform Options Util', () => {
   });
   describe('for android', function() {
     it('returns android options', function() {
-      let platformOpts = parsePlatformOpts(
+      var platformOpts = parsePlatformOpts(
         'android',
         options
       )

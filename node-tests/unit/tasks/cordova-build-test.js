@@ -21,7 +21,7 @@ describe('Cordova Build Task', function() {
     build = setupBuildTask();
   });
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
