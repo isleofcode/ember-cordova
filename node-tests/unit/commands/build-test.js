@@ -199,7 +199,7 @@ describe('Build Command', function() {
       });
     });
 
-    describe('platformOpts', () => {
+    describe('platformOpts', function() {
       context('when platform is ios', function() {
         it('passes ios options to CdvBuildTask', function()  {
           var passedPlatform = 'ios';
