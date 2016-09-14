@@ -1,0 +1,13 @@
+title: ember-cordova
+description: "docs for ember cordova"
+author: isleOfCode
+# url: "http://oneohthree.github.io"
+url:
+baseurl: ''
+twitter_username: isleOfCode
+github_username:  isleOfCode
+language: en_US
+paginate: 10
+paginate_path: "/page/:num/"
+permalink: none
+markdown: kramdown
