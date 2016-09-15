@@ -45,7 +45,7 @@ html {
 
 body {
 	max-width: 50em;
-	margin: 3em auto;
+	margin: 1.5em 3em 3em 3em auto;
 	padding: .5em
 }
 
@@ -341,7 +341,7 @@ img {
 /* header ********************************************************************/
 
 .site-header {
-	margin-bottom: 1em;
+	margin-bottom: 1.5em;
 }
 
 .site-header h1 {
