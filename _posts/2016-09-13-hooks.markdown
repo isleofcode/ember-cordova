@@ -2,8 +2,7 @@
 layout: post
 title:  "Hooks"
 ---
-## Hooks:
-
+<br>
 The following hooks are available:
 
 * beforeBuild

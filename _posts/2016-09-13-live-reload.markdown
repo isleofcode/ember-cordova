@@ -65,10 +65,9 @@ ember cdv:s -r "<url>"
 
 ---------------------------------------------------------------------
 
-# Old Version Guide
+## Old Version Guide
 
-There are a few manual steps to getting live reload working right now.
-We hope to eventually automate them.
+There are a few manual steps to getting live reload working right now. We hope to eventually automate them.
 
 * Modify Cordova's config.xml to allow-navigation to http based urls. You can either specify localhost:4200, your local IP,
 or a wildcard. Wildcards are generally unsafe, and you should comment them out before production builds.

@@ -4,8 +4,6 @@ title:  "Cordova Service & Event Bindings"
 ---
 ## Events
 
-### Description
-
 ember-cordova creates a cordova service, which listens for
 events defined and emitted by Cordova (e.g. `deviceready`, `pause`, `resume`).
 

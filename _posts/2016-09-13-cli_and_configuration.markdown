@@ -22,8 +22,6 @@ ember-cordova interference with ember cdv build, vs. ember cdv:build.
 
 ### Open
 
-#### Description
-
 Open the native platform project with the default or specified application
 
 #### Available options
@@ -36,8 +34,6 @@ Open the native platform project with the default or specified application
 
 
 ### Build
-
-#### Description
 
 Build the ember and cordova project together running in the simulator or on a device
 
@@ -58,7 +54,6 @@ DEPRECATED
 
 ### Platform
 
-#### Description
 Add or remove cordova platforms. Use the save flag to persist new
 platforms to config.xml (default is true).
 
@@ -71,7 +66,6 @@ platforms to config.xml (default is true).
 
 ### Plugin
 
-#### Description
 Add or remove cordova plugins. Use the save flag to persist new
 platforms to config.xml (default is true).
 
@@ -84,7 +78,6 @@ platforms to config.xml (default is true).
 
 ### Prepare
 
-#### Description
 Runs cordova prepare, but also fires beforePrepare/afterPrepare hooks.
 
 If plugins or platforms have been installed to a project with ember
@@ -97,8 +90,6 @@ Think of the usage similar to package.json /w npm install.
 + `ember cordova:prepare`
 
 ### Serve
-
-#### Description
 
 Runs the Ember Server for live reload. To learn more, [read
 here](livereload.md).
@@ -114,8 +105,6 @@ here](livereload.md).
 + `ember cdv:serve --platform=browser --env "development"`
 
 ## Cordova
-
-#### Description
 
 Passes commands straight to cordova, without interference.
 
@@ -134,7 +123,8 @@ an issue and tell us.
 #### Examples
 + `ember cordova info`
 
-####Troubleshooting
+#### Troubleshooting
+
 When running a proxy command, file paths are relative to
 your cordova directory.
 
@@ -143,7 +133,7 @@ So for example, if you for reasons unkwown run `ember cdv plugin add ../local-pl
 ember projects root, it will probably fail. You most likely need `ember
 cordova plugin add ../../../local-plugin-path`.
 
-##Configuration / Defaults
+## Configuration / Defaults
 
 If you find yourself needing to override CLI defaults, you can set
 new defaults in your .ember-cli file.

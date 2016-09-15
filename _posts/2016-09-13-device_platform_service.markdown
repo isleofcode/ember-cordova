@@ -2,8 +2,7 @@
 layout: post
 title:  "Device: Platform Service"
 ---
-## Platform Service
-
+<br>
 We have introduced a Platform Service, heavily inspired and
 partially forked from [Ionic
 Platform](http://ionicframework.com/docs/api/utility/ionic.Platform/).

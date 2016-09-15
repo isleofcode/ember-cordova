@@ -2,10 +2,7 @@
 layout: post
 title:  "Icon Management"
 ---
-##Icons
-
-### Description
-
+<br>
 Within ember-cordova, icon management is automated from a single svg
 file.
 

@@ -2,7 +2,8 @@
 layout: post
 title:  "Device: Keyboard"
 ---
-## Keyboard
+
+<br>
 
 We have distributed a separate `ember-cordova-keyboard` addon, which handles
 subtle layout issues & fires events related to a native device's keyboard
@@ -72,5 +73,5 @@ export default Component.extend({
 ### Service Location
 
 ```js
-lookup('service:device/splashscreen');
+lookup('service:device/keyboard');
 ```
