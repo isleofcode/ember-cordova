@@ -21,6 +21,7 @@ The addon is initialized automatically, and will handle layout issues without
 modification to its host app.
 
 You may also wish to subscribe to events:
+
 ```js
 // app/components/fancy-box/component.js
 import Ember from 'ember';
