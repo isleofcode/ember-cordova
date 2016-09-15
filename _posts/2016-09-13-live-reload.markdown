@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Splash Screen Management"
+title:  "Live Reload"
 ---
-# Device Live Reload
+## Device Live Reload
 
 Live reload works for device & simulator builds. It is automatically enabled and configured for `ember-cordova`
 `>= 0.2.0`.  Instructions for advanced configuration are below.
