@@ -612,6 +612,7 @@ img {
 		border-radius: 0;
 		padding: 0;
 		background-color: #ffffff;
+		padding-right: 2.5em;
 	}
 
 	.content {
@@ -629,7 +630,8 @@ img {
 	}
 
 	.site-header {
-		text-align: center;
+		margin-left: 25%;
+		padding-left: 1em;
 	}
 
 }
