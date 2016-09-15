@@ -627,6 +627,11 @@ img {
 	#nav-toggle {
 		display: none;
 	}
+
+	.site-header {
+		text-align: center;
+	}
+
 }
 
 .nav-link {
