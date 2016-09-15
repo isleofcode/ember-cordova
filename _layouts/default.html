@@ -20,6 +20,10 @@
 	</head>
 	<body>
 
+		<div id="nav-toggle">
+			<img src="menu_icon.png" width="20" height="20">
+		</div>
+
 		<header class="site-header">
 			{% if site.title %}
 				<h1>
@@ -30,9 +34,6 @@
 			{% endif %}
 		</header>
 
-		<div id="nav-toggle">
-			<img src="menu_icon.png" width="20" height="20">
-		</div>
 		<div id='nav-container'>
 			<nav class="nav-items">
 				{% for post in site.posts %}
@@ -99,7 +100,7 @@
 			var handler = function(event) {
 				var display = window.getComputedStyle(container).display;
 				if(display === 'none') {
-					container.style.display = 'block';
+					container.style.display = 'inline-block';
 				} else {
 					container.style.display = 'none';
 				}

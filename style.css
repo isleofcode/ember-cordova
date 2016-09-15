@@ -343,6 +343,7 @@ img {
 
 .site-header {
 	margin-bottom: 1.5em;
+	display: block;
 }
 
 .site-header h1 {
@@ -353,7 +354,7 @@ img {
 	border: none;
 	display: inline-block;
 	font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-	font-size: 1.8em;
+	font-size: 1.5em;
 	letter-spacing: .18em;
 	margin-bottom: 0em;
 	text-transform: uppercase;
@@ -591,7 +592,9 @@ img {
 	}
 
 	#nav-toggle {
-		display: block;
+		display: inline-block;
+		margin-top: 0.5em;
+		float: left;
 	}
 
 	#nav-container {
@@ -600,6 +603,16 @@ img {
 		padding: 1em 1em 0 1em;
 		background-color: #f5f5f5;
 		margin-bottom: 1em;
+	}
+
+	.site-header {
+		display: inline-block;
+		margin-left: 1em;
+		margin-bottom: .5em;
+	}
+
+	.site-title {
+		letter-spacing: 0;
 	}
 
 }
