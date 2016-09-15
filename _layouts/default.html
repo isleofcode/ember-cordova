@@ -30,7 +30,10 @@
 			{% endif %}
 		</header>
 
-		<div class='nav-container'>
+		<div id="nav-toggle">
+			<img src="menu_icon.png" width="20" height="20">
+		</div>
+		<div id='nav-container'>
 			<nav class="nav-items">
 				{% for post in site.posts %}
 					<a class="nav-link" href="{{ post.url }}">{{ post.title }}</a>
@@ -88,6 +91,22 @@
 					]
 				}
 			);
+		</script>
+
+		<script type="text/javascript">
+			var toggle = document.getElementById('nav-toggle');
+			var container = document.getElementById('nav-container');
+			var handler = function(event) {
+				var display = window.getComputedStyle(container).display;
+				if(display === 'none') {
+					container.style.display = 'block';
+				} else {
+					container.style.display = 'none';
+				}
+				event.preventDefault();
+			}
+			toggle.addEventListener('touchstart', handler);
+			toggle.addEventListener('click', handler);
 		</script>
 
 	</body>
