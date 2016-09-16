@@ -2,7 +2,7 @@
 layout: page
 ---
 
-ember-cordova simplifies building Cordova applications with Ember.js.
+ember-cordova simplifies building Cordova & Crosswalk applications with Ember.js.
 
 Included is a CLI, icon generation & plugins/platforms, bindings to the Cordova platform and a growing ecosystem of Cordova plugins built to work with Ember. It is maintained by [Isle of Code](https://isleofcode.com) in Toronto, with a community of contributors.
 
