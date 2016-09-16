@@ -22,9 +22,10 @@ The UIWebView has been a class since iOS 2, whereas WKWebView was introduced in 
 
 ### For Android
 
-In Android, we default to using [Crosswalks](https://crosswalk-project.org) [cordova-plugin-crosswalk-webview](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview).
+Android allows developers to ship custom in-app browser distributions, and we default to using [Crosswalks](https://crosswalk-project.org) [cordova-plugin-crosswalk-webview](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview).
 
-Android allows developers to ship custom in-app browser distributions. Crosswalk will:
+Crosswalk will:
+
 - ensure your app is running in the same JS environment, vs. standard Android fragmentation;
 - give you consistency with CSS parsing; and
 - Improve JS performance, especially for older devices.
