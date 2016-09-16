@@ -58,6 +58,10 @@ DEPRECATED
 Add or remove cordova platforms. Use the save flag to persist new
 platforms to config.xml (default is true).
 
+###Aliases
++ add/a
++ remove/rm/r
+
 #### Available options
 + save (default:true)
 
@@ -70,6 +74,10 @@ platforms to config.xml (default is true).
 #### Description
 Add or remove cordova plugins. Use the save flag to persist new
 platforms to config.xml (default is true).
+
+###Aliases
++ add/a
++ remove/rm/r
 
 #### Available options
 + save (default:true)
