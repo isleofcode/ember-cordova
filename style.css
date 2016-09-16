@@ -77,12 +77,12 @@ h3 {
 }
 
 h1 {
-  font-size: 1.7em;
+  font-size: 1.5em;
   margin: .5em 0;
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 h3 {
@@ -308,7 +308,7 @@ hr {
   background-color: #ddd;
   border: none;
   height: 1px;
-  margin: 2em 0;
+  margin: 1em 0;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
