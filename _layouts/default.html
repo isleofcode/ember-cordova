@@ -1,42 +1,42 @@
 
 <!DOCTYPE html>
 <html lang="{{ site.language }}">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-		<meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-		<link rel="stylesheet" href="{{ "/style.css" | prepend: site.baseurl | prepend: site.url }}">
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Sanchez:400,400italic' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" type="text/css">
-		<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js" type="text/javascript"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js" type="text/javascript"></script>
-		<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-		<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
-		<link rel="shortcut icon" href="{{ "/favicon.ico" | prepend: site.baseurl | prepend: site.url }}">
-		<link rel="apple-touch-icon" href="{{ "/apple-touch-icon.png" | prepend: site.baseurl | prepend: site.url }}">
-	</head>
-	<body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    <link rel="stylesheet" href="{{ "/style.css" | prepend: site.baseurl | prepend: site.url }}">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Sanchez:400,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" type="text/css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js" type="text/javascript"></script>
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+    <link rel="shortcut icon" href="{{ "/favicon.ico" | prepend: site.baseurl | prepend: site.url }}">
+    <link rel="apple-touch-icon" href="{{ "/apple-touch-icon.png" | prepend: site.baseurl | prepend: site.url }}">
+  </head>
+  <body>
 
-		<div id="nav-toggle">
-			<img src="{{ site.baseurl }}/menu_icon.png" width="20" height="20">
-		</div>
+    <div id="nav-toggle">
+      <img src="{{ site.baseurl }}/menu_icon.png" width="20" height="20">
+    </div>
 
-		<header class="site-header">
-			{% if site.title %}
-				<h1>
-					<a class="site-title" href="{{ site.baseurl | prepend: site.url }}/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
-				</h1>
-			{% else %}
-				<a class="site-title" href="{{ site.baseurl | prepend: site.url }}/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
-			{% endif %}
-		</header>
+    <header class="site-header">
+      {% if site.title %}
+        <h1>
+          <a class="site-title" href="{{ site.baseurl | prepend: site.url }}/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
+        </h1>
+      {% else %}
+        <a class="site-title" href="{{ site.baseurl | prepend: site.url }}/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
+      {% endif %}
+    </header>
 
-		<div id='nav-container'>
-			<nav class="nav-items">
-				<a class="nav-link" href="{{ site.baseurl }}/">Home</a>
+    <div id='nav-container'>
+      <nav class="nav-items">
+        <a class="nav-link" href="{{ site.baseurl }}/">Home</a>
         <a class="nav-link" href="{{ site.baseurl }}/pages/setup_guide">Install/Setup</a>
         <a class="nav-link" href="{{ site.baseurl }}/pages/cli">CLI</a>
         <a class="nav-link" href="{{ site.baseurl }}/pages/live_reload">Livereload</a>
@@ -49,32 +49,32 @@
         <a class="nav-link" href="{{ site.baseurl }}/pages/icon_management">Icon Generation</a>
         <a class="nav-link" href="{{ site.baseurl }}/pages/help">Help</a>
         <a class="nav-link" href="https://github.com/isleofcode/ember-cordova">Github</a>
-			</nav>
-		</div>
+      </nav>
+    </div>
 
-		<div class="content" role="main">
-			{{ content }}
-		</div>
+    <div class="content" role="main">
+      {{ content }}
+    </div>
 
-		{% if paginator %}
-			<nav class="pagination group" role="navigation">
-				{% if paginator.next_page %}
-					<a href="{{paginator.next_page_path}}">&larr;</a>
-				{% endif %}
-				{% if paginator.previous_page %}
-					<a href="{{paginator.previous_page_path}}">&rarr;</a>
-				{% endif %}
-			</nav>
-		{% endif %}
+    {% if paginator %}
+      <nav class="pagination group" role="navigation">
+        {% if paginator.next_page %}
+          <a href="{{paginator.next_page_path}}">&larr;</a>
+        {% endif %}
+        {% if paginator.previous_page %}
+          <a href="{{paginator.previous_page_path}}">&rarr;</a>
+        {% endif %}
+      </nav>
+    {% endif %}
 
-		<footer class="site-footer">
-				<small class="copyright">
+    <footer class="site-footer">
+        <small class="copyright">
           Copyright &copy <a href="https://isleofcode.com">Isle of Code</a>.
           ember-cordova is built by <a href="https://isleofcode.com">Isle of Code</a> in Toronto.
-					<br><br>
-					Jekyll theme based on a modified version of sudo theme by <a href="https://github.com/oneohthree?tab=overview&from=2016-08-01&to=2016-08-31&utf8=%E2%9C%93">oneohthree</a>
-				</small>
-		</footer>
+          <br><br>
+          Jekyll theme based on a modified version of sudo theme by <a href="https://github.com/oneohthree?tab=overview&from=2016-08-01&to=2016-08-31&utf8=%E2%9C%93">oneohthree</a>
+        </small>
+    </footer>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -86,34 +86,34 @@
       ga('send', 'pageview');
     </script>
 
-		<script>
-			renderMathInElement(
-				document.body,
-				{
-					delimiters: [
-						{left: "$$", right: "$$", display: true},
-						{left: "\\[", right: "\\]", display: true},
-						{left: "$", right: "$", display: false},
-						{left: "\\(", right: "\\)", display: false}
-					]
-				}
-			);
-		</script>
+    <script>
+      renderMathInElement(
+        document.body,
+        {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false}
+          ]
+        }
+      );
+    </script>
 
-		<script type="text/javascript">
-			var toggle = document.getElementById('nav-toggle');
-			var container = document.getElementById('nav-container');
-			var handler = function(event) {
-				var display = window.getComputedStyle(container).display;
-				if(display === 'none') {
-					container.style.display = 'inline-block';
-				} else {
-					container.style.display = 'none';
-				}
-				event.preventDefault();
-			}
-			toggle.addEventListener('touchstart', handler);
-			toggle.addEventListener('click', handler);
-		</script>
-	</body>
+    <script type="text/javascript">
+      var toggle = document.getElementById('nav-toggle');
+      var container = document.getElementById('nav-container');
+      var handler = function(event) {
+        var display = window.getComputedStyle(container).display;
+        if(display === 'none') {
+          container.style.display = 'inline-block';
+        } else {
+          container.style.display = 'none';
+        }
+        event.preventDefault();
+      }
+      toggle.addEventListener('touchstart', handler);
+      toggle.addEventListener('click', handler);
+    </script>
+  </body>
 </html>
