@@ -1,6 +1,6 @@
 {
   "name": "ember-cordova",
-  "version": "0.2.11",
+  "version": "0.3.0",
   "description": "Tooling for cordova and crosswalk hybrid applications built with Ember",
   "homepage": "https://github.com/isleofcode/ember-cordova",
   "repository": {
