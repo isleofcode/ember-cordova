@@ -17,32 +17,18 @@ describe('Cordova Build Task', function() {
   it('creates a raw build task', function() {
     var cdvBuild = td.replace(CdvRawTask.prototype, 'run');
     var build = setupBuildTask();
-    build.run('ios');
+    build.platform = 'ios';
+    build.run();
 
-    td.verify(cdvBuild({platforms: ['ios'], options: ['--debug']}));
+    td.verify(cdvBuild({platforms: ['ios'], options: []}));
   });
 
   it('sets platform to android', function() {
     var cdvBuild = td.replace(CdvRawTask.prototype, 'run');
     var build = setupBuildTask();
-    build.run('android');
+    build.platform = 'android';
+    build.run();
 
-    td.verify(cdvBuild({platforms: ['android'], options: ['--debug']}));
-  });
-
-  it('passes debug flag by default', function() {
-    var cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    var build = setupBuildTask();
-    build.run('ios', false);
-
-    td.verify(cdvBuild({platforms: ['ios'], options: ['--debug']}));
-  });
-
-  it('sets release flag when passed', function() {
-    var cdvBuild = td.replace(CdvRawTask.prototype, 'run');
-    var build = setupBuildTask();
-    build.run('ios', true);
-
-    td.verify(cdvBuild({platforms: ['ios'], options: ['--release']}));
+    td.verify(cdvBuild({platforms: ['android'], options: []}));
   });
 });

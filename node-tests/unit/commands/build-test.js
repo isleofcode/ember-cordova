@@ -6,7 +6,6 @@ var ui              = require('../../../lib/utils/ui');
 var expect          = require('../../helpers/expect');
 var Promise         = require('ember-cli/lib/ext/promise');
 
-var BuildCmd        = require('../../../lib/commands/build');
 var BuildTask       = require('../../../lib/tasks/ember-build');
 var CdvBuildTask    = require('../../../lib/tasks/cordova-build');
 var HookTask        = require('../../../lib/tasks/run-hook');
@@ -15,24 +14,28 @@ var PlatformTask    = require('../../../lib/tasks/validate/platform');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
 
-describe('Build Command', function() {
-  var build;
+var isAnything      = td.matchers.anything;
 
-  beforeEach(function() {
-    var project = mockProject.project;
-    project.config = function() {
-      return {
-        locationType: 'hash'
-      };
-    }
+var setupBuild = function() {
+  var BuildCmd = require('../../../lib/commands/build');
 
-    build = new BuildCmd({
-      project: project,
-      ui: mockProject.ui
-    });
-    build.analytics = mockAnalytics;
+  var project = mockProject.project;
+  project.config = function() {
+    return {
+      locationType: 'hash'
+    };
+  }
+
+  var build = new BuildCmd({
+    project: project,
+    ui: mockProject.ui
   });
+  build.analytics = mockAnalytics;
 
+  return build;
+};
+
+describe('Build Command', function() {
   afterEach(function() {
     td.reset();
   });
@@ -62,8 +65,8 @@ describe('Build Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(CdvBuildTask.prototype, 'run', function(_cordovaPlatform) {
-        cordovaPlatform = _cordovaPlatform;
+      td.replace(CdvBuildTask.prototype, 'run', function() {
+        cordovaPlatform = this.platform;
 
         tasks.push('cordova-build');
         return Promise.resolve();
@@ -71,12 +74,16 @@ describe('Build Command', function() {
     }
 
     it('exits cleanly', function() {
+      var build = setupBuild();
+
       return expect(function() {
         build.run({});
       }).not.to.throw(Error);
     });
 
     it('runs tasks in the correct order', function() {
+      var build = setupBuild();
+
       return build.run({})
         .then(function() {
           //h-t ember-electron for the pattern
@@ -89,12 +96,20 @@ describe('Build Command', function() {
         });
     });
 
-    it('passes platform to cordova build task', function() {
-      var passedPlatform = 'ios';
+    it('parses cordova build opts', function() {
+      var optDouble = td.replace('../../../lib/utils/parse-cordova-build-opts');
+      var build = setupBuild();
 
-      return build.run({
-        platform: passedPlatform
-      }).then(function() {
+      return build.run({}).then(function() {
+        td.verify(optDouble(isAnything(), isAnything()));
+      });
+    });
+
+    it('passes platform to cordova build task', function() {
+      var passedPlatform = 'android';
+      var build = setupBuild();
+
+      return build.run({platform: passedPlatform}).then(function() {
         expect(cordovaPlatform).to.equal(passedPlatform);
       });
     });
@@ -102,12 +117,6 @@ describe('Build Command', function() {
 
   context('when locationType is not hash', function() {
     beforeEach(function() {
-      build.project.config = function() {
-        return {
-          locationType: 'auto'
-        };
-      };
-
       td.replace(ui, 'writeLine',  function() {
         throw new Error('Exit Called');
       });
@@ -115,6 +124,13 @@ describe('Build Command', function() {
     });
 
     it('throws', function() {
+      var build = setupBuild();
+      build.project.config = function() {
+        return {
+          locationType: 'auto'
+        };
+      };
+
       return expect(function() {
         build.run({});
       }).to.throw(Error);
