@@ -602,6 +602,7 @@ img {
     padding: 1em 1em 0 1em;
     background-color: #f5f5f5;
     margin-bottom: 1em;
+    padding-bottom: 1em;
   }
 
   .site-header {
@@ -667,7 +668,7 @@ img {
 
 .nav-link {
   display: block;
-  padding-bottom: 1em;
+  padding: .5em 0 .5em .5em;
 }
 
 #nav-toggle {
