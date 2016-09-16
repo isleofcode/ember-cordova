@@ -66,11 +66,12 @@ export default Component.extend({
 
 #### Example template usage
 ```hbs
+{% raw %}
 {{! app/components/fancy-box/template.hbs }}
 
 {{#if !keyboardIsShowing}}
   click inside to type
 {{/if}}
-
+{% endraw %}
 <input type='text'>
 ```
