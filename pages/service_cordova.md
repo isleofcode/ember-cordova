@@ -1,11 +1,36 @@
 ---
-layout: post
+layout: page
 title:  "Cordova Service & Event Bindings"
 ---
-## Events
 
 ember-cordova creates a cordova service, which listens for
 events defined and emitted by Cordova (e.g. `deviceready`, `pause`, `resume`).
+
+### Supported Events
+
+Supported events are listed [in the source](https://github.com/isleofcode/ember-cordova/blob/master/addon/services/cordova.js#L12-L29)
+and are pasted here for convenience:
+
+```javascript
+// from https://cordova.apache.org/docs/en/4.0.0/cordova_events_events.md.html
+const CORDOVA_EVENTS = new A([
+  'deviceready',
+  'pause',
+  'resume',
+  'backbutton',
+  'menubutton',
+  'searchbutton',
+  'startcallbutton',
+  'endcallbutton',
+  'volumedownbutton',
+  'volumeupbutton',
+  'batterycritical',
+  'batterylow',
+  'batterystatus',
+  'online',
+  'offline'
+]);
+```
 
 ### Usage
 
@@ -95,30 +120,4 @@ export default Route.extend({
     console.log('do your thing');
   }
 });
-```
-
-### Supported Events
-
-Supported events are listed [in the source](https://github.com/isleofcode/ember-cordova/blob/master/addon/services/cordova.js#L12-L29)
-and are pasted here for convenience:
-
-```
-// from https://cordova.apache.org/docs/en/4.0.0/cordova_events_events.md.html
-const CORDOVA_EVENTS = new A([
-  'deviceready',
-  'pause',
-  'resume',
-  'backbutton',
-  'menubutton',
-  'searchbutton',
-  'startcallbutton',
-  'endcallbutton',
-  'volumedownbutton',
-  'volumeupbutton',
-  'batterycritical',
-  'batterylow',
-  'batterystatus',
-  'online',
-  'offline'
-]);
 ```

@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: page
 title:  "Hooks"
 ---
-<br>
+
 The following hooks are available:
 
 * beforeBuild

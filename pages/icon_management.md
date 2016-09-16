@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: page
 title:  "Icon Management"
 ---
-<br>
+
 Within ember-cordova, icon management is automated from a single svg
 file.
 
@@ -25,6 +25,5 @@ ember cdv:make-icons
 + platform: which platforms to generate (default: all)
 
 ```
-ember cdv:make-icons --source=otherPath --platform=ios
---platform=android
+ember cdv:make-icons --source=otherPath --platform=ios --platform=android
 ```

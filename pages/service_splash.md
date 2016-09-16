@@ -1,8 +1,7 @@
 ---
-layout: post
+layout: page
 title:  "Device: Splash Screen Management"
 ---
-## Splashscreen Service
 
 Included is a Splashscreen service, which works alongside Cordova's splashscreen
 plugin to show / hide the native splashscreen.
@@ -16,10 +15,16 @@ This service requires the Cordova SplashScreen plugin to be installed:
 
 `ember cdv:plugin add cordova-plugin-splashscreen --save`
 
-More information about this Cordova plugin can be found at: https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-splashscreen/
+More information about this Cordova plugin can be found at: [https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-splashscreen/](https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-splashscreen/)
 
 At this time, following the guidelines outlined in the Cordova plugin, you must add preferences to account for certain platform quirks:
-https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-splashscreen/#preferences
+[https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-splashscreen/#preferences](https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-splashscreen/#preferences)
+
+### Service Lookup
+
+```js
+lookup('service:device/splashscreen');
+```
 
 ### Usage
 
@@ -63,12 +68,6 @@ export default Route.extend({
   }
   // ...
 });
-```
-
-### Service Location
-
-```js
-lookup('service:device/splashscreen');
 ```
 
 ### Service API

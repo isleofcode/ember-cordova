@@ -1,80 +1,87 @@
 ---
-layout: post
+layout: page
 title:  "CLI & Configuration"
 ---
-## CLI
 
 All commands follow the pattern `ember cordova:{command}`. You can use the `cdv` alias
 insted of`cordova`, for example `ember cdv:{command}`.
 
-You can pass a command to cordova without
-ember-cordova interference with ember cdv build, vs. ember cdv:build.
+You can proxy a command to cordova without ember-cordova interference by using a space vs a colon, e.g. `ember cdv build`, vs. `ember cdv:build`.
 
 ### Available Commands
-* ember cdv:open
-* ember cdv:build
-* ember cdv:link (DEPRECATED)
-* ember cdv:plaform
-* ember cdv:plugin
-* ember cdv:prepare
-* ember cdv:serve
-* ember cordova
+* [ember cdv:open](#Open)
+* [ember cdv:build](#Build)
+* [ember cdv:plaform](#Platform)
+* [ember cdv:plugin](#Plugin)
+* [ember cdv:prepare](#Prepare)
+* [ember cdv:serve](#Serve)
+* [ember cordova](#Cordova)
 
 ### Open
 
 Open the native platform project with the default or specified application
 
-#### Available options
-+ platform (default:ios)
-+ application (default:system default application)
+| Options  | default |
+|----------|---------|
+| platform | ios     |
+| application | system default application |
 
 #### Examples
 + `ember cordova:open`
 + `ember cordova:open --platform=android --application=eclipse`
 
-
 ### Build
 
 Build the ember and cordova project together running in the simulator or on a device
 
-#### Available options
-+ environment (default:development)
-+ platform (default:ios)
-+ release (default: debug)
-+ cordova-output-path (default: ember-cordova/cordova/www)
+| Options     | default   |
+|------------ |---------- |
+| environment | development|
+| platform    | ios |
+| release     | debug |
+| cordova-output-path | ember-cordova/cordova/www |
+
+The build command also takes all of the non gradle-specific cordova build opts (e.g. provisioningProfile, codeSignIdentity).
 
 #### Examples
 + `ember cordova:build`
 + `ember cordova:build --environment=production --platform=ios`
 + `ember cordova:build --environment=production --platform=ios --release`
 
-### Link
-
-DEPRECATED
-
 ### Platform
 
+#### Description
 Add or remove cordova platforms. Use the save flag to persist new
 platforms to config.xml (default is true).
 
-#### Available options
-+ save (default:true)
+| Options | default |
+|---------|---------|
+| save    | true |
 
 #### Examples
 + `ember cdv:platform add ios`
-+ `ember cdv:platform rm ios`
++ `ember cdv:platform remove ios`
+
+#### Aliases
++ add/a
++ remove/rm/r
 
 ### Plugin
 
 Add or remove cordova plugins. Use the save flag to persist new
 platforms to config.xml (default is true).
 
-#### Available options
-+ save (default:true)
+| Options  | default |
+|---------|---------|
+| save    | true |
 
 #### Examples
 + `ember cdv:plugin add cordova-plugin-name`
 + `ember cdv:plugin rm cordova-plugin-name`
+
+#### Aliases
++ add/a
++ remove/rm/r
 
 ### Prepare
 
@@ -94,10 +101,11 @@ Think of the usage similar to package.json /w npm install.
 Runs the Ember Server for live reload. To learn more, [read
 here](livereload.md).
 
-#### Available options
-+ platform (default:ios)
-+ reloadUrl (default:localhost:4200)
-+ cordova-output-path (default: ember-cordova/cordova/www)
+| Options    | default |
+|---------  |---------|
+| platform  | ios |
+| reloadUrl | localhost:4200 |
+| cordova-output-path| ember-cordova/cordova/www |
 
 #### Examples
 + `ember cdv:serve`
@@ -141,7 +149,8 @@ new defaults in your .ember-cli file.
 e.g. If you are only ever building for one (android), or want to
 set a permanent default reload-url.
 
-in .ember-cl:
+in .ember-cli:
+
 ```
 platform: 'android',
 reloadUrl: 'http://mycomputer:4200'

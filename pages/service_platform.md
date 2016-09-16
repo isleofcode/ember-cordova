@@ -1,13 +1,13 @@
 ---
-layout: post
+layout: page
 title:  "Device: Platform Service"
 ---
-<br>
+
 We have introduced a Platform Service, heavily inspired and
 partially forked from [Ionic
-Platform](http://ionicframework.com/docs/api/utility/ionic.Platform/).
+Platform](http://ionicframework.com/docs/api/utility/ionic.Platform/). Use it to understand what environment your ember-cordova app is running in.
 
-### Location
+### Service Lookup
 
 ```js
   lookup('service:device/platform');
