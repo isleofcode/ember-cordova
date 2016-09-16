@@ -1,9 +1,8 @@
 title: ember-cordova
 description: "docs for ember cordova"
 author: Isle of Code
-url: "https://isleofcode.com"
-url:
-baseurl: ''
+url: "http://isleofcode.github.io"
+baseurl: '/ember-cordova'
 twitter_username: isleOfCode
 github_username:  isleOfCode
 language: en_US
