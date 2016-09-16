@@ -102,18 +102,30 @@
 
     <script type="text/javascript">
       var toggle = document.getElementById('nav-toggle');
-      var container = document.getElementById('nav-container');
-      var handler = function(event) {
-        var display = window.getComputedStyle(container).display;
+      var navContainer = document.getElementById('nav-container');
+
+      var toggleHandler = function(event) {
+        var display = window.getComputedStyle(navContainer).display;
         if(display === 'none') {
-          container.style.display = 'block';
+          navContainer.style.display = 'block';
         } else {
-          container.style.display = 'none';
+          navContainer.style.display = 'none';
         }
         event.preventDefault();
       }
-      toggle.addEventListener('touchstart', handler);
-      toggle.addEventListener('click', handler);
+      toggle.addEventListener('touchstart', toggleHandler);
+      toggle.addEventListener('click', toggleHandler);
+
+      var bodyTouchHandler = function(event) {
+        if(window.getComputedStyle(toggle).display !== 'none' &&
+           !toggle.contains(event.target) &&
+           !navContainer.contains(event.target))
+        {
+          navContainer.style.display = 'none';
+        }
+      }
+      document.body.addEventListener('touchstart', bodyTouchHandler);
+      document.body.addEventListener('click', bodyTouchHandler);
     </script>
   </body>
 </html>
