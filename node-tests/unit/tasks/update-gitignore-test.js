@@ -38,15 +38,23 @@ describe('Update gitignore Task', function() {
   });
 
   it('stubs empty gitkeeps', function() {
-    var openDouble = td.replace(fs, 'openSync');
+    var calls = [];
+    td.replace(fs, 'openSync', function(path) {
+      calls.push(path);
+      return;
+    });
     td.replace(fs, 'closeSync');
+    td.replace(fs, 'appendFileSync');
+
 
     var task = createTask();
-    task.run();
-
-    td.verify(openDouble('ember-cordova/cordova/www/.gitkeep', 'w'));
-    td.verify(openDouble('ember-cordova/cordova/platforms/.gitkeep', 'w'));
-    td.verify(openDouble('ember-cordova/cordova/plugins/.gitkeep', 'w'));
+    return task.run().then(function() {
+      expect(calls).to.deep.equal([
+        'ember-cordova/cordova/www/.gitkeep',
+        'ember-cordova/cordova/plugins/.gitkeep',
+        'ember-cordova/cordova/platforms/.gitkeep'
+      ]);
+    });
   });
 
   it('outputs an error message and resolves if write fails', function() {
