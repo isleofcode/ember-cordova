@@ -1,12 +1,12 @@
 'use strict';
 
-const td            = require('testdouble');
-const fs            = require('fs');
-const expect        = require('../../helpers/expect');
-const GitIgnore     = require('../../../lib/tasks/update-gitignore');
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
+var td              = require('testdouble');
+var fs              = require('fs');
+var expect          = require('../../helpers/expect');
+var GitIgnore       = require('../../../lib/tasks/update-gitignore');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 
-describe('Update gitignore Task', () => {
+describe('Update gitignore Task', function() {
   beforeEach(function() {
     td.reset();
   });
@@ -19,11 +19,43 @@ describe('Update gitignore Task', () => {
   };
 
   it('attempts to write ignore data to .gitignore', function() {
+    td.replace(fs, 'closeSync');
+    td.replace(fs, 'openSync');
+
+    var expectedGitkeep = '\n' +
+      'ember-cordova/tmp-livereload\n' +
+      'ember-cordova/cordova/www/*\n' +
+      '!ember-cordova/cordova/www/.gitkeep\n' +
+      'ember-cordova/cordova/plugins/*\n' +
+      '!ember-cordova/cordova/plugins/.gitkeep\n' +
+      'ember-cordova/cordova/platforms/*\n' +
+      '!ember-cordova/cordova/platforms/.gitkeep\n'
+
     var appendDouble = td.replace(fs, 'appendFileSync');
     var task = createTask();
     task.run();
 
-    td.verify(appendDouble('.gitignore', task.ignoreContent));
+    td.verify(appendDouble('.gitignore', expectedGitkeep));
+  });
+
+  it('stubs empty gitkeeps', function() {
+    var calls = [];
+    td.replace(fs, 'openSync', function(path) {
+      calls.push(path);
+      return;
+    });
+    td.replace(fs, 'closeSync');
+    td.replace(fs, 'appendFileSync');
+
+
+    var task = createTask();
+    return task.run().then(function() {
+      expect(calls).to.deep.equal([
+        'ember-cordova/cordova/www/.gitkeep',
+        'ember-cordova/cordova/plugins/.gitkeep',
+        'ember-cordova/cordova/platforms/.gitkeep'
+      ]);
+    });
   });
 
   it('outputs an error message and resolves if write fails', function() {

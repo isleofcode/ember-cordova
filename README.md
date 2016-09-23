@@ -2,87 +2,17 @@
 
 [![Build Status](https://travis-ci.org/isleofcode/ember-cordova.svg?branch=feat%2Ftravis)](https://travis-ci.org/isleofcode/ember-cordova)
 
-ember-cordova simplifies building Cordova and Crosswalk applications with Ember.js.
+ember-cordova simplifies building Cordova applications with Ember.js.
 
-It includes a CLI for builds, hooks, device event bindings, and handles splash screens, icons and a growing number of supported Ember/Cordova plugin bindings.
+Included is a CLI, icon generation & plugins/platforms, bindings to the Cordova platform and a growing ecosystem of Cordova plugins built to work with Ember. It is maintained by Isle of Code in Toronto, with a community of contributors.
 
-1. Platforms & Requirements
-2. Getting Started
-3. Features and Documentation;
-4. Upcoming Extensions;
-5. Contributing;
-6. Credits
+It supports Ember 1.13+ and node 0.12+.
 
-## Platforms & Requirements
+## Quickstart
 
-ember-cordova has been tested and works on Ember 1.13 &
-greater, including 2+.
+`ember install ember-cordova`
 
-When push comes to shove we are likely to only support Ember 2.4 or
-greater.
-
-## Getting Started
-
-If you are migrating from ember-cli-cordova, read the [migration
-guide](docs/migration-from-ember-cli.md).
-
-
-```cli
-  ember install ember-cordova
-```
-
-You can optionally pass the following params:
-- name: AppName (defaults to your ember app name)
-- cordovaid: String (defaults to your app name)
-- templatePath: String path to cordova template
-
-```cli
-ember install ember-cordova --name=AppName
---cordovaid=com.isleofcode.app --templatePath=../template
-```
-
-If you already have a Cordova project at ember-cordova/cordova it will not be overwritten.
-
-1. #### Set your config.locationType to 'hash'.
-
-2. Cordova requires relative asset paths so check that none of yours are absolute. For ember-cli v2.7.0 and newer, you'll want to remove the references to `{{rootURL}}` from the asset paths in `app/index.html`.
-
-3. As a final step, add your desired platforms, e.g.:
-
-```cli
-ember cdv platform add ios
-ember cdv platform add android
-ember cdv platform add browser #experimental
-```
-
-Cordova working relies on the cordova.js script being injected. By default, this happens using ember cdv commands. Your vanilla ember build && ember s commands will not inject cordova.js by design.
-
-### A note on browser platform
-
-Some cordova/phonegap plugins have browser fallbacks. For example [phonegap-plugin-barcodescanner](https://github.com/phonegap/phonegap-plugin-barcodescanner) will ask you to manually type the barcode value. Using the browser platform, you'll be able to develop your cordova app as it was a regular ember app.
-
-## Features and Documentation
-
-* [CLI & Configuration](docs/cli.md)
-* [Cordova Service & Event Bindings](docs/services/cordova.md)
-* Device:
-*  *  [Platform Service](docs/services/platform.md)
-*  *  [Splash Screen Management](docs/services/splashscreen.md)
-*  *  [Keyboard](docs/keyboard.md)
-* [Icon Management](docs/services/icons.md)
-* [Hooks](docs/hooks.md)
-* [Live reload](docs/livereload.md)
-* [Available Plugins](docs/plugins.md)
-
-## Upcoming Extensions
-
-We are working on four major items right now:
-
-1. Improving test coverage;
-2. Bindings to Cordova Plugins [see plugins](docs/plugins.md); and
-3. Either having ember install ember-cordova-plugin-foo install both the
-ember addon & cordova plugin, or achieving the same through ember
-cdv:install foo.
+For documentation, please visit [embercordova.com](http://embercordova.com).
 
 ## Contributing
 

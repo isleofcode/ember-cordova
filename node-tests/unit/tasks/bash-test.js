@@ -1,17 +1,17 @@
 'use strict';
 
-const td            = require('testdouble');
-const childProcess  = require('child_process');
-const BashTask      = require('../../../lib/tasks/bash');
+var td              = require('testdouble');
+var childProcess    = require('child_process');
+var BashTask        = require('../../../lib/tasks/bash');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const defaults      = require('lodash').defaults;
-const isObject      = td.matchers.isA(Object);
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var defaults        = require('lodash').defaults;
+var isObject        = td.matchers.isA(Object);
 
-describe('Bash Task', () => {
-  let execDouble, bashCmd;
+describe('Bash Task', function() {
+  var execDouble, bashCmd;
 
-  beforeEach(() => {
+  beforeEach(function() {
     execDouble = td.replace(childProcess, 'execSync');
 
     bashCmd = new BashTask(defaults(mockProject, {
@@ -19,11 +19,11 @@ describe('Bash Task', () => {
     }));
   });
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  it('attempts to exec cmd', () => {
+  it('attempts to exec cmd', function() {
     bashCmd.run();
 
     td.verify(execDouble('foo', isObject));

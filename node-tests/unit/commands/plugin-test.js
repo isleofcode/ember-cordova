@@ -1,17 +1,17 @@
 'use strict';
 
-const td            = require('testdouble');
-const PluginCmd     = require('../../../lib/commands/plugin');
-const CdvRawTask    = require('../../../lib/tasks/cordova-raw');
+var td              = require('testdouble');
+var PluginCmd       = require('../../../lib/commands/plugin');
+var CdvRawTask      = require('../../../lib/tasks/cordova-raw');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
-const isAnything    = td.matchers.anything();
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
+var isAnything      = td.matchers.anything();
 
-describe('Plugin Command', () => {
-  let rawDouble, plugin;
+describe('Plugin Command', function() {
+  var rawDouble, plugin;
 
-  beforeEach(() => {
+  beforeEach(function() {
     plugin = new PluginCmd({
       project: mockProject.project,
       ui: mockProject.ui
@@ -21,17 +21,17 @@ describe('Plugin Command', () => {
     rawDouble = td.replace(CdvRawTask.prototype, 'run');
   });
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  it('passes command to Cordova Raw', () => {
+  it('passes command to Cordova Raw', function() {
     return plugin.run({}, ['add', 'cordova-plugin']).then(function() {
       td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
     });
   });
 
-  it('passes the save flag', () => {
+  it('passes the save flag', function() {
     var opts = { save: false };
     return plugin.run(opts, ['add', 'cordova-plugin']).then(function() {
       td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));

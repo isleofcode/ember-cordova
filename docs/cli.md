@@ -58,18 +58,26 @@ DEPRECATED
 Add or remove cordova platforms. Use the save flag to persist new
 platforms to config.xml (default is true).
 
+###Aliases
++ add/a
++ remove/rm/r
+
 #### Available options
 + save (default:true)
 
 #### Examples
 + `ember cdv:platform add ios`
-+ `ember cdv:platform rm ios`
++ `ember cdv:platform remove ios`
 
 ### Plugin
 
 #### Description
 Add or remove cordova plugins. Use the save flag to persist new
 platforms to config.xml (default is true).
+
+###Aliases
++ add/a
++ remove/rm/r
 
 #### Available options
 + save (default:true)
@@ -129,6 +137,15 @@ an issue and tell us.
 
 #### Examples
 + `ember cordova info`
+
+####Troubleshooting
+When running a proxy command, file paths are relative to
+your cordova directory.
+
+So for example, if you for reasons unkwown run `ember cdv plugin add ../local-plugin-path`
+(hint: just use `ember cdv:plugin add ../local-plugin-path`), from your
+ember projects root, it will probably fail. You most likely need `ember
+cordova plugin add ../../../local-plugin-path`.
 
 ##Configuration / Defaults
 

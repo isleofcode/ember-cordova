@@ -1,13 +1,13 @@
 'use strict';
 
-const td            = require('testdouble');
-const fs            = require('fs');
-const mockProject   = require('../fixtures/ember-cordova-mock/project');
-const expect        = require('../helpers/expect');
-const isObject      = td.matchers.isA(Object);
+var td              = require('testdouble');
+var fs              = require('fs');
+var mockProject     = require('../fixtures/ember-cordova-mock/project');
+var expect          = require('../helpers/expect');
+var isObject        = td.matchers.isA(Object);
 
-const stubIndex = function() {
-  let stub = require('../../index');
+var stubIndex = function() {
+  var stub = require('../../index');
   stub.project = {
     targetIsCordova: true,
     RELOAD_PORT: 1,
@@ -23,7 +23,7 @@ const stubIndex = function() {
   return stub;
 };
 
-describe('Index', () => {
+describe('Index', function() {
   afterEach(function() {
     td.reset();
   });
@@ -31,7 +31,7 @@ describe('Index', () => {
   context('with target cordova', function() {
     describe('contentFor', function() {
       it('adds a cordova script tag', function() {
-        let projectIndex = stubIndex();
+        var projectIndex = stubIndex();
 
         expect(
           projectIndex.contentFor('body')
@@ -56,8 +56,8 @@ describe('Index', () => {
           return true;
         });
 
-        let getAssetDouble = td.replace('../../lib/utils/get-platform-assets');
-        let projectIndex = stubIndex();
+        var getAssetDouble = td.replace('../../lib/utils/get-platform-assets');
+        var projectIndex = stubIndex();
 
         expect(function() {
           projectIndex.treeForPublic()
@@ -74,7 +74,7 @@ describe('Index', () => {
           }
         });
 
-        let projectIndex = stubIndex();
+        var projectIndex = stubIndex();
         expect(function() {
           projectIndex.treeForPublic()
         }).to.throw(
@@ -87,7 +87,7 @@ describe('Index', () => {
           return path !== 'path/cordova.js'
         });
 
-        let projectIndex = stubIndex();
+        var projectIndex = stubIndex();
         projectIndex.treeForPublic();
 
         expect(projectIndex.ui.output).to.contain('WARNING: ember-cordova:');
@@ -99,7 +99,7 @@ describe('Index', () => {
           return path !== 'path/cordova_plugins.js'
         });
 
-        let projectIndex = stubIndex();
+        var projectIndex = stubIndex();
         projectIndex.treeForPublic();
 
         expect(projectIndex.ui.output).to.contain('WARNING: ember-cordova:');

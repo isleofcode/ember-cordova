@@ -1,28 +1,25 @@
 'use strict';
 
-const expect        = require('../../helpers/expect');
-const td            = require('testdouble');
-const Command       = require('../../../lib/commands/-command');
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const mockAnalytics = require('../../fixtures/ember-cordova-mock/analytics');
-const isAnything    = td.matchers.anything();
+var expect          = require('../../helpers/expect');
+var td              = require('testdouble');
+var Command         = require('../../../lib/commands/-command');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
+var isAnything      = td.matchers.anything();
 
 describe('Command', function() {
   afterEach(function() {
     td.reset();
   });
 
-  const setupCmd = function() {
-    let cmd = new Command({
+  var setupCmd = function() {
+    return new Command({
       project: mockProject.project
     });
-
-    cmd.analytics = mockAnalytics;
-    return cmd;
   };
 
   it('creates an analytics object on init', function() {
-    let cmd = setupCmd();
+    var cmd = setupCmd();
     expect(cmd.analytics).not.to.be.null;
   });
 
@@ -31,13 +28,14 @@ describe('Command', function() {
       done();
       return 'name';
     });
-    let cmd = setupCmd();
+    var cmd = setupCmd();
+    cmd.analytics = mockAnalytics;
 
     cmd.run();
   });
 
   it('tracks commands', function() {
-    let cmd = setupCmd();
+    var cmd = setupCmd();
     var trackDouble = td.replace(mockAnalytics, 'track');
     cmd.analytics = { track: trackDouble };
 
