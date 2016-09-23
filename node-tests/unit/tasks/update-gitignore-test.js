@@ -23,6 +23,7 @@ describe('Update gitignore Task', function() {
     td.replace(fs, 'openSync');
 
     var expectedGitkeep = '\n' +
+      'ember-cordova/tmp-livereload\n' +
       'ember-cordova/cordova/www/*\n' +
       '!ember-cordova/cordova/www/.gitkeep\n' +
       'ember-cordova/cordova/plugins/*\n' +
