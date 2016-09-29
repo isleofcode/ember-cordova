@@ -9,13 +9,13 @@ insted of`cordova`, for example `ember cdv:{command}`.
 You can proxy a command to cordova without ember-cordova interference by using a space vs a colon, e.g. `ember cdv build`, vs. `ember cdv:build`.
 
 ### Available Commands
-* [ember cdv:open](#Open)
-* [ember cdv:build](#Build)
-* [ember cdv:plaform](#Platform)
-* [ember cdv:plugin](#Plugin)
-* [ember cdv:prepare](#Prepare)
-* [ember cdv:serve](#Serve)
-* [ember cordova](#Cordova)
+* [ember cdv:open](#open)
+* [ember cdv:build](#build)
+* [ember cdv:plaform](#platform)
+* [ember cdv:plugin](#plugin)
+* [ember cdv:prepare](#prepare)
+* [ember cdv:serve](#serve)
+* [ember cordova](#cordova)
 
 ### Open
 
