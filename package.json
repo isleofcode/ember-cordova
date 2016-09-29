@@ -69,7 +69,7 @@
     "portfinder": "^1.0.5",
     "rimraf": "^2.5.4",
     "rsvp": "^3.2.1",
-    "splicon": "0.0.5",
+    "splicon": "0.0.6",
     "svg2png": "^3.0.0",
     "xml2js": "^0.4.17"
   },
