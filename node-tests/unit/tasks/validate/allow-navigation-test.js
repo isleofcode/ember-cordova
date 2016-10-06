@@ -43,6 +43,18 @@ describe('Validate Allow Navigation Test', function() {
     });
   });
 
+  it('resolves immediately if the platform is browser', function() {
+    //normally this would cause a rejection
+    td.replace(ValidateNav.prototype, 'livereloadProp', function() {
+      return undefined;
+    });
+
+    var validateNav = setupTask();
+    validateNav.platform = 'browser';
+
+    return expect(validateNav.run(true)).to.be.fulfilled;
+  });
+
   context('validateNavigationProp', function() {
     it('returns true if the value is *', function() {
       var validateNav = setupTask();
