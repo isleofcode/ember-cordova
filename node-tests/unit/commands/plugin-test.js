@@ -7,6 +7,7 @@ var CdvRawTask      = require('../../../lib/tasks/cordova-raw');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
 var isAnything      = td.matchers.anything();
+var contains        = td.matchers.contains;
 
 describe('Plugin Command', function() {
   var rawDouble, plugin;
@@ -27,14 +28,14 @@ describe('Plugin Command', function() {
 
   it('passes command to Cordova Raw', function() {
     return plugin.run({}, ['add', 'cordova-plugin']).then(function() {
-      td.verify(rawDouble('add', ['cordova-plugin'], isAnything));
+      td.verify(rawDouble('add', 'cordova-plugin', isAnything));
     });
   });
 
   it('passes the save flag', function() {
     var opts = { save: false };
     return plugin.run(opts, ['add', 'cordova-plugin']).then(function() {
-      td.verify(rawDouble('add', ['cordova-plugin'], { save: false }));
+      td.verify(rawDouble('add', 'cordova-plugin', contains({ save: false })));
     });
   });
 });
