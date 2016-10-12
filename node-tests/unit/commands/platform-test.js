@@ -44,7 +44,7 @@ describe('Platform Command', function() {
 
       return platform.run({}, ['add', 'ios']).then(function() {
         expect(rawCommand).to.equal('add');
-        expect(rawPlugins).to.deep.equal(['ios']);
+        expect(rawPlugins).to.equal('ios');
       });
     });
 
@@ -58,7 +58,7 @@ describe('Platform Command', function() {
       });
 
       return platform.run(opts, ['add', 'ios']).then(function() {
-        expect(rawOpts).to.deep.equal({ save: false });
+        expect(rawOpts).to.have.property('save').and.equal(false);
       });
     });
   });
