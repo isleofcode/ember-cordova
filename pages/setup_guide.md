@@ -51,6 +51,7 @@ Cordova working relies on the cordova.js script being injected. By default, this
 When you try to add the Android platform you may receive the following error: `Error validating package name. Package name must look like: com.company.Name`.  This can be resolved by setting the `id` property on the `widget` node in the Ember Cordova `config.xml`
 
 For example:
+
 ```
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.myappdevcompany.phoneapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
