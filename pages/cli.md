@@ -99,7 +99,7 @@ Think of the usage similar to package.json /w npm install.
 ### Serve
 
 Runs the Ember Server for live reload. To learn more, [read
-here](livereload.md).
+here](/pages/live_reload).
 
 | Options    | default |
 |---------  |---------|
