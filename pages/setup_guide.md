@@ -35,7 +35,8 @@ ember install ember-cordova --name=AppName --cordovaid=com.isleofcode.app --temp
 
 1. Set your config.locationType to 'hash' (ember-cordova will warn you if it is not).
 
-2. Cordova requires relative asset paths so check that none of yours are absolute. For ember-cli v2.7.0 and newer, you'll want to remove the references to `{{rootURL}}` from the asset paths in `app/index.html`.
+[comment]: `{{rootUrl}}` will not render because Jekyll is rendering it as handlebars.
+2. Cordova requires relative asset paths so check that none of yours are absolute. For ember-cli v2.7.0 and newer, you'll want to remove the references to &#123;&#123;rootURL&#125;&#125; from the asset paths in `app/index.html`.
 
 3. As a final step, add your desired platforms, e.g.:
 
@@ -60,7 +61,7 @@ For example:
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
  ...
- ```
+```
 
 #### A note on browser platform
 
