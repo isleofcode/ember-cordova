@@ -4,7 +4,6 @@ var td              = require('testdouble');
 var cordovaAssets   = require('../../../lib/utils/cordova-assets');
 var expect          = require('../../helpers/expect');
 var fs              = require('fs');
-var path            = require('path');
 var MockUI          = require('ember-cli/tests/helpers/mock-ui');
 
 describe('Get Platform Assets Util', function() {
