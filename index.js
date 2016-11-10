@@ -21,6 +21,10 @@ module.exports = {
     return commands;
   },
 
+  _mergeTrees(trees) {
+    return mergeTrees(trees);
+  },
+
   //In Livereload scenarios, we need to manually include cordova assets
   cordovaAssetTree: function(tree) {
     var platform = this.project.CORDOVA_PLATFORM;
@@ -34,7 +38,7 @@ module.exports = {
       include: assets.files
     });
 
-    return mergeTrees([tree, pluginsTree]);
+    return this._mergeTrees([tree, pluginsTree]);
   },
 
   treeForPublic: function() {
