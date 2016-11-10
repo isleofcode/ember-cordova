@@ -21,7 +21,7 @@ module.exports = {
     return commands;
   },
 
-  _mergeTrees(trees) {
+  _mergeTrees: function(trees) {
     return mergeTrees(trees);
   },
 
