@@ -65,46 +65,6 @@ describe('Index', function() {
 
         td.verify(getAssetDouble(isObject));
       });
-
-      it('throws an error if platformAssets.path is undefined', function() {
-        td.replace('../../lib/utils/get-platform-assets', function() {
-          return {
-            path: undefined,
-            files: []
-          }
-        });
-
-        var projectIndex = stubIndex();
-        expect(function() {
-          projectIndex.treeForPublic()
-        }).to.throw(
-        'ember-cordova: Did not receive platform asset path, canot not build'
-        );
-      });
-
-      it('throws an error if cordova.js does not exist', function() {
-        td.replace(fs, 'existsSync', function(path) {
-          return path !== 'path/cordova.js'
-        });
-
-        var projectIndex = stubIndex();
-        projectIndex.treeForPublic();
-
-        expect(projectIndex.ui.output).to.contain('WARNING: ember-cordova:');
-        expect(projectIndex.ui.output).to.contain('cordova.js');
-      });
-
-      it('throws an error if cordova_plugins.js does not exist', function() {
-        td.replace(fs, 'existsSync', function(path) {
-          return path !== 'path/cordova_plugins.js'
-        });
-
-        var projectIndex = stubIndex();
-        projectIndex.treeForPublic();
-
-        expect(projectIndex.ui.output).to.contain('WARNING: ember-cordova:');
-        expect(projectIndex.ui.output).to.contain('cordova_plugins.js');
-      });
     });
   });
 });
