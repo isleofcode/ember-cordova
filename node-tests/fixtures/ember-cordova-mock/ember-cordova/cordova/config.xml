@@ -12,6 +12,7 @@
   <plugin name="cordova-test-plugin" spec="1" />
   <access origin="*" />
   <allow-navigation href="*" />
+  <allow-navigation href="file://*/**" />
   <allow-intent href="http://*/*" />
   <allow-intent href="https://*/*" />
   <allow-intent href="tel:*" />

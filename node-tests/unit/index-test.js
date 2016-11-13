@@ -1,13 +1,13 @@
 'use strict';
 
-const td            = require('testdouble');
-const fs            = require('fs');
-const mockProject   = require('../fixtures/ember-cordova-mock/project');
-const expect        = require('../helpers/expect');
-const isObject      = td.matchers.isA(Object);
+var td              = require('testdouble');
+var fs              = require('fs');
+var mockProject     = require('../fixtures/ember-cordova-mock/project');
+var expect          = require('../helpers/expect');
+var isAnything      = td.matchers.anything;
 
-const stubIndex = function() {
-  let stub = require('../../index');
+var stubIndex = function() {
+  var stub = require('../../index');
   stub.project = {
     targetIsCordova: true,
     RELOAD_PORT: 1,
@@ -18,12 +18,10 @@ const stubIndex = function() {
   stub._super = {};
   stub._super.treeForPublic = function(tree) { return tree };
 
-  td.replace(stub, 'cordovaAssetTree');
-
   return stub;
 };
 
-describe('Index', () => {
+describe('Index', function() {
   afterEach(function() {
     td.reset();
   });
@@ -31,7 +29,7 @@ describe('Index', () => {
   context('with target cordova', function() {
     describe('contentFor', function() {
       it('adds a cordova script tag', function() {
-        let projectIndex = stubIndex();
+        var projectIndex = stubIndex();
 
         expect(
           projectIndex.contentFor('body')
@@ -41,69 +39,40 @@ describe('Index', () => {
       });
     });
 
-    describe('treeForPublic', function() {
-      beforeEach(function() {
-        td.replace('../../lib/utils/get-platform-assets', function() {
-          return {
-            path: 'path',
-            files: []
-          }
-        });
-      });
-
+    describe('with target liveReload', function() {
       it('attempts to add cordova assets to tree', function() {
         td.replace(fs, 'existsSync', function() {
           return true;
         });
 
-        let getAssetDouble = td.replace('../../lib/utils/get-platform-assets');
-        let projectIndex = stubIndex();
+        var projectIndex = stubIndex();
+        var buildTreeDouble = td.replace(projectIndex, 'cordovaAssetTree');
+        projectIndex.project.targetIsCordovaLivereload = true;
 
-        expect(function() {
-          projectIndex.treeForPublic()
-        }).to.throw(Error);
-
-        td.verify(getAssetDouble(isObject));
+        projectIndex.treeForPublic()
+        td.verify(buildTreeDouble(isAnything()));
       });
 
-      it('throws an error if platformAssets.path is undefined', function() {
-        td.replace('../../lib/utils/get-platform-assets', function() {
+      it('first gets cordova asset paths, then validates them', function() {
+        var cordovaAssets = require('../../lib/utils/cordova-assets');
+        td.replace('../../lib/utils/cordova-path');
+
+        var assetCalls = [];
+        td.replace(cordovaAssets, 'getPaths', function() {
+          assetCalls.push('get-paths');
           return {
-            path: undefined,
-            files: []
+            assetsPath: ''
           }
         });
-
-        let projectIndex = stubIndex();
-        expect(function() {
-          projectIndex.treeForPublic()
-        }).to.throw(
-        'ember-cordova: Did not receive platform asset path, canot not build'
-        );
-      });
-
-      it('throws an error if cordova.js does not exist', function() {
-        td.replace(fs, 'existsSync', function(path) {
-          return path !== 'path/cordova.js'
+        td.replace(cordovaAssets, 'validatePaths', function() {
+          assetCalls.push('validate-paths');
         });
 
-        let projectIndex = stubIndex();
-        projectIndex.treeForPublic();
+        var projectIndex = stubIndex();
+        td.replace(projectIndex, '_mergeTrees');
+        projectIndex.cordovaAssetTree();
 
-        expect(projectIndex.ui.output).to.contain('WARNING: ember-cordova:');
-        expect(projectIndex.ui.output).to.contain('cordova.js');
-      });
-
-      it('throws an error if cordova_plugins.js does not exist', function() {
-        td.replace(fs, 'existsSync', function(path) {
-          return path !== 'path/cordova_plugins.js'
-        });
-
-        let projectIndex = stubIndex();
-        projectIndex.treeForPublic();
-
-        expect(projectIndex.ui.output).to.contain('WARNING: ember-cordova:');
-        expect(projectIndex.ui.output).to.contain('cordova_plugins.js');
+        expect(assetCalls).to.deep.equal(['get-paths', 'validate-paths']);
       });
     });
   });

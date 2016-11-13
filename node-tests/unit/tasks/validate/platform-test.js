@@ -1,21 +1,21 @@
 'use strict';
 
-const td            = require('testdouble');
-const expect        = require('../../../helpers/expect');
-const Promise       = require('ember-cli/lib/ext/promise');
+var td              = require('testdouble');
+var expect          = require('../../../helpers/expect');
+var Promise         = require('ember-cli/lib/ext/promise');
 
-const PlatformTask  = require('../../../../lib/tasks/validate/platform');
-const mockProject   = require('../../../fixtures/ember-cordova-mock/project');
-const CordovaValidator = require('../../../../lib/utils/cordova-validator');
+var PlatformTask    = require('../../../../lib/tasks/validate/platform');
+var mockProject     = require('../../../fixtures/ember-cordova-mock/project');
+var CordovaValidator = require('../../../../lib/utils/cordova-validator');
 
-describe('Validate Platform Tasks', () => {
-  let tasks, validatePlatform;
+describe('Validate Platform Tasks', function() {
+  var tasks, validatePlatform;
 
-  afterEach(() => {
+  afterEach(function() {
     td.reset();
   });
 
-  beforeEach(() => {
+  beforeEach(function() {
     tasks = [];
     validatePlatform = new PlatformTask({
       project: mockProject.project,
@@ -26,23 +26,23 @@ describe('Validate Platform Tasks', () => {
   });
 
   function mockTasks() {
-    td.replace(CordovaValidator.prototype, 'validateCordovaConfig', () => {
+    td.replace(CordovaValidator.prototype, 'validateCordovaConfig', function() {
       tasks.push('validate-cordova-config');
       return Promise.resolve();
     });
 
-    td.replace(CordovaValidator.prototype, 'validateCordovaJSON', () => {
+    td.replace(CordovaValidator.prototype, 'validateCordovaJSON', function() {
       tasks.push('validate-cordova-json');
       return Promise.resolve();
     });
 
-    td.replace(CordovaValidator.prototype, 'validateDirExists', () => {
+    td.replace(CordovaValidator.prototype, 'validateDirExists', function() {
       tasks.push('validate-dir');
       return Promise.resolve();
     });
   }
 
-  it('runs validations in the correct order', () => {
+  it('runs validations in the correct order', function() {
     var validatePlatform = new PlatformTask({
       project: mockProject.project,
       platform: 'ios'
@@ -61,19 +61,19 @@ describe('Validate Platform Tasks', () => {
   context('validator object', function() {
     var validator;
 
-    beforeEach(() => {
+    beforeEach(function() {
       validator = validatePlatform.createValidator();
     });
 
-    it('sets type to platform', () => {
+    it('sets type to platform', function() {
       expect(validator.type).to.equal('platform');
     });
 
-    it('sets dir to platforms/', () => {
+    it('sets dir to platforms/', function() {
       expect(validator.dir).to.equal('platforms/');
     });
 
-    it('sets correct fetch json path', () => {
+    it('sets correct fetch json path', function() {
       expect(validator.jsonPath).to.equal('platforms/platforms.json');
     });
   });

@@ -1,18 +1,18 @@
 'use strict';
 
-const td            = require('testdouble');
-const fs            = require('fs');
+var td              = require('testdouble');
+var fs              = require('fs');
 
-const mockProject   = require('../../fixtures/ember-cordova-mock/project');
-const expect        = require('../../helpers/expect');
+var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var expect          = require('../../helpers/expect');
 
-const contains      = td.matchers.contains;
-const isString      = td.matchers.isA(String);
+var contains        = td.matchers.contains;
+var isString        = td.matchers.isA(String);
 
-const setupTask = function(mockTemplate) {
-  let CreateShell = require('../../../lib/tasks/create-livereload-shell');
+var setupTask = function(mockTemplate) {
+  var CreateShell = require('../../../lib/tasks/create-livereload-shell');
 
-  let shellTask = new CreateShell({
+  var shellTask = new CreateShell({
     project: mockProject.project,
     ui: mockProject.ui
   });
@@ -27,7 +27,7 @@ const setupTask = function(mockTemplate) {
 };
 
 describe('Create Cordova Shell Task', function() {
-  let writeDouble;
+  var writeDouble;
 
   beforeEach(function() {
     writeDouble = td.replace(fs, 'writeFileSync');
@@ -38,8 +38,8 @@ describe('Create Cordova Shell Task', function() {
   });
 
   it('reads in the template index.html', function() {
-    let shellTask = setupTask();
-    let readDouble = td.replace(fs, 'readFileSync');
+    var shellTask = setupTask();
+    var readDouble = td.replace(fs, 'readFileSync');
 
     expect(shellTask.run(4200)).to.eventually.throw(Error);
     td.verify(readDouble(
@@ -49,7 +49,7 @@ describe('Create Cordova Shell Task', function() {
   });
 
   it('replaces {{liveReloadUrl}} and saves', function() {
-    let shellTask = setupTask(true);
+    var shellTask = setupTask(true);
 
     return shellTask.run(4200, 'fakeUrl').then(function() {
       td.verify(writeDouble(
@@ -64,7 +64,7 @@ describe('Create Cordova Shell Task', function() {
     td.replace('../../../lib/utils/get-network-ip', function() {
       return '192.0.0.2';
     });
-    let shellTask = setupTask(true);
+    var shellTask = setupTask(true);
 
     return shellTask.run(4200).then(function() {
       td.verify(writeDouble(
@@ -77,7 +77,7 @@ describe('Create Cordova Shell Task', function() {
 
   it('rejects on error', function() {
     td.replace(fs, 'readFileSync');
-    let shellTask = setupTask(true);
+    var shellTask = setupTask(true);
     expect(shellTask.run()).to.eventually.be.rejected;
   });
 });
