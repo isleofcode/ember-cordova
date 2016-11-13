@@ -9,25 +9,25 @@ var MockUI          = require('ember-cli/tests/helpers/mock-ui');
 describe('Get Platform Assets Util', function() {
   describe('getPaths', function() {
     it('is valid for ios', function() {
-      var assets = cordovaAssets.getPaths('ios');
+      var assets = cordovaAssets.getPaths('ios', 'fakeProjectPath');
       var expectedPath = 'platforms/ios/www';
       expect(assets.assetsPath).to.equal(expectedPath);
     });
 
     it('is valid for android', function() {
-      var assets = cordovaAssets.getPaths('android');
+      var assets = cordovaAssets.getPaths('android', 'fakeProjectPath');
       var expectedPath = 'platforms/android/assets/www';
       expect(assets.assetsPath).to.equal(expectedPath);
     });
 
     it('is valid for browser', function() {
-      var assets = cordovaAssets.getPaths('browser');
+      var assets = cordovaAssets.getPaths('browser', 'fakeProjectPath');
       var expectedPath = 'platforms/browser/www';
       expect(assets.assetsPath).to.equal(expectedPath);
     });
 
     it('adds cordova_plugins.js to files', function() {
-      var assets = cordovaAssets.getPaths('ios');
+      var assets = cordovaAssets.getPaths('ios', 'fakeProjectPath');
       expect(assets.files).to.deep.equal(['cordova_plugins.js', 'cordova.js']);
     });
   });
