@@ -1,8 +1,9 @@
 'use strict';
 
-var CreateTask        = require('../../lib/tasks/create-cordova-project');
-var GitIgnoreTask     = require('../../lib/tasks/update-gitignore');
-var camelize          = require('../../lib/utils/string.js').camelize;
+var CreateTask            = require('../../lib/tasks/create-cordova-project');
+var UpdateGitIgnore       = require('../../lib/tasks/update-gitignore');
+var UpdateWatchmanIgnore  = require('../../lib/tasks/update-watchman-config');
+var camelize              = require('../../lib/utils/string.js').camelize;
 
 module.exports = {
   name: 'ember-cordova',
@@ -43,12 +44,18 @@ module.exports = {
       ui: this.ui
     });
 
-    var gitIgnore = new GitIgnoreTask({
+    var updateGitIgnore = new UpdateGitIgnore({
+      project: this.project,
+      ui: this.ui
+    });
+
+    var updateWatchmanIgnore = new UpdateWatchmanIgnore({
       project: this.project,
       ui: this.ui
     });
 
     return create.run(options.templatePath)
-           .then(gitIgnore.prepare());
+           .then(updateGitIgnore.prepare())
+           .then(updateWatchmanIgnore.prepare());
   }
 };
