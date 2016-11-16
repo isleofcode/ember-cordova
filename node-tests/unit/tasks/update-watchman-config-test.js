@@ -9,7 +9,7 @@ var Promise         = require('ember-cli/lib/ext/promise');
 var WatchmanConfig  = require('../../../lib/tasks/update-watchman-config');
 var fsUtils         = require('../../../lib/utils/fs-utils');
 
-describe('Update gitignore Task', function() {
+describe('Update Watchman Config Task', function() {
   var watchmanTask;
 
   beforeEach(function() {
@@ -23,7 +23,7 @@ describe('Update gitignore Task', function() {
     td.reset();
   });
 
-  xit('attempts to read watchmanconfig', function() {
+  it('attempts to read watchmanconfig', function() {
     var actualPath;
     var expectedPath = path.join(mockProject.project.root, '.watchmanconfig');
 
