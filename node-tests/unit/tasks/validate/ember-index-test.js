@@ -14,7 +14,8 @@ describe('Validate Ember Index Task', function() {
 
   beforeEach(function() {
     validateIndex = new ValidateIndex({
-      project: mockProject.project
+      project: mockProject.project,
+      ui: mockProject.ui,
     });
   });
 
@@ -71,6 +72,16 @@ describe('Validate Ember Index Task', function() {
     validateIndex.invalidIndex = td.function();
     return validateIndex.run().then(function() {
       td.verify(validateIndex.invalidIndex());
+    })
+  });
+
+  it('when force is true, throws a warning vs rejection', function() {
+    td.replace(fsUtils, 'read', function(path) {
+      return Promise.resolve('index with {{rootURL}}');
+    });
+
+    return validateIndex.run(true).then(function() {
+      expect(validateIndex.ui.output).to.contain('Build Warning');
     })
   });
 
