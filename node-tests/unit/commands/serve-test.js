@@ -10,12 +10,17 @@ var ServeTask       = require('../../../lib/tasks/serve');
 var CdvBuildTask    = require('../../../lib/tasks/cordova-build');
 var BashTask        = require('../../../lib/tasks/bash');
 var HookTask        = require('../../../lib/tasks/run-hook');
-var PlatformTask    = require('../../../lib/tasks/validate/platform');
-var PluginTask      = require('../../../lib/tasks/validate/plugin');
 var LRloadShellTask = require('../../../lib/tasks/create-livereload-shell');
 
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
+
+/* eslint-disable max-len */
+var ValidatePlatform        = require('../../../lib/tasks/validate/platform');
+var ValidatePlugin          = require('../../../lib/tasks/validate/plugin');
+var ValidateAllowNavigation = require('../../../lib/tasks/validate/allow-navigation');
+var ValidateEmberIndex      = require('../../../lib/tasks/validate/ember-index');
+/* eslint-enable max-len */
 
 describe('Serve Command', function() {
   var serveCmd;
@@ -53,13 +58,23 @@ describe('Serve Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(PlatformTask.prototype, 'run', function(hookName) {
+      td.replace(ValidatePlatform.prototype, 'run', function() {
         tasks.push('validate-platform');
         return Promise.resolve();
       });
 
-      td.replace(PluginTask.prototype, 'run', function(hookName) {
+      td.replace(ValidatePlugin.prototype, 'run', function() {
         tasks.push('validate-plugin');
+        return Promise.resolve();
+      });
+
+      td.replace(ValidateAllowNavigation.prototype, 'run', function() {
+        tasks.push('validate-allow-navigation');
+        return Promise.resolve();
+      });
+
+      td.replace(ValidateEmberIndex.prototype, 'run', function() {
+        tasks.push('validate-ember-index');
         return Promise.resolve();
       });
 
@@ -97,6 +112,8 @@ describe('Serve Command', function() {
     it('runs tasks in the correct order', function() {
       return serveCmd.run({}).then(function() {
         expect(tasks).to.deep.equal([
+          'validate-ember-index',
+          'validate-allow-navigation',
           'validate-platform',
           'validate-plugin',
           'hook beforeBuild',
@@ -122,10 +139,8 @@ describe('Serve Command', function() {
       });
     });
 
-    it('throws', function() {
-      return expect(function() {
-        serveCmd.run({})
-      }).to.throw(Error);
+    it('rejects', function() {
+      return expect(serveCmd.run({})).to.be.rejected;
     });
   });
 });
