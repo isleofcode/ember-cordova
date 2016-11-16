@@ -9,12 +9,17 @@ var Promise         = require('ember-cli/lib/ext/promise');
 var BuildTask       = require('../../../lib/tasks/ember-build');
 var CdvBuildTask    = require('../../../lib/tasks/cordova-build');
 var HookTask        = require('../../../lib/tasks/run-hook');
-var PlatformTask    = require('../../../lib/tasks/validate/platform');
 
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
 
 var isAnything      = td.matchers.anything;
+
+/* eslint-disable max-len */
+var ValidatePlatform        = require('../../../lib/tasks/validate/platform');
+var ValidateAllowNavigation = require('../../../lib/tasks/validate/allow-navigation');
+var ValidateEmberIndex      = require('../../../lib/tasks/validate/ember-index');
+/* eslint-enable max-len */
 
 var setupBuild = function() {
   var BuildCmd = require('../../../lib/commands/build');
@@ -51,8 +56,18 @@ describe('Build Command', function() {
     function mockTasks() {
       tasks = [];
 
-      td.replace(PlatformTask.prototype, 'run', function() {
-        tasks.push('check-platform');
+      td.replace(ValidatePlatform.prototype, 'run', function() {
+        tasks.push('validate-platform');
+        return Promise.resolve();
+      });
+
+      td.replace(ValidateAllowNavigation.prototype, 'run', function() {
+        tasks.push('validate-allow-navigation');
+        return Promise.resolve();
+      });
+
+      td.replace(ValidateEmberIndex.prototype, 'run', function() {
+        tasks.push('validate-ember-index');
         return Promise.resolve();
       });
 
@@ -88,7 +103,9 @@ describe('Build Command', function() {
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
-            'check-platform',
+            'validate-ember-index',
+            'validate-allow-navigation',
+            'validate-platform',
             'hook beforeBuild',
             'cordova-build',
             'hook afterBuild'
@@ -131,9 +148,7 @@ describe('Build Command', function() {
         };
       };
 
-      return expect(function() {
-        build.run({});
-      }).to.throw(Error);
+      return expect(build.run({})).to.be.rejected;
     });
   });
 });
