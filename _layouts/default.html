@@ -25,13 +25,17 @@
     </div>
 
     <header class="site-header">
-      {% if site.title %}
-        <h1>
-          <a class="site-title" href="{{ site.baseurl | prepend: site.url }}/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
-        </h1>
-      {% else %}
+      <h1>
         <a class="site-title" href="{{ site.baseurl | prepend: site.url }}/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
-      {% endif %}
+      </h1>
+
+      <div class="site-header-subtitle">
+        <u>
+          <a href="https://github.com/isleofcode/ember-cordova/releases">
+            Current Relase: v0.3.9
+          </a>
+        </u>
+      </div>
     </header>
 
     <div id='nav-container'>
@@ -51,6 +55,8 @@
         <a class="nav-link" href="{{ site.baseurl }}/pages/icon_management">Icon Generation</a>
         <a class="nav-link" href="{{ site.baseurl }}/pages/help">Help</a>
         <a class="nav-link" href="https://github.com/isleofcode/ember-cordova">Github</a>
+        <a class="nav-link" href="https://github.com/isleofcode/ember-cordova/releases">Version Notes</a>
+
       </nav>
     </div>
 

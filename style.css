@@ -342,8 +342,16 @@ img {
 /* header ********************************************************************/
 
 .site-header {
-  margin-bottom: 1.5em;
   display: block;
+}
+
+.site-header-subtitle {
+  margin: 1em 0em;
+  font-size: 12px;
+}
+
+.site-header-subtitle a{
+  color: #000000;
 }
 
 .site-header h1 {
@@ -608,7 +616,11 @@ img {
   .site-header {
     display: inline-block;
     margin-left: 1em;
-    margin-bottom: .5em;
+  }
+
+  .site-header-subtitle {
+    margin: 0.5em 0em;
+    font-size: 12px;
   }
 
   .site-title {
