@@ -19,7 +19,7 @@ var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
 var ValidatePlatform        = require('../../../lib/tasks/validate/platform');
 var ValidatePlugin          = require('../../../lib/tasks/validate/plugin');
 var ValidateAllowNavigation = require('../../../lib/tasks/validate/allow-navigation');
-var ValidateEmberIndex      = require('../../../lib/tasks/validate/ember-index');
+var ValidateRootUrl         = require('../../../lib/tasks/validate/root-url');
 /* eslint-enable max-len */
 
 describe('Serve Command', function() {
@@ -73,8 +73,8 @@ describe('Serve Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(ValidateEmberIndex.prototype, 'run', function() {
-        tasks.push('validate-ember-index');
+      td.replace(ValidateRootUrl.prototype, 'run', function() {
+        tasks.push('validate-root-url');
         return Promise.resolve();
       });
 
@@ -112,7 +112,7 @@ describe('Serve Command', function() {
     it('runs tasks in the correct order', function() {
       return serveCmd.run({}).then(function() {
         expect(tasks).to.deep.equal([
-          'validate-ember-index',
+          'validate-root-url',
           'validate-allow-navigation',
           'validate-platform',
           'validate-plugin',
@@ -131,7 +131,7 @@ describe('Serve Command', function() {
         skipCordovaBuild: true
       }).then(function() {
         expect(tasks).to.deep.equal([
-          'validate-ember-index',
+          'validate-root-url',
           'validate-allow-navigation',
           'validate-platform',
           'validate-plugin',
@@ -140,24 +140,6 @@ describe('Serve Command', function() {
           'hook afterBuild'
         ]);
       });
-    });
-  });
-
-  context('when locationType is not hash', function() {
-    beforeEach(function() {
-      serveCmd.project.config = function() {
-        return {
-          locationType: 'auto'
-        };
-      };
-
-      td.replace(ui, 'writeLine',  function() {
-        throw new Error('Exit Called');
-      });
-    });
-
-    it('rejects', function() {
-      return expect(serveCmd.run({})).to.be.rejected;
     });
   });
 });

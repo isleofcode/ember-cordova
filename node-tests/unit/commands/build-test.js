@@ -18,7 +18,7 @@ var isAnything      = td.matchers.anything;
 /* eslint-disable max-len */
 var ValidatePlatform        = require('../../../lib/tasks/validate/platform');
 var ValidateAllowNavigation = require('../../../lib/tasks/validate/allow-navigation');
-var ValidateEmberIndex      = require('../../../lib/tasks/validate/ember-index');
+var ValidateRootUrl         = require('../../../lib/tasks/validate/root-url');
 /* eslint-enable max-len */
 
 var setupBuild = function() {
@@ -66,8 +66,8 @@ describe('Build Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(ValidateEmberIndex.prototype, 'run', function() {
-        tasks.push('validate-ember-index');
+      td.replace(ValidateRootUrl.prototype, 'run', function() {
+        tasks.push('validate-root-url');
         return Promise.resolve();
       });
 
@@ -104,7 +104,7 @@ describe('Build Command', function() {
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
-            'validate-ember-index',
+            'validate-root-url',
             'validate-allow-navigation',
             'validate-platform',
             'hook beforeBuild',
@@ -122,7 +122,7 @@ describe('Build Command', function() {
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
-            'validate-ember-index',
+            'validate-root-url',
             'validate-allow-navigation',
             'validate-platform',
             'hook beforeBuild',
@@ -148,26 +148,6 @@ describe('Build Command', function() {
       return build.run({platform: passedPlatform}).then(function() {
         expect(cordovaPlatform).to.equal(passedPlatform);
       });
-    });
-  });
-
-  context('when locationType is not hash', function() {
-    beforeEach(function() {
-      td.replace(ui, 'writeLine',  function() {
-        throw new Error('Exit Called');
-      });
-
-    });
-
-    it('throws', function() {
-      var build = setupBuild();
-      build.project.config = function() {
-        return {
-          locationType: 'auto'
-        };
-      };
-
-      return expect(build.run({})).to.be.rejected;
     });
   });
 });
