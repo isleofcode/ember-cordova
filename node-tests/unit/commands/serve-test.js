@@ -124,6 +124,23 @@ describe('Serve Command', function() {
         ]);
       });
     });
+
+    it('skips emer & cordova builds with --skip flags', function() {
+      return serveCmd.run({
+        skipEmberBuild: true,
+        skipCordovaBuild: true
+      }).then(function() {
+        expect(tasks).to.deep.equal([
+          'validate-ember-index',
+          'validate-allow-navigation',
+          'validate-platform',
+          'validate-plugin',
+          'hook beforeBuild',
+          'create-livereload-shell',
+          'hook afterBuild'
+        ]);
+      });
+    });
   });
 
   context('when locationType is not hash', function() {
