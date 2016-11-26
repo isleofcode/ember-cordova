@@ -4,7 +4,8 @@ var td              = require('testdouble');
 var cordovaAssets   = require('../../../lib/utils/cordova-assets');
 var expect          = require('../../helpers/expect');
 var fsUtils         = require('../../../lib/utils/fs-utils');
-var MockUI          = require('ember-cli/tests/helpers/mock-ui');
+var logger          = require('../../../lib/utils/logger');
+var contains        = td.matchers.contains;
 
 describe('Get Platform Assets Util', function() {
   describe('getPaths', function() {
@@ -46,11 +47,11 @@ describe('Get Platform Assets Util', function() {
         return path !== 'path/cordova.js'
       });
 
-      var mockUI = new MockUI();
-      cordovaAssets.validatePaths('fakeAssetPath', 'fakeProjectPath', mockUI);
+      var warnDouble = td.replace(logger, 'warn');
+      cordovaAssets.validatePaths('fakeAssetPath', 'fakeProjectPath');
 
-      expect(mockUI.output).to.contain('WARNING: ember-cordova:');
-      expect(mockUI.output).to.contain('cordova.js');
+      td.verify(warnDouble(contains('Did not find')));
+      td.verify(warnDouble(contains('cordova.js')));
     });
 
     it('throws an error if cordova_plugins.js does not exist', function() {
@@ -58,11 +59,11 @@ describe('Get Platform Assets Util', function() {
         return path !== 'path/cordova_plugins.js'
       });
 
-      var mockUI = new MockUI();
-      cordovaAssets.validatePaths('fakeAssetPath', 'fakeProjectPath', mockUI);
+      var warnDouble = td.replace(logger, 'warn');
+      cordovaAssets.validatePaths('fakeAssetPath', 'fakeProjectPath');
 
-      expect(mockUI.output).to.contain('WARNING: ember-cordova:');
-      expect(mockUI.output).to.contain('cordova_plugins.js');
+      td.verify(warnDouble(contains('Did not find')));
+      td.verify(warnDouble(contains('cordova_plugins.js')));
     });
   });
 });

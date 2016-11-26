@@ -5,12 +5,13 @@ var Promise         = require('ember-cli/lib/ext/promise');
 var path            = require('path');
 
 var fsUtils         = require('../../../lib/utils/fs-utils');
-var expect          = require('../../helpers/expect');
+var logger          = require('../../../lib/utils/logger');
 
 var cordovaProj     = require('cordova-lib').cordova;
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var isObject        = td.matchers.isA(Object);
 var isString        = td.matchers.isA(String);
+var contains        = td.matchers.contains;
 
 describe('Cordova Create Task', function() {
   var create, rawDouble;
@@ -74,11 +75,12 @@ describe('Cordova Create Task', function() {
     td.replace(fsUtils, 'existsSync', function() {
       return true;
     });
+    var logDouble = td.replace(logger, 'warn');
 
     setupCreateTask();
-    create.run();
-
-    expect(create.ui.output).to.contain('project already exists');
+    return create.run().then(function() {
+      td.verify(logDouble(contains('dir already exists')));
+    });
   });
 
 
