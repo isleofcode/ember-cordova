@@ -77,6 +77,7 @@ describe('Build Command', function() {
       });
 
       td.replace(BuildTask.prototype, 'run', function() {
+        tasks.push('ember-build');
         return Promise.resolve();
       });
 
@@ -100,6 +101,24 @@ describe('Build Command', function() {
       var build = setupBuild();
 
       return build.run({})
+        .then(function() {
+          //h-t ember-electron for the pattern
+          expect(tasks).to.deep.equal([
+            'validate-ember-index',
+            'validate-allow-navigation',
+            'validate-platform',
+            'hook beforeBuild',
+            'ember-build',
+            'cordova-build',
+            'hook afterBuild'
+          ]);
+        });
+    });
+
+    it('skips ember-build with the --skip-ember-build flag', function() {
+      var build = setupBuild();
+
+      return build.run({skipEmberBuild: true})
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
