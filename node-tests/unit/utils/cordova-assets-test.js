@@ -3,7 +3,7 @@
 var td              = require('testdouble');
 var cordovaAssets   = require('../../../lib/utils/cordova-assets');
 var expect          = require('../../helpers/expect');
-var fs              = require('fs');
+var fsUtils         = require('../../../lib/utils/fs-utils');
 var MockUI          = require('ember-cli/tests/helpers/mock-ui');
 
 describe('Get Platform Assets Util', function() {
@@ -42,7 +42,7 @@ describe('Get Platform Assets Util', function() {
     });
 
     it('throws an error if cordova.js does not exist', function() {
-      td.replace(fs, 'existsSync', function(path) {
+      td.replace(fsUtils, 'existsSync', function(path) {
         return path !== 'path/cordova.js'
       });
 
@@ -54,7 +54,7 @@ describe('Get Platform Assets Util', function() {
     });
 
     it('throws an error if cordova_plugins.js does not exist', function() {
-      td.replace(fs, 'existsSync', function(path) {
+      td.replace(fsUtils, 'existsSync', function(path) {
         return path !== 'path/cordova_plugins.js'
       });
 

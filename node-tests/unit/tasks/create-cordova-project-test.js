@@ -1,8 +1,10 @@
 'use strict';
 
 var td              = require('testdouble');
-var fs              = require('fs');
+var Promise         = require('ember-cli/lib/ext/promise');
 var path            = require('path');
+
+var fsUtils         = require('../../../lib/utils/fs-utils');
 var expect          = require('../../helpers/expect');
 
 var cordovaProj     = require('cordova-lib').cordova;
@@ -14,17 +16,19 @@ describe('Cordova Create Task', function() {
   var create, rawDouble;
 
   var setupCreateTask = function() {
+    //TODO - factor me out
     rawDouble = td.replace(cordovaProj.raw, 'create');
+
     var CreateCdvTask = require('../../../lib/tasks/create-cordova-project');
     create = new CreateCdvTask(mockProject);
   };
 
   beforeEach(function() {
-    td.replace(fs, 'mkdirSync', function() {
-      return true;
+    td.replace(fsUtils, 'mkdir', function() {
+      return Promise.resolve();
     });
 
-    td.replace(fs, 'existsSync', function() {
+    td.replace(fsUtils, 'existsSync', function() {
       return false;
     });
   });
@@ -40,12 +44,12 @@ describe('Cordova Create Task', function() {
       'ember-cordova-mock',
       'ember-cordova'
     );
+    var mkDouble = td.replace(fsUtils, 'mkdir');
 
     setupCreateTask();
-    td.replace(fs, 'mkdirSync');
 
     create.run();
-    td.verify(fs.mkdirSync(expectedPath));
+    td.verify(mkDouble(expectedPath));
   });
 
   it('calls cordova.create.raw', function() {
@@ -67,7 +71,7 @@ describe('Cordova Create Task', function() {
   });
 
   it('raises a warning if cordova project already exists', function() {
-    td.replace(fs, 'existsSync', function() {
+    td.replace(fsUtils, 'existsSync', function() {
       return true;
     });
 
