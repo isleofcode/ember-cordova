@@ -40,6 +40,7 @@ Build the ember and cordova project together running in the simulator or on a de
 | platform    | ios |
 | release     | debug |
 | cordova-output-path | ember-cordova/cordova/www |
+| skip-ember-build | false |
 
 The build command also takes all of the non gradle-specific cordova build opts (e.g. provisioningProfile, codeSignIdentity).
 
@@ -106,6 +107,8 @@ here](/pages/live_reload).
 | platform  | ios |
 | reloadUrl | localhost:4200 |
 | cordova-output-path| ember-cordova/cordova/www |
+| skip-ember-build | false |
+| skip-cordova-build | false |
 
 #### Examples
 + `ember cdv:serve`
