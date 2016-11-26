@@ -68,12 +68,12 @@ describe('Update gitignore Task', function() {
     td.replace(fsUtils, 'append', function() {
       return Promise.reject();
     });
-    var errorDouble = td.replace('../../../lib/utils/easy-error');
+    var logDouble = td.replace('../../../lib/utils/logger');
     var task = createTask();
 
     return task.run().then(function() {
-      var expected = 'ember-cordova: failed to update .gitignore';
-      td.verify(errorDouble(contains(expected)));
+      var expected = 'failed to update .gitignore';
+      td.verify(logDouble.error(contains(expected)));
     });
   });
 });
