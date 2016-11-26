@@ -2,7 +2,6 @@
 
 var td              = require('testdouble');
 var expect          = require('../../../helpers/expect');
-var path            = require('path');
 var mockProject     = require('../../../fixtures/ember-cordova-mock/project');
 var ValidateLocType = require('../../../../lib/tasks/validate/location-type');
 

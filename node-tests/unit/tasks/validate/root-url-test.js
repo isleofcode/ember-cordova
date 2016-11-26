@@ -2,9 +2,7 @@
 
 var td              = require('testdouble');
 var expect          = require('../../../helpers/expect');
-var path            = require('path');
 var mockProject     = require('../../../fixtures/ember-cordova-mock/project');
-var Promise         = require('ember-cli/lib/ext/promise');
 
 var ValidateRoot    = require('../../../../lib/tasks/validate/root-url');
 

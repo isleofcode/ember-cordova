@@ -2,7 +2,6 @@
 
 var td              = require('testdouble');
 
-var ui              = require('../../../lib/utils/ui');
 var expect          = require('../../helpers/expect');
 var Promise         = require('ember-cli/lib/ext/promise');
 

@@ -4,7 +4,6 @@ var td              = require('testdouble');
 var expect          = require('../../helpers/expect');
 var Promise         = require('ember-cli/lib/ext/promise');
 
-var ui              = require('../../../lib/utils/ui');
 var ServeCmd        = require('../../../lib/commands/serve');
 var ServeTask       = require('../../../lib/tasks/serve');
 var CdvBuildTask    = require('../../../lib/tasks/cordova-build');
