@@ -20,7 +20,7 @@ describe('Validate Root Url', function() {
   });
 
   it('throws an easyError with config.locationType is not hash', function() {
-    let config = { locationType: 'auto' };
+    var config = { locationType: 'auto' };
 
     expect(function() {
       validateLoc.run(config)
@@ -28,7 +28,7 @@ describe('Validate Root Url', function() {
   });
 
   it('throws an easyError with config.locationType is blank', function() {
-    let config = {};
+    var config = {};
 
     expect(function() {
       validateLoc.run(config)
@@ -36,7 +36,7 @@ describe('Validate Root Url', function() {
   });
 
   it('resolves if config.locationType is hash', function() {
-    let config = { locationType: 'hash' };
+    var config = { locationType: 'hash' };
     expect(validateLoc.run(config)).to.be.fulfilled;
   });
 });
