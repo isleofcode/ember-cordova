@@ -115,6 +115,34 @@ here](/pages/live_reload).
 + `ember cordova:serve --platform=android --reloadUrl=192.168.1.1`
 + `ember cdv:serve --platform=browser --env "development"`
 
+
+### make-icons
+
+Automatically generate platform icons from a single svg. For more information, see [icon & splash generation](/pages/generate_icon_splash).
+
+| Options    | default |
+|---------  |---------|
+| source  | ember-cordova/splash.svg |
+| platform | all |
+
+#### Examples
++ `ember cdv:make-icons`
+
+
+### make-splashes
+
+Automatically generate platform splashscreens from a single svg. For more information, see [icon & splash generation](/pages/generate_icon_splash).
+
+| Options    | default |
+|---------  |---------|
+| source  | ember-cordova/icon.svg |
+| platform | all |
+
+
+#### Examples
++ `ember cdv:make-splashes`
+
+
 ## Cordova
 
 Passes commands straight to cordova, without interference.
