@@ -51,7 +51,7 @@ describe('Cordova Create Task', function() {
   it('calls cordova.create.raw', function() {
     setupCreateTask();
     create.run();
-    td.verify(rawDouble(isString, isString, isString, {}));
+    td.verify(rawDouble(isString, isString, isString, isObject));
   });
 
   it('forces camelcased ids and names', function() {
@@ -77,6 +77,13 @@ describe('Cordova Create Task', function() {
     expect(create.ui.output).to.contain('project already exists');
   });
 
+  it('defaults to the ember-cordova-template template', function() {
+    setupCreateTask();
+    create.run();
+
+    var matcher = td.matchers.contains({lib: { www: { url: 'ember-cordova-template'}}});
+    td.verify(rawDouble(isString, isString, isString, matcher));
+  });
 
   it('builds with a template when provided', function() {
     setupCreateTask();
