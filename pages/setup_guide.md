@@ -4,7 +4,9 @@ title:  "Install / Setup Guide"
 ---
 
 If you are migrating from ember-cli-cordova, read the [migration
-guide](migration-from-ember-cli-cordova).
+guide](legacy/migration-from-ember-cli-cordova).
+
+Cordova Assets & plugins will only be injected to `ember cdv:build/serve` tasks. Therefore, builds using `ember build` will not include Cordova assets and will be valid for web. The only service injected by default is [the platform service](/pages/service_platform).
 
 #### Requirements
 - Ember 1.13+;
@@ -16,8 +18,7 @@ guide](migration-from-ember-cli-cordova).
   ember install ember-cordova
 ```
 
-If you already have a Cordova project at ember-cordova/cordova it will not be overwritten.
-
+Existing Cordova projects at ember-cordova/cordova will not be overwritten.
 
 You can optionally pass the following params:
 
@@ -33,11 +34,13 @@ ember install ember-cordova --name=AppName --cordovaid=com.isleofcode.app --temp
 
 #### Getting Started
 
-1. Set your config.locationType to 'hash' (ember-cordova will warn you if it is not).
+There are a few changes required to make sure your Ember app will work in a Cordova context. In all cases, you'll get a warning from ember-cordova if you forget.
+
+1. Set your config.locationType to 'hash';
 
 [comment]: `{{rootUrl}}` will not render because Jekyll is rendering it as handlebars.
 
-2. Cordova requires relative asset paths so check that none of yours are absolute. You'll want to make sure your &#123;&#123;rootURL&#125;&#125; or &#123;&#123;baseURL&#125;&#125; properties dont have a leading forward slash in `app/index.html`
+2. Cordova requires relative asset paths. Ensure &#123;&#123;rootURL&#125;&#125; or &#123;&#123;baseURL&#125;&#125; dont have a leading forward slash in `config/environment.js`
 
 3. As a final step, add your desired platforms, e.g.:
 
@@ -47,10 +50,8 @@ ember cdv:platform add android
 ember cdv:platform add browser #experimental
 ```
 
-Cordova working relies on the cordova.js script being injected. By default, this happens using ember cdv commands. Your vanilla ember build && ember s commands will not inject cordova.js by design.
-
 #### A note on adding the Android platform
-When you try to add the Android platform you may receive the following error: `Error validating package name. Package name must look like: com.company.Name`.  This can be resolved by setting the `id` property on the `widget` node in the Ember Cordova `config.xml`
+When you try to add the Android platform you may receive the following error: `Error validating package name. Package name must look like: com.company.Name`.  This can be resolved by setting the `id` property on the `widget` node in the Ember Cordova `config.xml` to a domain structure.
 
 For example:
 
@@ -66,5 +67,6 @@ For example:
 
 #### A note on browser platform
 
-Some cordova/phonegap plugins have browser fallbacks. For example [phonegap-plugin-barcodescanner](https://github.com/phonegap/phonegap-plugin-barcodescanner) will ask you to manually type the barcode value. Using the browser platform, you'll be able to develop your cordova app as it was a regular ember app.
-platforms respectively. If you are shipping via the Google Store, you can upload both apks and trust the right one will be delivered. In testing, it is important to ensure you are working from the correct apk. 
+Some cordova/phonegap plugins have browser fallbacks. For example [phonegap-plugin-barcodescanner](https://github.com/phonegap/phonegap-plugin-barcodescanner) will ask you to manually type the barcode value. Using the browser platform will cause these apis to be avaiable in Chrome.
+
+`ember s` will suffice to simply serve your app. See [here](/pages/live_reload.md) for documentation on device livereload.
