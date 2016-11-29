@@ -6,7 +6,6 @@ var fsUtils         = require('../../../lib/utils/fs-utils');
 var Promise         = require('ember-cli/lib/ext/promise');
 
 var expect          = require('../../helpers/expect');
-var contains        = td.matchers.contains;
 
 describe('Update gitignore Task', function() {
 
@@ -68,12 +67,10 @@ describe('Update gitignore Task', function() {
     td.replace(fsUtils, 'append', function() {
       return Promise.reject();
     });
-    var logDouble = td.replace('../../../lib/utils/logger');
     var task = createTask();
 
-    return task.run().then(function() {
-      var expected = 'failed to update .gitignore';
-      td.verify(logDouble.error(contains(expected)));
-    });
+    return expect(task.run()).to.be.rejectedWith(
+      /failed to update \.gitignore/
+    );
   });
 });

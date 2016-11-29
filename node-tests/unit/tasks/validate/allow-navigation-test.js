@@ -41,9 +41,9 @@ describe('Validate Allow Navigation Test', function() {
     });
 
     var validateNav = setupTask();
-    return validateNav.run(true).catch(function(error) {
-      expect(error.message).to.include('needs the following flag');
-    });
+    return expect(validateNav.run(true)).to.be.rejectedWith(
+      /needs the following flag/
+    );
   });
 
   it('resolves immediately if the platform is browser', function() {

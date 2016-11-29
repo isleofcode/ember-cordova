@@ -47,8 +47,8 @@ describe('Open App Task', function() {
   it('outputs an error if no platform is specified', function() {
     openApp.platform = 'invalidPlatform';
 
-    expect(function() {
-      openApp.run()
-    }).to.throw(/platform is not supported/);
+    return expect(openApp.run()).to.be.rejectedWith(
+      /platform is not supported/
+    );
   });
 });

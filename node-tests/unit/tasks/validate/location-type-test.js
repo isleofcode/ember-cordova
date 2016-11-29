@@ -5,7 +5,7 @@ var expect          = require('../../../helpers/expect');
 var mockProject     = require('../../../fixtures/ember-cordova-mock/project');
 var ValidateLocType = require('../../../../lib/tasks/validate/location-type');
 
-describe('Validate Root Url', function() {
+describe('Validate Location Type', function() {
   var validateLoc;
 
   beforeEach(function() {
@@ -19,20 +19,14 @@ describe('Validate Root Url', function() {
     td.reset();
   });
 
-  it('throws an error with config.locationType is not hash', function() {
+  it('rejects when config.locationType is not hash', function() {
     var config = { locationType: 'auto' };
-
-    expect(function() {
-      validateLoc.run(config)
-    }).to.throw(Error);
+    expect(validateLoc.run(config)).to.be.rejected;
   });
 
   it('throws an error with config.locationType is blank', function() {
     var config = {};
-
-    expect(function() {
-      validateLoc.run(config)
-    }).to.throw(Error);
+    expect(validateLoc.run(config)).to.be.rejected;
   });
 
   it('resolves if config.locationType is hash', function() {

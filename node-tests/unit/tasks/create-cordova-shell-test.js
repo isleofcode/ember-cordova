@@ -7,7 +7,6 @@ var fsUtils         = require('../../../lib/utils/fs-utils');
 
 var expect          = require('../../helpers/expect');
 var contains        = td.matchers.contains;
-var isString        = td.matchers.isA(String);
 var isObject        = td.matchers.isA(Object);
 
 var setupTask = function(shouldMockTemplate) {
@@ -28,10 +27,10 @@ var setupTask = function(shouldMockTemplate) {
 };
 
 describe('Create Cordova Shell Task', function() {
-  var writeDouble;
-
   beforeEach(function() {
-    writeDouble = td.replace(fsUtils, 'write');
+    td.replace(fsUtils, 'write', function() {
+      return Promise.resolve();
+    });
   });
 
   afterEach(function() {
@@ -64,30 +63,27 @@ describe('Create Cordova Shell Task', function() {
     expect(called).to.equal(true);
   });
 
-  it('replaces {{liveReloadUrl}} and saves', function() {
+  it('crateShell replaces {{liveReloadUrl}} and saves', function() {
     var shellTask = setupTask(true);
+    var writeContent;
 
-    return shellTask.run(4200, 'fakeUrl').then(function() {
-      td.verify(writeDouble(
-        contains('cordova/www/index.html'),
-        'fakeUrl',
-        isString
-      ));
+    td.replace(fsUtils, 'write', function(path, content) {
+      writeContent = content;
+      return Promise.resolve();
     });
-  })
+
+    return shellTask.createShell('path', '{{liveReloadUrl}}', 'fakeUrl')
+      .then(function() {
+        expect(writeContent).to.equal('fakeUrl');
+      });
+  });
 
   it('detects reloadUrl if one is not passed', function() {
-    td.replace('../../../lib/utils/get-network-ip', function() {
-      return '192.0.0.2';
-    });
+    var ipDouble = td.replace('../../../lib/utils/get-network-ip');
     var shellTask = setupTask(true);
 
     return shellTask.run(4200).then(function() {
-      td.verify(writeDouble(
-        isString,
-        'http://192.0.0.2:4200',
-        isString
-      ));
+      td.verify(ipDouble());
     });
   });
 
@@ -97,6 +93,8 @@ describe('Create Cordova Shell Task', function() {
     });
 
     var shellTask = setupTask(true);
-    expect(shellTask.run()).to.eventually.throw(Error);
+    return expect(shellTask.run()).to.be.rejectedWith(
+      /Error moving index\.html/
+    );
   });
 });

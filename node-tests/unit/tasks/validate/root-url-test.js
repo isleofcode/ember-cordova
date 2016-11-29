@@ -8,6 +8,13 @@ var contains        = td.matchers.contains;
 
 var ValidateRoot    = require('../../../../lib/tasks/validate/root-url');
 
+var rejectMsg =
+  'Build Aborted. \n' +
+  '{{rootURL}} or {{baseURL}} in app/index.html has a leading slash. \n' +
+  'This will not work in cordova, and needs to be removed. \n' +
+  'You can pass the --force flag to ignore this if youve otherwise handled \n' +
+  'See http://embercordova.com/pages/setup_guide for more info.';
+
 describe('Validate Root Url', function() {
   var validateRoot;
 
@@ -30,14 +37,15 @@ describe('Validate Root Url', function() {
     return expect(validateRoot.run(mockProject.config())).to.be.fulfilled;
   });
 
-  it('runs invalidIndex if validRootValues is false', function() {
+  it('rejects if validRootValues is false', function() {
     td.replace(validateRoot, 'validRootValues', function(path) {
       return false;
     });
 
-    validateRoot.invalidIndex = td.function();
-    validateRoot.run(mockProject.config());
-    td.verify(validateRoot.invalidIndex());
+    expect(
+      validateRoot.run(mockProject.config())
+    ).to.be.rejectedWith(rejectMsg);
+
   });
 
   it('when force is true, throws a warning vs rejection', function() {
@@ -50,18 +58,6 @@ describe('Validate Root Url', function() {
     return validateRoot.run(mockProject.config(), true).then(function() {
       td.verify(warnDouble(contains('You have passed the --force flag')));
     })
-  });
-
-  it('invalidIndex rejects with an error', function() {
-    td.replace(validateRoot, 'validRootValues', function(path) {
-      return false;
-    });
-
-    expect(function() {
-      validateRoot.invalidIndex()
-    }).to.throw(
-      /{\{rootURL\}\} or \{\{baseURL\}\} in app\/index.html has a leading slash/
-    );
   });
 
   describe('validRootValues', function() {
