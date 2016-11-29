@@ -1,6 +1,6 @@
 {
   "name": "ember-cordova",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "Tooling for cordova and crosswalk hybrid applications built with Ember",
   "homepage": "https://github.com/isleofcode/ember-cordova",
   "repository": {
@@ -70,6 +70,7 @@
     "rsvp": "^3.2.1",
     "splicon": "0.0.6",
     "svg2png": "^3.0.0",
+    "uuid": "^3.0.0",
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
@@ -100,7 +101,6 @@
     "mocha": "^2.5.3",
     "mocha-eslint": "^2.1.1",
     "mocha-jshint": "^2.3.1",
-    "testdouble": "^1.4.3",
-    "uuid": "^3.0.0"
+    "testdouble": "^1.4.3"
   }
 }
