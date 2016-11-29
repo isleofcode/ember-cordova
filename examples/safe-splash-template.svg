@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="2732px" height="2732px" viewBox="0 0 2732 2732" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>safe-area</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="67.646262%" id="radialGradient-1">
+            <stop stop-color="#AA076B" offset="0%"></stop>
+            <stop stop-color="#61045F" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Background" fill="url(#radialGradient-1)" x="0" y="0" width="2732" height="2732"></rect>
+        <text id="(safe-area)" font-family="HelveticaNeue-Thin, Helvetica Neue" font-size="200" font-weight="300" fill="#FFFFFF">
+            <tspan x="936.7" y="1418">(safe area)</tspan>
+        </text>
+        <g id="3:2-(iPhone-4s)" fill="#FFFFFF" opacity="0.1">
+            <rect id="Landscape-Crop-Area-(Bottom)" transform="translate(1366.500000, 2505.000000) rotate(-90.000000) translate(-1366.500000, -2505.000000) " x="1139.5" y="1138.5" width="454" height="2733"></rect>
+            <rect id="Landscape-Crop-Area-(Top)" transform="translate(1366.500000, 227.000000) rotate(-90.000000) translate(-1366.500000, -227.000000) " x="1139.5" y="-1139.5" width="454" height="2733"></rect>
+            <rect id="Portrait-Crop-Area-(Right)" x="2278" y="0" width="454" height="2733"></rect>
+            <rect id="Portrait-Crop-Area-(Left)" x="0" y="0" width="454" height="2733"></rect>
+        </g>
+        <g id="16:9-(iPhone-5/5S/5C/SE/6/6s/6-Plus/6s-Plus-/-Android-XXXHDPI)" fill="#FFFFFF" opacity="0.1">
+            <rect id="Landscape-Crop-Area-(Bottom)" transform="translate(1366.500000, 2433.000000) rotate(-90.000000) translate(-1366.500000, -2433.000000) " x="1067.5" y="1066.5" width="598" height="2733"></rect>
+            <rect id="Landscape-Crop-Area-(Top)" transform="translate(1366.500000, 299.000000) rotate(-90.000000) translate(-1366.500000, -299.000000) " x="1067.5" y="-1067.5" width="598" height="2733"></rect>
+            <rect id="Portrait-Crop-Area-(Left)" transform="translate(299.000000, 1366.500000) rotate(-180.000000) translate(-299.000000, -1366.500000) " x="1.13686838e-13" y="0" width="598" height="2733"></rect>
+            <rect id="Portrait-Crop-Area-(Right)" transform="translate(2433.000000, 1366.500000) rotate(-180.000000) translate(-2433.000000, -1366.500000) " x="2134" y="0" width="598" height="2733"></rect>
+        </g>
+        <g id="4:3-(iPad-All)" transform="translate(0.000000, 1.000000)" fill="#FFFFFF" opacity="0.1">
+            <rect id="Landscape-Crop-Area-(Bottom)" transform="translate(1366.500000, 2562.000000) rotate(-90.000000) translate(-1366.500000, -2562.000000) " x="1195.5" y="1195.5" width="342" height="2733"></rect>
+            <rect id="Landscape-Crop-Area-(Top)" transform="translate(1366.500000, 171.000000) rotate(-90.000000) translate(-1366.500000, -171.000000) " x="1195.5" y="-1195.5" width="342" height="2733"></rect>
+            <rect id="Portrait-Crop-Area-(Left)" transform="translate(171.000000, 1366.500000) rotate(-180.000000) translate(-171.000000, -1366.500000) " x="1.70530257e-13" y="0" width="342" height="2733"></rect>
+            <rect id="Portrait-Crop-Area-(Right)" transform="translate(2561.000000, 1366.500000) rotate(-180.000000) translate(-2561.000000, -1366.500000) " x="2390" y="0" width="342" height="2733"></rect>
+        </g>
+        <g id="Android-(LDPI)" fill="#FFFFFF" opacity="0.1">
+            <rect id="Landscape-Crop-Area-(Bottom)" transform="translate(1366.500000, 2475.250000) rotate(-90.000000) translate(-1366.500000, -2475.250000) " x="1110.25" y="1108.75" width="512.5" height="2733"></rect>
+            <rect id="Landscape-Crop-Area-(Top)" transform="translate(1366.500000, 256.250000) rotate(-90.000000) translate(-1366.500000, -256.250000) " x="1110.25" y="-1110.25" width="512.5" height="2733"></rect>
+            <rect id="Portrait-Crop-Area-(Left)" x="2220" y="0" width="512.5" height="2733"></rect>
+            <rect id="Portrait-Crop-Area-(Right)" x="0" y="0" width="512.5" height="2733"></rect>
+        </g>
+        <g id="Android-(MDPI)" fill="#FFFFFF" opacity="0.1">
+            <rect id="Landscape-Crop-Area-(Bottom)" transform="translate(1366.000000, 2502.000000) rotate(-90.000000) translate(-1366.000000, -2502.000000) " x="1139" y="1136" width="454" height="2732"></rect>
+            <rect id="Landscape-Crop-Area-(Top)" transform="translate(1366.000000, 227.000000) rotate(-90.000000) translate(-1366.000000, -227.000000) " x="1139" y="-1139" width="454" height="2732"></rect>
+            <rect id="Portrait-Crop-Area-(Left)" x="2278" y="0" width="454" height="2732"></rect>
+            <rect id="Portrait-Crop-Area-(Right)" x="0" y="0" width="454" height="2732"></rect>
+        </g>
+        <g id="Android-(HDPI-/-XXHDPI)" fill="#FFFFFF" opacity="0.1">
+            <rect id="Landscape-Crop-Area-(Bottom)" transform="translate(1366.000000, 2461.500000) rotate(-90.000000) translate(-1366.000000, -2461.500000) " x="1093.5" y="1095.5" width="545" height="2732"></rect>
+            <rect id="Landscape-Crop-Area-(Top)" transform="translate(1366.000000, 272.500000) rotate(-90.000000) translate(-1366.000000, -272.500000) " x="1093.5" y="-1093.5" width="545" height="2732"></rect>
+            <rect id="Portrait-Crop-Area-(Left)" x="2187" y="0" width="545" height="2732"></rect>
+            <rect id="Portrait-Crop-Area-(Right)" x="0" y="0" width="545" height="2732"></rect>
+        </g>
+        <g id="Android-(XHDPI)" fill="#FFFFFF" opacity="0.1">
+            <rect id="Landscape-Crop-Area-(Bottom)" transform="translate(1366.500000, 2435.000000) rotate(-90.000000) translate(-1366.500000, -2435.000000) " x="1067" y="1069" width="599" height="2732"></rect>
+            <rect id="Landscape-Crop-Area-(Top)" transform="translate(1366.000000, 298.500000) rotate(-90.000000) translate(-1366.000000, -298.500000) " x="1067.5" y="-1067.5" width="597" height="2732"></rect>
+            <rect id="Portrait-Crop-Area-(Left)" x="2135" y="0" width="597" height="2732"></rect>
+            <rect id="Portrait-Crop-Area-(Right)" x="0" y="0" width="597" height="2732"></rect>
+        </g>
+    </g>
+</svg>
