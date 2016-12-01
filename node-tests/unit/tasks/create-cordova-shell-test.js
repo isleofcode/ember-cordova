@@ -1,15 +1,15 @@
 'use strict';
 
 var td              = require('testdouble');
-var fs              = require('fs');
-
+var Promise         = require('ember-cli/lib/ext/promise');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var fsUtils         = require('../../../lib/utils/fs-utils');
+
 var expect          = require('../../helpers/expect');
-
 var contains        = td.matchers.contains;
-var isString        = td.matchers.isA(String);
+var isObject        = td.matchers.isA(Object);
 
-var setupTask = function(mockTemplate) {
+var setupTask = function(shouldMockTemplate) {
   var CreateShell = require('../../../lib/tasks/create-livereload-shell');
 
   var shellTask = new CreateShell({
@@ -17,9 +17,9 @@ var setupTask = function(mockTemplate) {
     ui: mockProject.ui
   });
 
-  if (mockTemplate) {
+  if (shouldMockTemplate) {
     td.replace(CreateShell.prototype, 'getShellTemplate', function() {
-      return '{{liveReloadUrl}}';
+      return Promise.resolve('{{liveReloadUrl}}');
     });
   }
 
@@ -27,57 +27,74 @@ var setupTask = function(mockTemplate) {
 };
 
 describe('Create Cordova Shell Task', function() {
-  var writeDouble;
-
   beforeEach(function() {
-    writeDouble = td.replace(fs, 'writeFileSync');
+    td.replace(fsUtils, 'write', function() {
+      return Promise.resolve();
+    });
   });
 
   afterEach(function() {
     td.reset();
   });
 
-  it('reads in the template index.html', function() {
-    var shellTask = setupTask();
-    var readDouble = td.replace(fs, 'readFileSync');
+  describe('getShellTemplate', function() {
+    it('reads the right path', function() {
+      var shellTask = setupTask();
+      var readDouble = td.replace(fsUtils, 'read');
 
-    expect(shellTask.run(4200)).to.eventually.throw(Error);
-    td.verify(readDouble(
-      contains('templates/livereload-shell/index.html'),
-      isString
-    ));
-  });
-
-  it('replaces {{liveReloadUrl}} and saves', function() {
-    var shellTask = setupTask(true);
-
-    return shellTask.run(4200, 'fakeUrl').then(function() {
-      td.verify(writeDouble(
-        contains('cordova/www/index.html'),
-        'fakeUrl',
-        isString
+      shellTask.getShellTemplate();
+      td.verify(readDouble(
+        contains('templates/livereload-shell/index.html'),
+        isObject
       ));
     });
-  })
+  });
+
+  it('attempts to get shell template', function() {
+    var shellTask = setupTask();
+    var called = false;
+
+    td.replace(shellTask, 'getShellTemplate', function() {
+      called = true;
+      return Promise.resolve();
+    });
+
+    shellTask.run();
+    expect(called).to.equal(true);
+  });
+
+  it('crateShell replaces {{liveReloadUrl}} and saves', function() {
+    var shellTask = setupTask(true);
+    var writeContent;
+
+    td.replace(fsUtils, 'write', function(path, content) {
+      writeContent = content;
+      return Promise.resolve();
+    });
+
+    return shellTask.createShell('path', '{{liveReloadUrl}}', 'fakeUrl')
+      .then(function() {
+        expect(writeContent).to.equal('fakeUrl');
+      });
+  });
 
   it('detects reloadUrl if one is not passed', function() {
-    td.replace('../../../lib/utils/get-network-ip', function() {
-      return '192.0.0.2';
-    });
+    var ipDouble = td.replace('../../../lib/utils/get-network-ip');
     var shellTask = setupTask(true);
 
     return shellTask.run(4200).then(function() {
-      td.verify(writeDouble(
-        isString,
-        'http://192.0.0.2:4200',
-        isString
-      ));
+      td.verify(ipDouble());
     });
   });
 
-  it('rejects on error', function() {
-    td.replace(fs, 'readFileSync');
+  it('catches errors', function() {
+    td.replace(fsUtils, 'write', function() {
+      throw new Error()
+    });
+
     var shellTask = setupTask(true);
-    expect(shellTask.run()).to.eventually.be.rejected;
+    return expect(shellTask.run()).to.be.rejectedWith(
+      /Error moving index\.html/
+    );
   });
 });
