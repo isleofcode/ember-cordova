@@ -3,12 +3,9 @@ layout: page
 title:  "CLI & Configuration"
 ---
 
-All commands follow the pattern `ember cordova:{command}`. You can use the `cdv` alias
-insted of`cordova`, for example `ember cdv:{command}`.
+All commands follow the pattern `ember cordova:{command}`. `ember cdv:{command|` can be used as shorthand.
 
-You can proxy a command to cordova without ember-cordova interference by using a space vs a colon, e.g. `ember cdv build`, vs. `ember cdv:build`.
-
-### Available Commands
+## Available Commands
 * [ember cdv:open](#open)
 * [ember cdv:build](#build)
 * [ember cdv:plaform](#platform)
@@ -17,14 +14,28 @@ You can proxy a command to cordova without ember-cordova interference by using a
 * [ember cdv:serve](#serve)
 * [ember cordova](#cordova)
 
+#### Configuration / Defaults
+
+Set preferences in .ember-cli to override defaults. For example, to change ember-cordovas default platform from ios to android:
+
+in .ember-cli:
+
+```
+platform: 'android',
+reloadUrl: 'http://mycomputer:4200'
+```
+
+## Command Reference
+
+{: .description}
 ### Open
 
 Open the native platform project with the default or specified application
 
-| Options  | default |
-|----------|---------|
-| platform | ios     |
-| application | system default application |
+| Options  | default | desc |
+|-----|-----| ----- |
+| platform | ios | |
+| application | system default application ||
 
 #### Examples
 + `ember cordova:open`
@@ -34,13 +45,13 @@ Open the native platform project with the default or specified application
 
 Build the ember and cordova project together running in the simulator or on a device
 
-| Options     | default   |
-|------------ |---------- |
-| environment | development|
-| platform    | ios |
-| release     | debug |
-| cordova-output-path | ember-cordova/cordova/www |
-| skip-ember-build | false |
+| Options     | default   | desc |
+|------------ |---------- | ---- |
+| environment | development| ember env |
+| platform    | ios | target cordova platform |
+| release     | debug | |
+| cordova-output-path | ember-cordova/cordova/www | |
+| skip-ember-build | false | does a cordova build with your last ember cdv:build content |
 
 The build command also takes all of the non gradle-specific cordova build opts (e.g. provisioningProfile, codeSignIdentity).
 
@@ -55,9 +66,9 @@ The build command also takes all of the non gradle-specific cordova build opts (
 Add or remove cordova platforms. Use the save flag to persist new
 platforms to config.xml (default is true).
 
-| Options | default |
-|---------|---------|
-| save    | true |
+| Options | default | desc |
+|---------|---------| ---- |
+| save    | true | store plugin info in `config.xml`. enables cdv:prepare |
 
 #### Examples
 + `ember cdv:platform add ios`
@@ -72,9 +83,9 @@ platforms to config.xml (default is true).
 Add or remove cordova plugins. Use the save flag to persist new
 platforms to config.xml (default is true).
 
-| Options  | default |
-|---------|---------|
-| save    | true |
+| Options  | default | desc |
+|---------|---------| ---- |
+| save    | true | store plugin info in `config.xml`. enables cdv:prepare |
 
 #### Examples
 + `ember cdv:plugin add cordova-plugin-name`
@@ -86,29 +97,24 @@ platforms to config.xml (default is true).
 
 ### Prepare
 
-Runs cordova prepare, but also fires beforePrepare/afterPrepare hooks.
+Think of cdv:prepare like npm install in a Cordova context. Installs all plugins and platforms in config.xml
 
-If plugins or platforms have been installed to a project with ember
-cdv:plugin/platform add foo, running ember cdv:prepare installs these
-packages on a fresh clone.
-
-Think of the usage similar to package.json /w npm install.
+Also fires beforePrepare/afterPrepare hooks.
 
 #### Examples
 + `ember cordova:prepare`
 
 ### Serve
 
-Runs the Ember Server for live reload. To learn more, [read
-here](/pages/live_reload).
+Live reload. To learn more, [read here](/pages/workflow/live_reload).
 
-| Options    | default |
-|---------  |---------|
-| platform  | ios |
-| reloadUrl | localhost:4200 |
-| cordova-output-path| ember-cordova/cordova/www |
-| skip-ember-build | false |
-| skip-cordova-build | false |
+| Options    | default | desc |
+|---------  |---------| ---- |
+| platform  | ios | cordova platform |
+| reloadUrl | auto detected ip | network ip of your machine |
+| cordova-output-path| ember-cordova/cordova/www | |
+| skip-ember-build | false | only performs cordova build |
+| skip-cordova-build | false | only performs ember build |
 
 #### Examples
 + `ember cdv:serve`
@@ -120,10 +126,10 @@ here](/pages/live_reload).
 
 Automatically generate platform icons from a single svg. For more information, see [icon & splash generation](/pages/generate_icon_splash).
 
-| Options    | default |
-|---------  |---------|
-| source  | ember-cordova/splash.svg |
-| platform | all |
+| Options    | default | desc |
+|---------  |---------| ----- |
+| source  | ember-cordova/icon.svg | splash svg |
+| platform | all | platform to build assets for |
 
 #### Examples
 + `ember cdv:make-icons`
@@ -133,10 +139,10 @@ Automatically generate platform icons from a single svg. For more information, s
 
 Automatically generate platform splashscreens from a single svg. For more information, see [icon & splash generation](/pages/generate_icon_splash).
 
-| Options    | default |
-|---------  |---------|
-| source  | ember-cordova/icon.svg |
-| platform | all |
+| Options    | default | desc |
+|---------  |---------| ----- |
+| source  | ember-cordova/splash.svg | splash svg |
+| platform | all | platform to build assets for |
 
 
 #### Examples
@@ -147,17 +153,13 @@ Automatically generate platform splashscreens from a single svg. For more inform
 
 Passes commands straight to cordova, without interference.
 
-Because this proxies to cordova-cli, you will need cordova-cli installed
-(this is not required for usage anywhere else).
+Because this proxies to cordova-cli, you will need cordova-cli installed (this is not required for usage anywhere else). If you do not already have it installed, you can install it with:
+Our hope is you won't need this command very much. If you are, open an issue and tell us.
 
-If you do not already have it installed, you can install it with:
 
 ```
   npm install -g cordova
 ```
-
-Our hope is you won't need this command very much. If you are, open
-an issue and tell us.
 
 #### Examples
 + `ember cordova info`
@@ -167,22 +169,9 @@ an issue and tell us.
 When running a proxy command, file paths are relative to
 your cordova directory.
 
-So for example, if you for reasons unkwown run `ember cdv plugin add ../local-plugin-path`
+For example, running `ember cdv plugin add ../local-plugin-path`
 (hint: just use `ember cdv:plugin add ../local-plugin-path`), from your
-ember projects root, it will probably fail. You most likely need `ember
+ember projects root will probably fail. You most likely need `ember
 cordova plugin add ../../../local-plugin-path`.
 
-## Configuration / Defaults
 
-If you find yourself needing to override CLI defaults, you can set
-new defaults in your .ember-cli file.
-
-e.g. If you are only ever building for one (android), or want to
-set a permanent default reload-url.
-
-in .ember-cli:
-
-```
-platform: 'android',
-reloadUrl: 'http://mycomputer:4200'
-```

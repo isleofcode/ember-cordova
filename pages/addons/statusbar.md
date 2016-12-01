@@ -1,9 +1,24 @@
 ---
 layout: page
-title:  "Status Bar Service"
+title:  "ember-cordova-statusbar"
 ---
 
+### Summary
+
 This service provides functions to customize the iOS and Android status bar.
+
+### Installation
+
+```
+ember install ember-cordova-statusbar
+```
+
+### Usage
+
+Service Path:
+```js
+lookup('service:ember-cordova/statusbar');
+```
 
 ### API
 

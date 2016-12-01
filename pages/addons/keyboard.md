@@ -1,31 +1,25 @@
 ---
 layout: page
-title:  "Device: Keyboard"
+title:  "ember-cordova-keyboard"
 ---
 
-We have distributed a separate `ember-cordova-keyboard` addon, which handles
-subtle layout issues & fires events related to a native device's keyboard
-display.
+### Summary
 
-To install:
+Fire events related to the native device's keyboard display.
+
+### Installation
 ```
 ember install ember-cordova-keyboard
 ```
 
-N.B. `ember-cordova-keyboard` will install the Cordova `ionic-plugin-keyboard`
-plugin & persist this to your config.xml.
+### Usage
 
-### Service Lookup
-
+Service Path:
 ```js
-lookup('service:device/keyboard');
+lookup('service:ember-cordova/keyboard');
 ```
 
-### Usage
-The addon is initialized automatically, and will handle layout issues without
-modification to its host app.
-
-You may also wish to subscribe to events:
+You may also wish to subscribe to events or toggle the keyboard:
 
 ```js
 // app/components/fancy-box/component.js
@@ -37,7 +31,7 @@ const {
 } = Ember;
 
 export default Component.extend({
-  keyboard: service.inject('cordova/keyboard'),
+  keyboard: service.inject('ember-cordova-keyboard'),
   keyboardIsShowing: false,
 
   didInsertElement() {

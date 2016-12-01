@@ -3,16 +3,9 @@ layout: page
 title:  "Default Webviews"
 ---
 
-The default Cordova WebViews are not the most performant option, and may hybrid developers happily move on without ever noticing this. As of v 0.3.0, ember-cordova initializes your platform with the most performant web view if you add platforms with the `ember cdv:platform add` command.
+The default Cordova WebViews are not always the most performant option. ember-cordova initializes your platform with the most performant web view if you add platforms with the `ember cdv:platform add` command.
 
 If you want to use the default Cordova WebViews, add platforms the --default-webview flag, e.g. `ember cdv:platform add android --default-webview`.
-
-If you already have an ember-cordova installation, you will need to manually add the plugins or re-install the target platforms to take advantage of this feature:
-
-```javascript
-ember cdv:platform rm android
-ember cdv:platform add android
-```
 
 ### For iOS
 

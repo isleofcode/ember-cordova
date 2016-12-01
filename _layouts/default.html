@@ -25,38 +25,51 @@
     </div>
 
     <header class="site-header">
-      <h1>
-        <a class="site-title" href="{{ site.baseurl | prepend: site.url }}/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
-      </h1>
+      <a class="site-title" href="{{ site.baseurl | prepend: site.url }}/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
 
-      <div class="site-header-subtitle">
-        <u>
-          <a href="https://github.com/isleofcode/ember-cordova/releases">
-            Current Relase: v0.3.11
-          </a>
-        </u>
-      </div>
+      <u class="site-header-subtitle">
+        <a href="https://github.com/isleofcode/ember-cordova/releases">
+          Current Relase: v0.3.11
+        </a>
+      </u>
     </header>
+
+    <div class="container">
 
     <div id='nav-container'>
       <nav class="nav-items">
         <a class="nav-link" href="{{ site.baseurl }}/">Home</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/setup_guide">Install/Setup</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/cli">CLI</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/live_reload">Livereload</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/default_webviews">Default WebViews</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/service_cordova">Cordova Service</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/service_platform">Platform Service</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/service_splash">Splash Service</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/service_keyboard">Keyboard Service</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/service_network">Network Service</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/service_statusbar">Status Bar Service</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/hooks">Hooks</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/generate_icon_splash">Icon Generation</a>
-        <a class="nav-link" href="{{ site.baseurl }}/pages/help">Help</a>
-        <a class="nav-link" href="https://github.com/isleofcode/ember-cordova">Github</a>
-        <a class="nav-link" href="https://github.com/isleofcode/ember-cordova/releases">Version Notes</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/installation">Installation</a>
 
+        <br />
+        <b> Workflow </b>
+        </br />
+        <a class="nav-link" href="{{ site.baseurl }}/pages/workflow/project_setup">Project Setup</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/workflow/building">Building</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/workflow/livereload">Livereload</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/workflow/icon_splash_management">Icon & Splash</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/workflow/hooks">Hooks</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/workflow/default_webviews">Default WebViews</a>
+
+
+        <br />
+        <b> Core API </b>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/cli">CLI Reference</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/service_platform">Platform Service</a>
+
+        <br />
+        <b> Plugins </b>
+        <br />
+        <a class="nav-link" href="{{ site.baseurl }}/pages/addons/events">ember-cordova-events</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/addons/splash">ember-cordova-splash</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/addons/keyboard">ember-cordova-keyboard</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/addons/network">ember-cordova-network</a>
+        <a class="nav-link" href="{{ site.baseurl }}/pages/addons/statusbar">ember-cordova-statusbar</a>
+
+        <br />
+        <a class="nav-link" href="{{ site.baseurl }}/pages/help">Help</a>
+        <a class="nav-link" href="https://github.com/isleofcode/ember-cordova/releases">Version Notes</a>
+        <a class="nav-link" href="https://github.com/isleofcode/ember-cordova">Github</a>
       </nav>
     </div>
 
@@ -74,6 +87,8 @@
         {% endif %}
       </nav>
     {% endif %}
+
+    </div>
 
     <footer class="site-footer">
         <small class="copyright">

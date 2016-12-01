@@ -1,11 +1,18 @@
 ---
 layout: page
-title:  "Network Service"
+title:  "ember-cordova-network"
 ---
 
-This service provides information on the device's cellular and wifi connection as well as functions to control the network state.
+### Summary
+Service which provides information on the device's cellular and wifi connection as well as functions to control the network state.
 
-### Supported Events
+### Installation
+
+```
+ember install ember-cordova-network
+```
+
+### Usage
 
 #### networkConnectionChange
 

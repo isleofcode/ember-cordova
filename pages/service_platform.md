@@ -3,9 +3,9 @@ layout: page
 title:  "Device: Platform Service"
 ---
 
-We have introduced a Platform Service, heavily inspired and
-partially forked from [Ionic
-Platform](http://ionicframework.com/docs/api/utility/ionic.Platform/). Use it to understand what environment your ember-cordova app is running in.
+### Summary
+
+Included in core ember-cordova repo, and provides information about the current platform. Heavily inspired and partially forked from [Ionic Platform](http://ionicframework.com/docs/api/utility/ionic.Platform/).
 
 ### Service Lookup
 
