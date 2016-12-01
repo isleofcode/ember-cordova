@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 const {
   Mixin,
-  deprecate,
   get,
   inject,
   on
@@ -15,12 +14,12 @@ export default Mixin.create({
     const cordova = this.get('cordova'),
           onCordova = this.get('onCordova');
 
-    Ember.deprecate(
-      'Use of `onCordova` and the CordovaEventsMixin is deprecated. Please ' +
-      'import `ember-cordova/utils/subscribe` and call w/ ' +
-      '`subscribe(eventName, function() { ... });`',
-      onCordova === undefined,
-      { url: 'https://github.com/isleofcode/ember-cordova/issues/83#issuecomment-236441319' }
+    console.warn(
+      'DEPRECATION WARNING (ember-cordova): \n' +
+      'The Events Mixin has been deprecated. \n ' +
+      'This service will be deprecated as of v0.4.0 on Jan 2. \n' +
+      'You need to ember-install ember-cordova-events . ' +
+      'See http://embercordova.com/pages/addons/events for more info. '
     );
 
     if (onCordova === undefined) { return; }
