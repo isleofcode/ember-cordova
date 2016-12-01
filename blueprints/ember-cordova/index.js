@@ -34,12 +34,16 @@ module.exports = {
     // to us
   },
 
+  createProjectId: function(projectName) {
+    return 'com.embercordova.' + projectName;
+  },
+
   afterInstall: function(options) {
-    var projectName = this.project.name();
+    var projectName = camelize(this.project.name());
 
     var create = new CreateTask({
-      id: options.cordovaid || camelize(projectName),
-      name: options.name || camelize(projectName),
+      id: options.cordovaid || this.createProjectId(projectName),
+      name: options.name || projectName,
       project: this.project,
       ui: this.ui
     });
