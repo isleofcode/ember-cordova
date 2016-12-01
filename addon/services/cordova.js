@@ -37,6 +37,14 @@ export default Service.extend(Evented, {
   init() {
     this._super();
 
+    console.warn(
+      'DEPRECATION WARNING (ember-cordova): \n' +
+      'The Events Mixin has been deprecated. \n '
+      'It will be discontinued as of v0.4.0 on Jan 2. \n' +
+      'You need to ember-install ember-cordova-events . ' +
+      'See http://embercordova.com/pages/addons/events for more info. '
+    );
+
     this._listeners = [];
     this._ready = RSVP.defer();
 
