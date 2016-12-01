@@ -5,7 +5,7 @@ title:  "ember-cordova-statusbar"
 
 ### Summary
 
-This service provides functions to customize the iOS and Android status bar.
+This service provides functions to customize the iOS and Android status bar. Currently better beta.
 
 ### Installation
 

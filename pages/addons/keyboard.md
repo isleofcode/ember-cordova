@@ -5,7 +5,8 @@ title:  "ember-cordova-keyboard"
 
 ### Summary
 
-Fire events related to the native device's keyboard display.
+Fire events related to the native device's keyboard display. Currently
+very beta.
 
 ### Installation
 ```
