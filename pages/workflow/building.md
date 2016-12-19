@@ -21,8 +21,10 @@ reference](pages/cli) for more details.
 
 After building the app, you can deploy to a device or emulator using `ember cdv run`, like so:
 
-    ember cdv run --platform=android --device
-    ember cdv run --platform=ios --emulator
+```bash
+  ember cdv run --platform=ios --emulator    # Deploy to iOS simulator
+  ember cdv run --platform=android --device  # Deploy to Android device
+```
 
 To deploy to an iOS device, you must have Provisioning Profiles set up. Usually, Xcode can set up development profiles for you automatically.
 
