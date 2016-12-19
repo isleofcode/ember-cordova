@@ -10,8 +10,10 @@ title:  "Building"
 To deploy to an iOS device, you must have Provisioning Profiles set up. Usually, Xcode can set up development profiles for you automatically.
 
 To run:
-`ember cdv run --platform=android --device`
-`ember cdv run --platform=ios --emulator`
+```bash
+ember cdv run --platform=ios --emulator    # Deploy to iOS simulator
+ember cdv run --platform=android --device  # Deploy to Android device
+```
 
 Alternatively `ember cdv:open` will open your project in Xcode or Android Studio. The IDE can then be used for starting emulators, code signing & app store uploads.
 
