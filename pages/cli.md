@@ -3,7 +3,7 @@ layout: page
 title:  "CLI & Configuration"
 ---
 
-All commands follow the pattern `ember cordova:{command}`. `ember cdv:{command|` can be used as shorthand.
+All commands follow the pattern `ember cordova:{command}`. `ember cdv:{command}` can be used as shorthand.
 
 ## Available Commands
 * [ember cdv:open](#open)
