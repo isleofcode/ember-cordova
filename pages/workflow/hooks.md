@@ -27,6 +27,7 @@ module.exports = function() {
 ```
 
 An example Bash hook:
+
 ```bash
 #!/usr/bin/env bash
 # An example "after_prepare" hook
