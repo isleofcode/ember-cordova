@@ -85,13 +85,13 @@ const {
 } = Ember;
 
 export default Route.extend({
-  cordovaEvents: service('ember-cordova-events'),
+  cordovaEvents: service('ember-cordova/events'),
 
   beforeModel() {
     //I dont fire, use Events instead
     subscribe('cordovaEvents.deviceready', function() {
       console.log('will never be ready');
-    }
+    });
   }
 });
 ```
