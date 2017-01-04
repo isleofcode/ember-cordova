@@ -10,7 +10,7 @@ var ValidateRoot    = require('../../../../lib/tasks/validate/root-url');
 
 var rejectMsg =
   'Build Aborted. \n' +
-  '{{rootURL}} or {{baseURL}} in config/environmnet.js has a leading slash. \n' +
+  '{{rootURL}} or {{baseURL}} in config/environment has a leading slash. \n' +
   'This will not work in cordova, and needs to be removed. \n' +
   'You can pass the --force flag to ignore this if youve otherwise handled \n' +
   'See http://embercordova.com/pages/setup_guide for more info.';
