@@ -32,7 +32,7 @@ const {
 } = Ember;
 
 export default Component.extend({
-  keyboard: service.inject('ember-cordova-keyboard'),
+  keyboard: service.inject('ember-cordova/keyboard'),
   keyboardIsShowing: false,
 
   didInsertElement() {
