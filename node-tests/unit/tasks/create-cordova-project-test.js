@@ -72,6 +72,10 @@ describe('Cordova Create Task', function() {
   });
 
   it('raises a warning if cordova project already exists', function() {
+    // We can't replace existsSync again here without resetting the previous
+    // replacement from beforeEach. Doing so will store the beforeEach
+    // version as the "real" function and leak into other tests.
+    td.reset();
     td.replace(fsUtils, 'existsSync', function() {
       return true;
     });
