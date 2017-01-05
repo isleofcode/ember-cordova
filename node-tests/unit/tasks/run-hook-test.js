@@ -11,9 +11,9 @@ describe('Run Hook Task', function() {
   });
 
   it('passes options to the hook', function() {
-    const options = {foo: true};
-    const hookTask = new HookTask(mockProject);
-    const taskRun = hookTask.run('hook-with-options', options);
+    var options = {foo: true};
+    var hookTask = new HookTask(mockProject);
+    var taskRun = hookTask.run('hook-with-options', options);
     return expect(taskRun).to.become(options);
   });
 
