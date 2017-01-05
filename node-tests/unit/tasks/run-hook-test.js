@@ -10,6 +10,13 @@ describe('Run Hook Task', function() {
     expect(hookTask.run('hook')).to.be.fulfilled;
   });
 
+  it('passes options to the hook', function() {
+    const options = {foo: true};
+    const hookTask = new HookTask(mockProject);
+    const taskRun = hookTask.run('hook-with-options', options);
+    return expect(taskRun).to.become(options);
+  });
+
   it('runs a hook at the provided path that has an error', function() {
     var hookTask = new HookTask(mockProject);
     expect(hookTask.run('hook-with-error')).to.be.rejected;
