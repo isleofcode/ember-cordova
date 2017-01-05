@@ -3,20 +3,17 @@ layout: page
 title:  "Hooks"
 ---
 
-The following hooks are available:
+Use ember-cordova hooks for any customization, cleanup or warnings. These follow a similar pattern to [Cordova's hooks](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/index.html#introduction), but are specifc to ember-cordova builds.
 
-* beforeBuild
-* afterBuild
-* beforePrepare
-* afterPrepare
+To create a hook, create a file at `ember-cordova/cordova/hooks/<hook_name>.js`
+where `<hook_name>` is one of the following:
 
-Use hooks for any customization, cleanup or warnings.
+* `beforeBuild`
+* `afterBuild`
+* `beforePrepare`
+* `afterPrepare`
 
-To create a hook, create a file at `ember-cordova/cordova/hooks/<hook_type>/hook_name.js`
-where `<hook_type>` is one of the hook types defined in the
-[Apache Cordova hook documentation](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/index.html#introduction).
-
-An example javascript hook:
+An example hook:
 
 ```js
 "use strict";
@@ -24,18 +21,4 @@ An example javascript hook:
 module.exports = function() {
   //do something
 };
-```
-
-An example Bash hook:
-
-```bash
-#!/usr/bin/env bash
-# An example "after_prepare" hook
-# ember-cordova/cordova/hooks/after_prepare/echo.sh
-
-echo "Hello, World"
-
-# Capture status of our hook and exit with a proper exit code
-STATUS=$?
-exit $STATUS
 ```
