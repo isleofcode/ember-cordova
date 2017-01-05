@@ -16,9 +16,9 @@ describe('Run Hook Task', function() {
     return expect(hookTask.run('hook-with-error')).to.be.rejected;
   });
 
-  it('is rejected if the hook does not exist', function() {
+  it('is resolved if the hook does not exist', function() {
     var hookTask = new HookTask(mockProject);
-    return expect(hookTask.run('invalid')).to.be.rejected;
+    return expect(hookTask.run('invalid')).to.be.fulfilled;
   });
 
   it('is resolved if the hook is resolved', function() {
