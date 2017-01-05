@@ -12,18 +12,18 @@ describe('Validate Cordova Installed Command', function() {
   });
 
   it('exits if command is not add or remove', function() {
-    expect(validateCordova.run([''])).to.eventually.be.rejected;
+    return expect(validateCordova.run([''])).to.eventually.be.rejected;
   });
 
   it('correctly pulls a single plugin name', function() {
-    expect(
+    return expect(
       validateCordova.run(['add', 'cordova-plugin'])
     ).to.eventually.deep.equal({command: 'add', args: ['cordova-plugin']});
   });
 
   it('correctly pulls multiple plugin names', function() {
     var plugins = ['cordova-plugin', 'cordova-plugin-2'];
-    expect(
+    return expect(
       validateCordova.run(['add', 'cordova-plugin', 'cordova-plugin-2'])
     ).to.eventually.deep.equal({command: 'add', args: plugins});
   });
