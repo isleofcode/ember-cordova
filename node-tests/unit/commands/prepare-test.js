@@ -26,7 +26,7 @@ describe('Prepare Command', function() {
       tasks.push('prepare');
     });
 
-    td.replace(HookTask.prototype, 'run', function(hookName) {
+    td.replace(HookTask.prototype, 'run', function(hookName, options) {
       tasks.push('hook ' + hookName);
       return Promise.resolve();
     });
@@ -39,7 +39,7 @@ describe('Prepare Command', function() {
   });
 
   it('runs tasks in the correct order', function() {
-    return prepare.run().then(function() {
+    return prepare.run({}).then(function() {
       ////h-t ember-electron for the pattern
       expect(tasks).to.deep.equal([
         'hook beforePrepare',

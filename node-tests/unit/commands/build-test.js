@@ -70,7 +70,7 @@ describe('Build Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(HookTask.prototype, 'run', function(hookName) {
+      td.replace(HookTask.prototype, 'run', function(hookName, options) {
         tasks.push('hook ' + hookName);
         return Promise.resolve();
       });
@@ -126,6 +126,23 @@ describe('Build Command', function() {
             'validate-platform',
             'hook beforeBuild',
             'cordova-build',
+            'hook afterBuild'
+          ]);
+        });
+    });
+
+    it('skips cordova-build with the --skip-cordova-build flag', function() {
+      var build = setupBuild();
+
+      return build.run({skipCordovaBuild: true})
+        .then(function() {
+          //h-t ember-electron for the pattern
+          expect(tasks).to.deep.equal([
+            'validate-root-url',
+            'validate-allow-navigation',
+            'validate-platform',
+            'hook beforeBuild',
+            'ember-build',
             'hook afterBuild'
           ]);
         });

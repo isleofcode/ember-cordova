@@ -1,30 +1,35 @@
 'use strict';
 
 var td              = require('testdouble');
-var fs              = require('fs');
+var Promise         = require('ember-cli/lib/ext/promise');
 var path            = require('path');
-var expect          = require('../../helpers/expect');
+
+var fsUtils         = require('../../../lib/utils/fs-utils');
+var logger          = require('../../../lib/utils/logger');
 
 var cordovaProj     = require('cordova-lib').cordova;
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var isObject        = td.matchers.isA(Object);
 var isString        = td.matchers.isA(String);
+var contains        = td.matchers.contains;
 
 describe('Cordova Create Task', function() {
   var create, rawDouble;
 
   var setupCreateTask = function() {
+    //TODO - factor me out
     rawDouble = td.replace(cordovaProj.raw, 'create');
+
     var CreateCdvTask = require('../../../lib/tasks/create-cordova-project');
     create = new CreateCdvTask(mockProject);
   };
 
   beforeEach(function() {
-    td.replace(fs, 'mkdirSync', function() {
-      return true;
+    td.replace(fsUtils, 'mkdir', function() {
+      return Promise.resolve();
     });
 
-    td.replace(fs, 'existsSync', function() {
+    td.replace(fsUtils, 'existsSync', function() {
       return false;
     });
   });
@@ -40,18 +45,18 @@ describe('Cordova Create Task', function() {
       'ember-cordova-mock',
       'ember-cordova'
     );
+    var mkDouble = td.replace(fsUtils, 'mkdir');
 
     setupCreateTask();
-    td.replace(fs, 'mkdirSync');
 
     create.run();
-    td.verify(fs.mkdirSync(expectedPath));
+    td.verify(mkDouble(expectedPath));
   });
 
   it('calls cordova.create.raw', function() {
     setupCreateTask();
     create.run();
-    td.verify(rawDouble(isString, isString, isString, {}));
+    td.verify(rawDouble(isString, isString, isString, isObject));
   });
 
   it('forces camelcased ids and names', function() {
@@ -67,16 +72,35 @@ describe('Cordova Create Task', function() {
   });
 
   it('raises a warning if cordova project already exists', function() {
-    td.replace(fs, 'existsSync', function() {
+    // We can't replace existsSync again here without resetting the previous
+    // replacement from beforeEach. Doing so will store the beforeEach
+    // version as the "real" function and leak into other tests.
+    td.reset();
+    td.replace(fsUtils, 'existsSync', function() {
       return true;
     });
+    var logDouble = td.replace(logger, 'warn');
 
+    setupCreateTask();
+    return create.run().then(function() {
+      td.verify(logDouble(contains('dir already exists')));
+    });
+  });
+
+  it('defaults to the ember-cordova-template template', function() {
     setupCreateTask();
     create.run();
 
-    expect(create.ui.output).to.contain('project already exists');
-  });
+    var matcher = td.matchers.contains({
+      lib: {
+        www: {
+          url: 'ember-cordova-template'
+        }
+      }
+    });
 
+    td.verify(rawDouble(isString, isString, isString, matcher));
+  });
 
   it('builds with a template when provided', function() {
     setupCreateTask();
