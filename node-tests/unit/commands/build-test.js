@@ -70,7 +70,7 @@ describe('Build Command', function() {
         return Promise.resolve();
       });
 
-      td.replace(HookTask.prototype, 'run', function(hookName) {
+      td.replace(HookTask.prototype, 'run', function(hookName, options) {
         tasks.push('hook ' + hookName);
         return Promise.resolve();
       });
