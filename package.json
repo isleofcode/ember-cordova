@@ -13,7 +13,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register 'node-tests/**/*-test.js'"
+    "test": "./node_modules/.bin/mocha --harmony --compilers js:babel-register 'node-tests/**/*-test.js'"
   },
   "engines": {
     "node": ">= 0.10.0"
