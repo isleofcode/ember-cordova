@@ -131,6 +131,23 @@ describe('Build Command', function() {
         });
     });
 
+    it('skips cordova-build with the --skip-cordova-build flag', function() {
+      var build = setupBuild();
+
+      return build.run({skipCordovaBuild: true})
+        .then(function() {
+          //h-t ember-electron for the pattern
+          expect(tasks).to.deep.equal([
+            'validate-root-url',
+            'validate-allow-navigation',
+            'validate-platform',
+            'hook beforeBuild',
+            'ember-build',
+            'hook afterBuild'
+          ]);
+        });
+    });
+
     it('parses cordova build opts', function() {
       var optDouble = td.replace('../../../lib/utils/parse-cordova-build-opts');
       var build = setupBuild();
