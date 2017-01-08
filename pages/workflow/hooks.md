@@ -39,6 +39,22 @@ module.exports = function() {
 };
 ```
 
+#### Accessing Command-Line Options
+
+Hooks are called with the `options` object generated from the command-line options. The options are named with the camelCase version of the corresponding CLI flag (`--skip-ember-build` becomes `skipEmberBuild`).
+
+```js
+module.exports = function(options) {
+  if (!options.skipEmberBuild) {
+    // do something
+  }
+};
+```
+
+The `beforeBuild` and `afterBuild` hooks are called with the options given to `ember cdv:build` or `ember cdv:serve`.
+
+The `beforePrepare` and `afterPrepare` hooks are called with the options to `ember cdv:prepare`, but this command currently takes no options.
+
 #### Example customization and cleanup
 If a project needed to build for web (`ember build`) and Cordova (`ember cdv:build`), we might decide to keep the template variable `{{rootURL}}` inside "app/index.html" for the web builds. 
 
