@@ -6,7 +6,10 @@ var expect          = require('../../helpers/expect');
 var cordovaPath     = require('../../../lib/utils/cordova-path');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var Promise         = require('ember-cli/lib/ext/promise');
-var cordovaProj     = require('cordova-lib').cordova;
+var cordovaLib      = require('cordova-lib');
+var cordovaProj     = cordovaLib.cordova;
+var events          = cordovaLib.events;
+var logger          = require('cordova-common').CordovaLogger.get();
 
 describe('Cordova Raw Task', function() {
   var setupTask = function() {
@@ -59,6 +62,24 @@ describe('Cordova Raw Task', function() {
           return args
         })
       ).to.eventually.equal(emberPath);
+    });
+
+    it('sets up Cordova logging', function() {
+      td.replace(logger, 'subscribe');
+      var raw = setupTask();
+
+      return raw.run().then(function() {
+        td.verify(logger.subscribe(events));
+      });
+    });
+
+    it('logs verbosely when requested', function() {
+      td.replace(logger, 'setLevel');
+      var raw = setupTask();
+
+      return raw.run({ verbose: true }).then(function() {
+        td.verify(logger.setLevel('verbose'));
+      });
     });
   });
 });
