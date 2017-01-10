@@ -82,4 +82,20 @@ describe('Cordova Raw Task', function() {
       });
     });
   });
+
+  describe('when the raw task fails', function() {
+    beforeEach(function() {
+      td.replace(RawTask.prototype, 'cordovaRawPromise', function() {
+        return Promise.reject(new Error('fail'));
+      });
+    });
+
+    it('rejects run() with the failure', function() {
+      var raw = setupTask();
+
+      return expect(raw.run()).to.be.rejectedWith(
+        /fail/
+      );
+    });
+  });
 });
