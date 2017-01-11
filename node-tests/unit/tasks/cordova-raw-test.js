@@ -6,7 +6,10 @@ var expect          = require('../../helpers/expect');
 var cordovaPath     = require('../../../lib/utils/cordova-path');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var Promise         = require('ember-cli/lib/ext/promise');
-var cordovaProj     = require('cordova-lib').cordova;
+var cordovaLib      = require('cordova-lib');
+var cordovaProj     = cordovaLib.cordova;
+var events          = cordovaLib.events;
+var cordovaLogger   = require('cordova-common').CordovaLogger.get();
 
 describe('Cordova Raw Task', function() {
   var setupTask = function() {
@@ -59,6 +62,40 @@ describe('Cordova Raw Task', function() {
           return args
         })
       ).to.eventually.equal(emberPath);
+    });
+
+    it('sets up Cordova logging', function() {
+      td.replace(cordovaLogger, 'subscribe');
+      var raw = setupTask();
+
+      return raw.run().then(function() {
+        td.verify(cordovaLogger.subscribe(events));
+      });
+    });
+
+    it('logs verbosely when requested', function() {
+      td.replace(cordovaLogger, 'setLevel');
+      var raw = setupTask();
+
+      return raw.run({ verbose: true }).then(function() {
+        td.verify(cordovaLogger.setLevel('verbose'));
+      });
+    });
+  });
+
+  describe('when the raw task fails', function() {
+    beforeEach(function() {
+      td.replace(RawTask.prototype, 'cordovaRawPromise', function() {
+        return Promise.reject(new Error('fail'));
+      });
+    });
+
+    it('rejects run() with the failure', function() {
+      var raw = setupTask();
+
+      return expect(raw.run()).to.be.rejectedWith(
+        /fail/
+      );
     });
   });
 });
