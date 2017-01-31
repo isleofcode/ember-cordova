@@ -140,7 +140,6 @@ describe('Build Command', function() {
           expect(tasks).to.deep.equal([
             'validate-root-url',
             'validate-allow-navigation',
-            'validate-platform',
             'hook beforeBuild',
             'ember-build',
             'hook afterBuild'
