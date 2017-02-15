@@ -14,8 +14,7 @@ describe('Plugin Command', function() {
 
   beforeEach(function() {
     plugin = new PluginCmd({
-      project: mockProject.project,
-      ui: mockProject.ui
+      project: mockProject.project
     });
     plugin.analytics = mockAnalytics;
 
