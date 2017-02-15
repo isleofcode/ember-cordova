@@ -42,6 +42,10 @@ export default Ember.Service.extend({
 
   isWebView: computed.alias('isHybrid'),
 
+  isCordova: computed(function() {
+    return window.cordova !== undefined;
+  }),
+
   isIPad: computed(function() {
     if (/iPad/i.test(window.navigator.platform)) {
       return true;
