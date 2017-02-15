@@ -55,7 +55,7 @@
     "mobile"
   ],
   "peerDependencies": {
-    "ember-cli": "^2.7.0"
+    "ember-cli": "^2.11.1"
   },
   "dependencies": {
     "broccoli-funnel": "^1.0.1",
@@ -63,8 +63,8 @@
     "chalk": "^1.1.3",
     "configstore": "^3.0.0",
     "copy-dir": "^0.3.0",
-    "cordova-lib": "^6.3.0",
-    "cordova-common": "^1.5.0",
+    "cordova-lib": "^6.5.0",
+    "cordova-common": "^2.0.0",
     "fs-extra": "^2.0.0",
     "leek": "0.0.24",
     "lodash": "^4.13.1",
@@ -85,7 +85,7 @@
     "ember-ajax": "2.5.4",
     "ember-cli": "^2.7.0",
     "ember-cli-app-version": "^2.0.1",
-    "ember-cli-babel": "^5.1.6",
+    "ember-cli-babel": "^5.2.4",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
