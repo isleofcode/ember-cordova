@@ -18,7 +18,6 @@ describe('Setup Webview Task', function() {
 
     setupTask = new SetupViewTask({
       project: mockProject.project,
-      ui: mockProject.ui,
       platform: 'ios'
     });
   });
