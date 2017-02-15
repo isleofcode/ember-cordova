@@ -31,7 +31,7 @@ export default Ember.Service.extend({
     this._setPlatforms();
   },
 
-  isWebView: computed(function() {
+  isHybrid: computed(function() {
     return !(
       !window.cordova &&
       !window.PhoneGap &&
@@ -39,6 +39,8 @@ export default Ember.Service.extend({
       window.forge !== 'object'
     );
   }),
+
+  isWebView: computed.alias('isHybrid'),
 
   isIPad: computed(function() {
     if (/iPad/i.test(window.navigator.platform)) {
