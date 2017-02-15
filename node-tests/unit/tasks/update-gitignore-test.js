@@ -12,8 +12,7 @@ describe('Update gitignore Task', function() {
   var createTask = function() {
     var GitIgnore = require('../../../lib/tasks/update-gitignore');
     return new GitIgnore({
-      project: mockProject.project,
-      ui: mockProject.ui
+      project: mockProject.project
     });
   };
 
