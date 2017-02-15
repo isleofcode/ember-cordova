@@ -31,8 +31,7 @@ var setupBuild = function() {
   }
 
   var build = new BuildCmd({
-    project: project,
-    ui: mockProject.ui
+    project: project
   });
   build.analytics = mockAnalytics;
 

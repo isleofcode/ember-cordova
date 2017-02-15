@@ -13,8 +13,7 @@ var setupTask = function(shouldMockTemplate) {
   var CreateShell = require('../../../lib/tasks/create-livereload-shell');
 
   var shellTask = new CreateShell({
-    project: mockProject.project,
-    ui: mockProject.ui
+    project: mockProject.project
   });
 
   if (shouldMockTemplate) {

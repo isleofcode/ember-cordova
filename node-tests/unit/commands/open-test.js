@@ -14,8 +14,7 @@ describe('Open Command', function() {
 
   beforeEach(function() {
     open = new OpenCmd({
-      project: mockProject.project,
-      ui: mockProject.ui
+      project: mockProject.project
     });
     open.analytics = mockAnalytics;
 
