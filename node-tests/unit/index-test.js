@@ -2,7 +2,6 @@
 
 var td              = require('testdouble');
 var fs              = require('fs');
-var mockProject     = require('../fixtures/ember-cordova-mock/project');
 var expect          = require('../helpers/expect');
 var isAnything      = td.matchers.anything;
 
@@ -13,7 +12,6 @@ var stubIndex = function() {
     RELOAD_PORT: 1,
     CORDOVA_PLATFORM: 'ios'
   };
-  stub.ui = mockProject.ui;
 
   stub._super = {};
   stub._super.treeForPublic = function(tree) { return tree };

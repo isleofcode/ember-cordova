@@ -10,8 +10,7 @@ describe('Validate Location Type', function() {
 
   beforeEach(function() {
     validateLoc = new ValidateLocType({
-      project: mockProject.project,
-      ui: mockProject.ui,
+      project: mockProject.project
     });
   });
 
