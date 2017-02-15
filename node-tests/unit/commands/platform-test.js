@@ -15,8 +15,7 @@ describe('Platform Command', function() {
 
   beforeEach(function() {
     platform = new PlatformCmd({
-      project: mockProject.project,
-      ui: mockProject.ui
+      project: mockProject.project
     });
     platform.analytics = mockAnalytics;
   });

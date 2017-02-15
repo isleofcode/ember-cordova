@@ -20,8 +20,7 @@ describe('Validate Root Url', function() {
 
   beforeEach(function() {
     validateRoot = new ValidateRoot({
-      project: mockProject.project,
-      ui: mockProject.ui,
+      project: mockProject.project
     });
   });
 

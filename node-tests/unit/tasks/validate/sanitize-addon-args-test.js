@@ -15,7 +15,6 @@ describe('Sanitize Cordova Args Test', function() {
   function setupTask() {
     return new SanitizeArgs({
       project: mockProject.project,
-      ui: mockProject.ui,
       api: 'plugin'
     });
   }
