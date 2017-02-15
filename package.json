@@ -1,6 +1,6 @@
 {
   "name": "ember-cordova",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Tooling for cordova and crosswalk hybrid applications built with Ember",
   "homepage": "https://github.com/isleofcode/ember-cordova",
   "repository": {
@@ -63,9 +63,9 @@
     "chalk": "^1.1.3",
     "configstore": "^2.0.0",
     "copy-dir": "^0.3.0",
-    "cordova-lib": "^6.3.0",
+    "cordova-lib": "^6.5.0",
     "cordova-common": "^2.0.0",
-    "fs-extra": "^1.0.0",
+    "fs-extra": "^2.0.0",
     "leek": "0.0.24",
     "lodash": "^4.13.1",
     "portfinder": "^1.0.5",
@@ -82,7 +82,7 @@
     "broccoli-asset-rev": "^2.2.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "ember-ajax": "2.5.2",
+    "ember-ajax": "2.5.4",
     "ember-cli": "^2.7.0",
     "ember-cli-app-version": "^2.0.1",
     "ember-cli-babel": "^5.1.6",

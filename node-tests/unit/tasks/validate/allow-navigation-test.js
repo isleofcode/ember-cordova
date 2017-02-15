@@ -16,8 +16,7 @@ describe('Validate Allow Navigation Test', function() {
 
   function setupTask() {
     return new ValidateNav({
-      project: mockProject.project,
-      ui: mockProject.ui
+      project: mockProject.project
     });
   }
 

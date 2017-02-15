@@ -30,8 +30,7 @@ describe('Serve Command', function() {
 
   beforeEach(function() {
     serveCmd = new ServeCmd({
-      project: mockProject.project,
-      ui: mockProject.ui
+      project: mockProject.project
     });
 
     serveCmd.analytics = mockAnalytics;

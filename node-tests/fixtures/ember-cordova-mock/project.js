@@ -1,7 +1,6 @@
 'use strict';
 
 var path            = require('path');
-var MockUI          = require('ember-cli/tests/helpers/mock-ui');
 
 module.exports = {
   env: 'development',
@@ -14,7 +13,5 @@ module.exports = {
     isEmberCLIProject: function() { return true; }
   },
 
-  config: function() {},
-
-  ui: new MockUI()
+  config: function() {}
 }

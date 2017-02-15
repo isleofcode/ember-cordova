@@ -22,8 +22,7 @@ describe('Ember Build Task', function() {
     });
 
     var build  = new EmberBuildTask({
-      project: mockProject.project,
-      ui: mockProject.ui
+      project: mockProject.project
     });
 
     return build.run().then(function() {
@@ -31,4 +30,3 @@ describe('Ember Build Task', function() {
     });
   });
 });
-

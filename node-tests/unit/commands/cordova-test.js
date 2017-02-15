@@ -21,8 +21,7 @@ describe('Cordova Command', function() {
     });
 
     var cmd = new CordovaCmd({
-      project: mockProject.project,
-      ui: mockProject.ui
+      project: mockProject.project
     });
     cmd.analytics = mockAnalytics;
 
