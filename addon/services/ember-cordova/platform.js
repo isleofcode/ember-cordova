@@ -31,13 +31,19 @@ export default Ember.Service.extend({
     this._setPlatforms();
   },
 
-  isWebView: computed(function() {
+  isHybrid: computed(function() {
     return !(
       !window.cordova &&
       !window.PhoneGap &&
       !window.phonegap &&
       window.forge !== 'object'
     );
+  }),
+
+  isWebView: computed.alias('isHybrid'),
+
+  isCordova: computed(function() {
+    return window.cordova !== undefined;
   }),
 
   isIPad: computed(function() {
