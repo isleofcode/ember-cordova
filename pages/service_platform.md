@@ -1,6 +1,6 @@
 ---
 layout: page
-title:  "Device: Platform Service"
+title:  "Platform Service"
 ---
 
 ### Summary
@@ -10,7 +10,7 @@ Included in core ember-cordova repo, and provides information about the current 
 ### Service Lookup
 
 ```js
-  lookup('service:device/platform');
+  lookup('service:ember-cordova/platform');
 ```
 
 ### API
@@ -20,7 +20,8 @@ Included in core ember-cordova repo, and provides information about the current 
 |navigator | proxy for window.navigator object|
 |ua | proxy for window.navigator.userAgent object|
 |platforms | array of all platforms found (e.g. WebView, iOS)|
-|isWebView | bool |
+|isHybrid | bool - is Cordova, PhoneGap or Crosswalk |
+|isCordova | bool |
 |isIPad | bool |
 |isIOS | bool |
 |isAndroid | bool |
