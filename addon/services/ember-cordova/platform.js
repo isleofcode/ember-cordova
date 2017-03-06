@@ -40,8 +40,6 @@ export default Ember.Service.extend({
     );
   }),
 
-  isWebView: computed.alias('isHybrid'),
-
   isCordova: computed(function() {
     return window.cordova !== undefined;
   }),
