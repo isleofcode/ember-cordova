@@ -45,7 +45,13 @@ describe('Validate Root Url', function() {
     expect(
       validateRoot.run()
     ).to.be.rejectedWith(rejectMsg);
+  });
 
+  it('does not error when the value is undefined', function() {
+    validateRoot.config = { rootURL: undefined };
+    expect(
+      validateRoot.run()
+    ).to.be.fulfilled;
   });
 
   it('when force is true, throws a warning vs rejection', function() {
