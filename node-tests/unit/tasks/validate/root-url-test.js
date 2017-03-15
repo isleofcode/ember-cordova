@@ -20,7 +20,8 @@ describe('Validate Root Url', function() {
 
   beforeEach(function() {
     validateRoot = new ValidateRoot({
-      project: mockProject.project
+      project: mockProject.project,
+      config: mockProject.config()
     });
   });
 
@@ -33,7 +34,7 @@ describe('Validate Root Url', function() {
       return true;
     });
 
-    return expect(validateRoot.run(mockProject.config())).to.be.fulfilled;
+    return expect(validateRoot.run()).to.be.fulfilled;
   });
 
   it('rejects if validRootValues is false', function() {
@@ -42,7 +43,7 @@ describe('Validate Root Url', function() {
     });
 
     expect(
-      validateRoot.run(mockProject.config())
+      validateRoot.run()
     ).to.be.rejectedWith(rejectMsg);
 
   });
@@ -53,8 +54,9 @@ describe('Validate Root Url', function() {
     });
 
     var warnDouble = td.replace(logger, 'warn');
+    validateRoot.force = true;
 
-    return validateRoot.run(mockProject.config(), true).then(function() {
+    return validateRoot.run().then(function() {
       td.verify(warnDouble(contains('You have passed the --force flag')));
     })
   });

@@ -34,13 +34,14 @@ describe('Validate Allow Navigation Test', function() {
     });
   });
 
-  it('throws error if liveReload is not setup && blockIfUndefined', function() {
+  it('throws error with invalid setup && rejectIfUndefined', function() {
     td.replace(ValidateNav.prototype, 'livereloadProp', function() {
       return undefined;
     });
 
     var validateNav = setupTask();
-    return expect(validateNav.run(true)).to.be.rejectedWith(
+    validateNav.rejectIfUndefined = true;
+    return expect(validateNav.run()).to.be.rejectedWith(
       /allow-navigation href/
     );
   });
@@ -54,7 +55,7 @@ describe('Validate Allow Navigation Test', function() {
     var validateNav = setupTask();
     validateNav.platform = 'browser';
 
-    return expect(validateNav.run(true)).to.be.fulfilled;
+    return expect(validateNav.run()).to.be.fulfilled;
   });
 
   context('validateNavigationProp', function() {

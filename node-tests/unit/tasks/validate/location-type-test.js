@@ -19,17 +19,17 @@ describe('Validate Location Type', function() {
   });
 
   it('rejects when config.locationType is not hash', function() {
-    var config = { locationType: 'auto' };
-    return expect(validateLoc.run(config)).to.be.rejected;
+    validateLoc.config = { locationType: 'auto' };
+    return expect(validateLoc.run()).to.be.rejected;
   });
 
   it('throws an error with config.locationType is blank', function() {
-    var config = {};
-    return expect(validateLoc.run(config)).to.be.rejected;
+    validateLoc.config = {};
+    return expect(validateLoc.run()).to.be.rejected;
   });
 
   it('resolves if config.locationType is hash', function() {
-    var config = { locationType: 'hash' };
-    return expect(validateLoc.run(config)).to.be.fulfilled;
+    validateLoc.config = { locationType: 'hash' };
+    return expect(validateLoc.run()).to.be.fulfilled;
   });
 });
