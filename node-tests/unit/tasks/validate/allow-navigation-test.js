@@ -41,7 +41,7 @@ describe('Validate Allow Navigation Test', function() {
 
     var validateNav = setupTask();
     return expect(validateNav.run(true)).to.be.rejectedWith(
-      /needs the following flag/
+      /allow-navigation href/
     );
   });
 
