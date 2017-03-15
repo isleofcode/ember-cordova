@@ -11,7 +11,7 @@ describe('Cordova Validator', function() {
   var validator;
 
   beforeEach(function() {
-    td.replace(CordovaValidator.prototype, 'throwError');
+    td.replace(CordovaValidator.prototype, 'makeError');
 
     validator = new CordovaValidator({
       project: mockProject.project,
