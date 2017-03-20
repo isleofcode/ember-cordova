@@ -3,16 +3,17 @@ layout: page
 title:  "Hooks"
 ---
 
-Use ember-cordova hooks for build-time customization, cleanup or warnings. These follow a similar pattern to [Cordova's hooks](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/index.html#introduction), but are specific to ember-cordova builds.
+Use ember-cordova hooks for build-time customization, cleanup or warnings.
+
+The implementation details follow [Cordova's hooks](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/index.html#introduction), but fire under different circumstances. It is possible to use Cordova hooks in addition to ember-cordova hooks.
+
 
 To create a hook, create a file at `ember-cordova/hooks/<hook_type>.js` where `<hook_type>` is one of the following:
 
-* `beforeBuild`
-* `afterBuild`
-* `beforePrepare`
-* `afterPrepare`
+* `beforeBuild` / `afterBuild`: fires on cdv:build and cdv:serve
+* `beforePrepare` / `afterPrepare`: fires on cdv:prepare
 
-**An example hook:**
+**A basic hook:**
 
 ```js
 /* jshint node: true */
@@ -23,9 +24,7 @@ module.exports = function() {
 };
 ```
 
-Hooks run as tasks within the Ember-cli build pipeline. To ensure consistent behaviour they should return synchronous functions or promises. 
-
-**An example async hook:**
+Hooks run as tasks within the ember-cli build pipeline. To ensure consistent behaviour they should return synchronous functions or promises:
 
 ```js
 /* jshint node: true */
@@ -50,10 +49,6 @@ module.exports = function(options) {
   }
 };
 ```
-
-The `beforeBuild` and `afterBuild` hooks are called with the options given to `ember cdv:build` or `ember cdv:serve`.
-
-The `beforePrepare` and `afterPrepare` hooks are called with the options to `ember cdv:prepare`, but this command currently takes no options.
 
 #### Example customization and cleanup
 If a project needed to build for web (`ember build`) and Cordova (`ember cdv:build`), we might decide to keep the template variable `{{rootURL}}` inside "app/index.html" for the web builds. 
