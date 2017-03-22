@@ -21,7 +21,13 @@ The source svg should be a square of any size.
 
 ## Splash Generation
 
-Place a splash.svg file at ember-cordova/splash.svg and run `ember cdv:make-splashes`. Splashes will be resized & injected.
+Place a splash.svg file at ember-cordova/splash.svg and run `ember cdv:make-splashes`. By default, splashes for all platforms will be resized & injected.
+
+To specify a single platform, use the `--platform` option with the desired platform.
+
+```
+ember cdv:make-splashes --platform ios
+```
 
 Unlike icons, the variance of splash file is larger. You likely want to download the following [splash svg template](/examples/safe-splash-template.svg). The source svg should have a background filling the entire area, and icons / text should be kept to the 'safe area' box.
 
