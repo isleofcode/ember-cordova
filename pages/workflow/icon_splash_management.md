@@ -9,7 +9,13 @@ For both, platform & icon source are configurable as documented [in the cli](/pa
 
 ## Icon Generation
 
-Place an icon.svg file at ember-cordova/icon.svg and run `ember cdv:make-icons`. Icons will be resized injected.
+Place an icon.svg file at ember-cordova/icon.svg and run `ember cdv:make-icons`. By default, icons for all platforms will be resized injected.
+
+To specify a single platform, use the `--platform` option with the desired platform.
+
+```
+ember cdv:make-icons --platform ios
+```
 
 The source svg should be a square of any size.
 
