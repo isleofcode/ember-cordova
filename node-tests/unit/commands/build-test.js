@@ -3,7 +3,7 @@
 var td              = require('testdouble');
 
 var expect          = require('../../helpers/expect');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp');
 
 var BuildTask       = require('../../../lib/tasks/ember-build');
 var CdvBuildTask    = require('../../../lib/tasks/cordova-build');

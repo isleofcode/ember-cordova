@@ -4,7 +4,7 @@ var td              = require('testdouble');
 var expect          = require('../../helpers/expect');
 var path            = require('path');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp').Promise;
 
 var WatchmanConfig  = require('../../../lib/tasks/update-watchman-config');
 var fsUtils         = require('../../../lib/utils/fs-utils');
