@@ -1,7 +1,7 @@
 'use strict';
 
 var td              = require('testdouble');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp');
 var path            = require('path');
 
 var fsUtils         = require('../../../lib/utils/fs-utils');

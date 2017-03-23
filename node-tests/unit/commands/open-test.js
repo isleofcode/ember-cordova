@@ -1,7 +1,7 @@
 'use strict';
 
 var td              = require('testdouble');
-var PromiseExt      = require('ember-cli/lib/ext/promise');
+var PromiseExt      = require('rsvp');
 
 var OpenCmd         = require('../../../lib/commands/open');
 var OpenTask        = require('../../../lib/tasks/open-app');

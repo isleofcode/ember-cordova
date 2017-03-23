@@ -5,7 +5,7 @@ var expect          = require('../../helpers/expect');
 var PlatformCmd     = require('../../../lib/commands/platform');
 var CdvRawTask      = require('../../../lib/tasks/cordova-raw');
 var SetupViewTask   = require('../../../lib/tasks/setup-webview');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp');
 
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');

@@ -7,7 +7,7 @@ var logger          = require('../../../lib/utils/logger');
 
 
 var td              = require('testdouble');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp');
 
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');

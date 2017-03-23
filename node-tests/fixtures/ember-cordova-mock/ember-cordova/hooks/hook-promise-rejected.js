@@ -1,4 +1,4 @@
-var Promise = require('ember-cli/lib/ext/promise');
+var Promise = require('rsvp');
 
 module.exports = function() {
   return Promise.reject('hook rejected');
