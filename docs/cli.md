@@ -10,7 +10,7 @@ ember-cordova interference with ember cdv build, vs. ember cdv:build.
 * ember cdv:open
 * ember cdv:build
 * ember cdv:link (DEPRECATED)
-* ember cdv:plaform
+* ember cdv:platform
 * ember cdv:plugin
 * ember cdv:prepare
 * ember cdv:serve
