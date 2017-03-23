@@ -1,7 +1,7 @@
 'use strict';
 
 var td              = require('testdouble');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 
 describe('Ember Build Task', function() {

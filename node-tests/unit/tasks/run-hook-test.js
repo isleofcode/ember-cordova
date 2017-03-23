@@ -3,7 +3,7 @@
 var expect          = require('../../helpers/expect');
 var HookTask        = require('../../../lib/tasks/run-hook');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp').Promise;
 
 describe('Run Hook Task', function() {
   it('runs a hook at the provided path', function() {

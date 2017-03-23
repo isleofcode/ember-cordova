@@ -3,7 +3,7 @@
 var td              = require('testdouble');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var fsUtils         = require('../../../lib/utils/fs-utils');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp');
 
 var expect          = require('../../helpers/expect');
 

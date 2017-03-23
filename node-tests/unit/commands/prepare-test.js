@@ -2,7 +2,7 @@
 
 var td              = require('testdouble');
 var expect          = require('../../helpers/expect');
-var Promise         = require('ember-cli/lib/ext/promise');
+var Promise         = require('rsvp');
 
 var PrepareCmd      = require('../../../lib/commands/prepare');
 var PrepareTask     = require('../../../lib/tasks/prepare');
