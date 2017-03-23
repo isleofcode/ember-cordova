@@ -39,7 +39,7 @@ describe('Open App Task', function() {
     openApp.platform = 'android';
     openApp.run();
 
-    var expectedPath = cdvPath + '/platforms/android/.project';
+    var expectedPath = cdvPath + '/platforms/android/';
     var expectedCmd  = openCommand(expectedPath);
     td.verify(bashDouble(expectedCmd, isObject));
   }),
