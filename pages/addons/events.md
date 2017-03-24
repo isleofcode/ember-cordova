@@ -5,7 +5,19 @@ title:  "ember-cordova-events"
 
 ### Summary
 
-A service providing access to Cordova events, such as deviceready, offline and pause.
+This service provides access to Cordova events, allowing your ember app to react to device level events such as offline, low battery, menu button, and more.
+
+**example: show an alert when the battery is low**
+
+```js
+export default Route.extend({
+  cordovaEvents: service('ember-cordova/events'),
+
+  onBatteryLow: subscribe('cordovaEvents.batterylow', function() {
+    alert('Battery level is low!');
+  })
+});
+```
 
 ### Installation
 
@@ -15,8 +27,9 @@ ember install ember-cordova-events
 
 ### Supported Events
 
+from <https://cordova.apache.org/docs/en/latest/cordova/events/events.html>
+
 ```javascript
-// from (#TODO - update sourcelink to plugin url)
 const CORDOVA_EVENTS = new A([
   'deviceready',
   'pause',
@@ -40,29 +53,20 @@ const CORDOVA_EVENTS = new A([
 
 Events can be handled in two ways:
 
-1: **Subscribe Util:** Recommended for most cases. The subscribe util will clean up listeners automatically; and
+1: **Subscribe Util:** Recommended for most cases. The subscribe util will clean up listeners automatically.
 
 2: **Events:** For more advanced cases, such as consumption in conditionals / functions (e.g. `beforeModel`).
 
-You can subscribe to ember-cordova events via generator function, or standard
-`Ember.Evented` syntax.
-
 #### Subscribe Util
 
-This method will clean up your object's listeners automatically, but can only be used at the top-level of an Ember object 
+This method will clean up your object's listeners automatically, but can only be used at the top-level of an Ember object
 (just like `Ember.computed` and `Ember.on`). It will fail when placed in functions, for those cases, you will to use events.
 
 
-Example usage:
+**Example usage:**
 
 ```js
-import Ember from 'ember';
 import subscribe from 'ember-cordova-events/utils/subscribe';
-
-const {
-  Route,
-  inject: { service }
-} = Ember;
 
 export default Route.extend({
   cordovaEvents: service('ember-cordova/events'),
@@ -76,41 +80,22 @@ export default Route.extend({
 The following will fail, because the subscribe util is not top-level on the object. Use Events instead.
 
 ```javascript
-import Ember from 'ember';
-import subscribe from 'ember-cordova/utils/subscribe';
-
-const {
-  Route,
-  inject: { service }
-} = Ember;
-
-export default Route.extend({
-  cordovaEvents: service('ember-cordova/events'),
-
   beforeModel() {
-    //I dont fire, use Events instead
+    // this will not fire, use Events instead
     subscribe('cordovaEvents.deviceready', function() {
       console.log('will never be ready');
     });
   }
-});
 ```
 
 #### Events
 
-Use this method for cases where you want to consume inside a conditional or function (e.g. beforeModel).
-Using this method means you will need to manually unsubscribe listeners to avoid leaky behaviour.
+Use the standard `Ember.Evented` syntax when you want to create listeners inside of a function (e.g. beforeModel).
+You will need to manually unsubscribe listeners to avoid leaky behaviour.
 
-Example usage:
+**Example usage:**
 
 ```javascript
-import Ember from 'ember';
-
-const {
-  Route,
-  inject: { service }
-} = Ember;
-
 export default Route.extend({
   cordovaEvents: service('ember-cordova/events'),
 
@@ -125,7 +110,7 @@ export default Route.extend({
   },
 
   _resumeListening: function() {
-    console.log('do your thing');
+    console.log("i'm listening to what you have to say");
   }
 });
 ```
