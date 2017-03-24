@@ -20,17 +20,6 @@ describe('Make Splashes Command', function() {
 
       return Promise.resolve();
     });
-
-    td.replace('../../../lib/utils/get-added-platforms', function() {
-      return addedPlatforms;
-    });
-
-    MakeSplashesCmd = require('../../../lib/commands/make-splashes');
-
-    makeSplashes = new MakeSplashesCmd({
-      project: mockProject.project,
-      analytics: mockAnalytics
-    });
   });
 
   afterEach(function() {
@@ -39,39 +28,80 @@ describe('Make Splashes Command', function() {
     td.reset();
   });
 
-  /* eslint-disable max-len */
-  context('when options and platform is `added`', function() {
-    var options = {
-      source: 'ember-cordova/splash.svg',
-      platform: ['added']
-    };
-
+  context('when added platforms', function() {
     beforeEach(function() {
-      return makeSplashes.run(options);
+      td.replace('../../../lib/utils/get-added-platforms', function() {
+        return addedPlatforms;
+      });
+
+      MakeSplashesCmd = require('../../../lib/commands/make-splashes');
+
+      makeSplashes = new MakeSplashesCmd({
+        project: mockProject.project,
+        analytics: mockAnalytics
+      });
     });
 
-    it('calls splash task with passed source, added platforms, and projectPath', function() {
-      expect(splashTaskOptions.source).to.equal(options.source);
-      expect(splashTaskOptions.platforms).to.deep.equal(addedPlatforms);
-      expect(splashTaskOptions.projectPath).to.equal('ember-cordova/cordova');
+    /* eslint-disable max-len */
+    context('when options and platform is `added`', function() {
+      var options = {
+        source: 'ember-cordova/splash.svg',
+        platform: ['added']
+      };
+
+      beforeEach(function() {
+        return makeSplashes.run(options);
+      });
+
+      it('calls splash task with passed source, added platforms, and projectPath', function() {
+        expect(splashTaskOptions.source).to.equal(options.source);
+        expect(splashTaskOptions.platforms).to.deep.equal(addedPlatforms);
+        expect(splashTaskOptions.projectPath).to.equal('ember-cordova/cordova');
+      });
     });
+
+    context('when options and platform is not `added`', function() {
+      var options = {
+        source: 'ember-cordova/splash.svg',
+        platform: ['ios']
+      };
+
+      beforeEach(function() {
+        return makeSplashes.run(options);
+      });
+
+      it('calls splash task with passed source, passed platform, and projectPath', function() {
+        expect(splashTaskOptions.source).to.equal(options.source);
+        expect(splashTaskOptions.platforms).to.equal(options.platform);
+        expect(splashTaskOptions.projectPath).to.equal('ember-cordova/cordova');
+      });
+    });
+    /* eslint-enable max-len */
   });
 
-  context('when options and platform is not `added`', function() {
-    var options = {
-      source: 'ember-cordova/splash.svg',
-      platform: ['ios']
-    };
-
+  context('when no added platforms', function() {
     beforeEach(function() {
-      return makeSplashes.run(options);
+      td.replace('../../../lib/utils/get-added-platforms', function() {
+        return [];
+      });
+
+      MakeSplashesCmd = require('../../../lib/commands/make-splashes');
+
+      makeSplashes = new MakeSplashesCmd({
+        project: mockProject.project,
+        analytics: mockAnalytics
+      });
     });
 
-    it('calls splash task with passed source, passed platform, and projectPath', function() {
-      expect(splashTaskOptions.source).to.equal(options.source);
-      expect(splashTaskOptions.platforms).to.equal(options.platform);
-      expect(splashTaskOptions.projectPath).to.equal('ember-cordova/cordova');
+    context('when options and platform is `added`', function() {
+      var options = {
+        source: 'ember-cordova/splash.svg',
+        platform: ['added']
+      };
+
+      it('throws an error', function() {
+        expect(function() { makeSplashes.run(options) }).to.throw(Error);
+      });
     });
   });
-  /* eslint-enable max-len */
 });
