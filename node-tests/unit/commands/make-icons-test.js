@@ -29,10 +29,14 @@ describe('Make Icons Command', function() {
   });
 
   context('when added platforms', function() {
+    var logger;
+
     beforeEach(function() {
       td.replace('../../../lib/utils/get-added-platforms', function() {
         return addedPlatforms;
       });
+
+      logger = td.replace('../../../lib/utils/logger');
 
       MakeIconsCmd = require('../../../lib/commands/make-icons');
 
@@ -58,6 +62,10 @@ describe('Make Icons Command', function() {
         expect(iconTaskOptions.platforms).to.deep.equal(addedPlatforms);
         expect(iconTaskOptions.projectPath).to.equal('ember-cordova/cordova');
       });
+
+      it('logs the command starting with added platforms', function() {
+        td.verify(logger.info(`ember-cordova: Generating icons for ${addedPlatforms.join(', ')}`));
+      });
     });
 
     context('when options and platform is not `added`', function() {
@@ -74,6 +82,10 @@ describe('Make Icons Command', function() {
         expect(iconTaskOptions.source).to.equal(options.source);
         expect(iconTaskOptions.platforms).to.equal(options.platform);
         expect(iconTaskOptions.projectPath).to.equal('ember-cordova/cordova');
+      });
+
+      it('logs the command starting with passed platform', function() {
+        td.verify(logger.info(`ember-cordova: Generating icons for ${options.platform.join(', ')}`));
       });
     });
     /* eslint-enable max-len */
