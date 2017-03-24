@@ -3,6 +3,7 @@
 var td              = require('testdouble');
 var expect          = require('../../helpers/expect');
 var Promise         = require('rsvp');
+var path            = require('path');
 
 var ServeCmd        = require('../../../lib/commands/serve');
 var ServeTask       = require('../../../lib/tasks/serve');
@@ -11,6 +12,8 @@ var BashTask        = require('../../../lib/tasks/bash');
 var HookTask        = require('../../../lib/tasks/run-hook');
 var LRloadShellTask = require('../../../lib/tasks/create-livereload-shell');
 var editXml         = require('../../../lib/utils/edit-xml');
+var parseXml        = require('../../../lib/utils/parse-xml');
+var cordovaPath     = require('../../../lib/utils/cordova-path');
 
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
@@ -38,7 +41,8 @@ describe('Serve Command', function() {
     serveCmd.analytics = mockAnalytics;
     serveCmd.project.config = function() {
       return {
-        locationType: 'hash'
+        locationType: 'hash',
+
       };
     };
   });
@@ -124,6 +128,20 @@ describe('Serve Command', function() {
         ]);
       });
     });
+
+    it('add reloadUrl to the xml file', function() {
+      return serveCmd.run({
+        reloadUrl: 'test-url'
+      }).then(function() {
+        var cdvPath = cordovaPath(mockProject.project);
+        var configPath = path.join(cdvPath, 'config.xml');
+        var xml = parseXml(configPath);
+        var node = xml._result.widget['allow-navigation'].pop().$.href;
+
+        expect(node).to.equal('test-url');
+      });
+    });
+
 
     it('skips emer & cordova builds with --skip flags', function() {
       return serveCmd.run({
