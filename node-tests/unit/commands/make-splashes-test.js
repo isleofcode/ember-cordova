@@ -29,10 +29,14 @@ describe('Make Splashes Command', function() {
   });
 
   context('when added platforms', function() {
+    var logger;
+
     beforeEach(function() {
       td.replace('../../../lib/utils/get-added-platforms', function() {
         return addedPlatforms;
       });
+
+      logger = td.replace('../../../lib/utils/logger');
 
       MakeSplashesCmd = require('../../../lib/commands/make-splashes');
 
@@ -58,6 +62,10 @@ describe('Make Splashes Command', function() {
         expect(splashTaskOptions.platforms).to.deep.equal(addedPlatforms);
         expect(splashTaskOptions.projectPath).to.equal('ember-cordova/cordova');
       });
+
+      it('logs the command starting with added platforms', function() {
+        td.verify(logger.info(`ember-cordova: Generating splashes for ${addedPlatforms.join(', ')}`));
+      });
     });
 
     context('when options and platform is not `added`', function() {
@@ -74,6 +82,10 @@ describe('Make Splashes Command', function() {
         expect(splashTaskOptions.source).to.equal(options.source);
         expect(splashTaskOptions.platforms).to.equal(options.platform);
         expect(splashTaskOptions.projectPath).to.equal('ember-cordova/cordova');
+      });
+
+      it('logs the command starting with passed platform', function() {
+        td.verify(logger.info(`ember-cordova: Generating splashes for ${options.platform.join(', ')}`));
       });
     });
     /* eslint-enable max-len */
