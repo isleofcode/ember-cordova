@@ -10,6 +10,7 @@ var CdvBuildTask    = require('../../../lib/tasks/cordova-build');
 var BashTask        = require('../../../lib/tasks/bash');
 var HookTask        = require('../../../lib/tasks/run-hook');
 var LRloadShellTask = require('../../../lib/tasks/create-livereload-shell');
+var editXml         = require('../../../lib/utils/edit-xml');
 
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
 var mockAnalytics   = require('../../fixtures/ember-cordova-mock/analytics');
@@ -25,6 +26,7 @@ describe('Serve Command', function() {
   var serveCmd;
 
   afterEach(function() {
+    editXml.removeNavigation(mockProject.project);
     td.reset();
   });
 
@@ -37,8 +39,8 @@ describe('Serve Command', function() {
     serveCmd.project.config = function() {
       return {
         locationType: 'hash'
-      }
-    }
+      };
+    };
   });
 
   context('when locationType is hash', function() {
@@ -103,7 +105,7 @@ describe('Serve Command', function() {
 
     it('exits cleanly', function() {
       return expect(function() {
-        serveCmd.run({})
+        serveCmd.run({});
       }).not.to.throw(Error);
     });
 
