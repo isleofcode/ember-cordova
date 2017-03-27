@@ -3,26 +3,26 @@ layout: page
 title:  "Generate Icons & Splashscreens"
 ---
 
-The `ember cdv:make-icons` and `ember cdv:make-splashes` commands make it possible to generate all platform icon/splashes from a single svg. This is powered by a separate library called [splicon](https://github.com/isleofcode/splicon).
+The `ember cdv:make-icons` and `ember cdv:make-splashes` commands generate all required icons and splashes for your added platforms from a single SVG. This is powered by a separate library called [splicon](https://github.com/isleofcode/splicon).
 
 By default, ember-cordova detects which platforms (e.g. ios) you have installed and only generates assets for those platforms.
 Platform & icon source are configurable as documented [in the cli](/pages/cli).
 
 ## Icon Generation
 
-Place an icon.svg file at ember-cordova/icon.svg and run `ember cdv:make-icons`. By default, icons for all platforms will be resized injected.
+Place an icon.svg file at ember-cordova/icon.svg and run `ember cdv:make-icons`. By default, icons for added platforms will be resized and injected.
 
-To specify a single platform, use the `--platform` option with the desired platform.
+To specify a specific platform, use the `--platform` option with the desired platform.
 
 ```
 ember cdv:make-icons --platform ios
 ```
 
-The source svg should be a square of any size.
+The source SVG should be a square of any size.
 
 ## Splash Generation
 
-Place a splash.svg file at ember-cordova/splash.svg and run `ember cdv:make-splashes`. By default, splashes for all platforms will be resized & injected.
+Place a splash.svg file at ember-cordova/splash.svg and run `ember cdv:make-splashes`. By default, splashes for added platforms will be resized and injected.
 
 To specify a single platform, use the `--platform` option with the desired platform.
 
@@ -30,7 +30,7 @@ To specify a single platform, use the `--platform` option with the desired platf
 ember cdv:make-splashes --platform ios
 ```
 
-Unlike icons, the variance of splash file is larger. You likely want to download the following [splash svg template](/examples/safe-splash-template.svg). The source svg should have a background filling the entire area, and icons / text should be kept to the 'safe area' box.
+Unlike icons, the variance of splash file is larger. You likely want to download the following [splash SVG template](/examples/safe-splash-template.svg). The source SVG should have a background filling the entire area, and icons / text should be kept to the 'safe area' box.
 
 ### Splash Screen Best Practices
 
