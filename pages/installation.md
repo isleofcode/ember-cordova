@@ -9,7 +9,7 @@ guide](legacy/migration-from-ember-cli-cordova).
 
 #### Requirements
 - Ember 1.13+;
-- node 0.12+;
+- node 6/7 per [Ember Node LTS Support](http://emberjs.com/blog/2016/09/07/ember-node-lts-support.html);
 
 #### Installation
 
@@ -17,7 +17,8 @@ guide](legacy/migration-from-ember-cli-cordova).
   ember install ember-cordova
 ```
 
-Existing Cordova projects at ember-cordova/cordova will not be overwritten.
+Installing will initialize a cordova project within your Ember project, at ember-cordova/cordova.
+Existing Cordova projects at this path it will not be overwritten.
 
 You can optionally pass the following params:
 
@@ -33,7 +34,8 @@ ember install ember-cordova --name=AppName --cordovaid=com.isleofcode.app --temp
 
 #### A note on cordovaid
 
-By default ember-cordova takes your Ember App name and generates a bundle id of com.embercordova.emberAppName. App ids should generally be reverse domains, and are _required_ for Android builds.
+By default ember-cordova takes your Ember App name and generates a bundle id of com.embercordova.emberAppName.
+Android _requires_ reverse domain app ids.
 
 By release, you should update id to com.yourdomain.foo (with real values). This is achieved by setting the `id` property on the `widget` node in the `ember-cordova/cordova/config.xml`.
 

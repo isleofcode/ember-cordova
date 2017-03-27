@@ -3,9 +3,9 @@ layout: page
 title:  "Live Reload"
 ---
 
-Live reload takes the standard ember serve live reload behaviour to apps running on your phone. Apps running in this context maintain access to Cordova plugins.
+Live reload takes the standard ember serve live reload behaviour to ember-cordova apps.
 
-Making changes to your ember source will cause a reload, and more than one device can be connected at once.
+Live reload apps can still access Cordova plugins and work on emulators and physical devices.
 
 **Caveats**
 
@@ -35,6 +35,8 @@ The whitelist plugin is also required for Android >4.0:
 #### Customize the device live-reload url
 
 Livereload works by redirecting the cordova apps window.location from file://index.html to your locally running serve instance.
+In general, we detect and automatically set these values for you.
+
 There are times you may need to run live-reload from a remote host and port, or to customize a local url because we are not detecting it correctly.
 
 In all cases below, `<url>` refers to the full url including protocol,
@@ -47,18 +49,8 @@ host, and port, e.g. http://localhost:4200
 ember cdv:serve --reload-url="<url>"
 ```
 
-or
-
-```cli
-ember cdv:s -r "<url>"
-```
-
-*via config/environment.js*
+*via .ember-cli*
 
 ```json
-{
-  cordova: {
-    reloadUrl: "<url>"
-  }
-}
+  reloadUrl: "<url>"
 ```

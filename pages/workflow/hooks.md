@@ -51,9 +51,9 @@ module.exports = function(options) {
 ```
 
 #### Example customization and cleanup
-If a project needed to build for web (`ember build`) and Cordova (`ember cdv:build`), we might decide to keep the template variable `{{rootURL}}` inside "app/index.html" for the web builds. 
+If a project needed to build for web (`ember build`) and Cordova (`ember cdv:build`), we might decide to keep the template variable `rootURL` inside "app/index.html" for the web builds. 
 
-Using the Ember Cordova "beforeBuild" hook we could backup the "app/index.html" file, then remove the string `"{{rootURL}}"` from it for the current build by creating the file `ember-cordova/hooks/beforeBuild.js` and writing something similar to:
+Using the Ember Cordova "beforeBuild" hook we could backup the "app/index.html" file, then remove the string `"rootURL"` from it for the current build by creating the file `ember-cordova/hooks/beforeBuild.js` and writing something similar to:
 
 ```javascript
 /* jshint node: true */

@@ -14,6 +14,8 @@ All commands follow the pattern `ember cordova:{command}`. `ember cdv:{command}`
 * [ember cdv:serve](#serve)
 * [ember cordova](#cordova)
 
+Any arguments documented in the Cordova CLI can also be used in the `build` and `serve` commands, unless otherwise replicated in ember-cordova.
+
 #### Configuration / Defaults
 
 Set preferences in .ember-cli to override defaults. For example, to change ember-cordovas default platform from ios to android:

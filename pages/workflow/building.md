@@ -5,11 +5,13 @@ title:  "Building"
 
 #### Building the app
 
-`ember cdv:build` builds the Ember app with Cordova assets injected, and then executes a Cordova build. You'll probably want to specify the target platform and Ember environment, like so:
+`ember cdv:build` builds the Ember app with Cordova assets injected, and then executes a Cordova build.
 
-    ember cdv:build --platform ios --environment production
+```
+    ember cdv:build --platform=ios --environment=production
+```
 
-Once a build is finished, you will need to deploy to a device or emulator for testing.
+ios is the default platform - to change this behaviour see the CLI reference. After building, you will need to deploy to a device or emulator for testing.
 
 ##### Release Builds
 
@@ -22,13 +24,13 @@ reference](pages/cli) for more details.
 After building the app, you can deploy to a device or emulator using `ember cdv run`, like so:
 
 ```bash
-  ember cdv run --platform=ios --emulator    # Deploy to iOS simulator
-  ember cdv run --platform=android --device  # Deploy to Android device
+  ember cdv run --platform=ios --emulator --nobuild   # Deploy to iOS simulator
+  ember cdv run --platform=android --device --nobuild  # Deploy to Android device
 ```
 
-To deploy to an iOS device, you must have Provisioning Profiles set up. Usually, Xcode can set up development profiles for you automatically.
-
 Alternatively `ember cdv:open` will open your project in Xcode or Android Studio. The IDE can then be used for starting emulators, code signing & app store uploads.
+
+To deploy to an iOS device, you must have Provisioning Profiles set up. Usually, Xcode can set up development profiles for you automatically.
 
 #### Debugging
 

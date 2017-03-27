@@ -5,7 +5,8 @@ title:  "Generate Icons & Splashscreens"
 
 The `ember cdv:make-icons` and `ember cdv:make-splashes` commands make it possible to generate all platform icon/splashes from a single svg. This is powered by a separate library called [splicon](https://github.com/isleofcode/splicon).
 
-For both, platform & icon source are configurable as documented [in the cli](/pages/cli).
+By default, ember-cordova detects which platforms (e.g. ios) you have installed and only generates assets for those platforms.
+Platform & icon source are configurable as documented [in the cli](/pages/cli).
 
 ## Icon Generation
 
