@@ -77,18 +77,9 @@ describe('Create Cordova Shell Task', function() {
       });
   });
 
-  it('detects reloadUrl if one is not passed', function() {
-    var ipDouble = td.replace('../../../lib/utils/get-network-ip');
-    var shellTask = setupTask(true);
-
-    return shellTask.run(4200).then(function() {
-      td.verify(ipDouble());
-    });
-  });
-
   it('catches errors', function() {
     td.replace(fsUtils, 'write', function() {
-      throw new Error()
+      throw new Error();
     });
 
     var shellTask = setupTask(true);
