@@ -48,7 +48,7 @@ Placed in ember-cordova/cordova/config.xml
 </widget>
 ```
 
-2: Use the ember-cordova-splash service to hide the splashscreen in the afterModel hook.
+2: Use the [ember-cordova-splash](https://github.com/isleofcode/ember-cordova-splash) service to hide the splashscreen in the afterModel hook.
 
 ```js
 // app/routes/application.js
