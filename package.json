@@ -65,7 +65,7 @@
     "copy-dir": "^0.3.0",
     "cordova-lib": "^6.5.0",
     "cordova-common": "^2.0.0",
-    "ember-cli-babel": "^5.2.4",
+    "ember-cli-babel": "^6.0.0",
     "fs-extra": "^2.0.0",
     "leek": "0.0.24",
     "lodash": "^4.13.1",
