@@ -58,7 +58,7 @@ DEPRECATED
 Add or remove cordova platforms. Use the save flag to persist new
 platforms to config.xml (default is true).
 
-###Aliases
+### Aliases
 + add/a
 + remove/rm/r
 
@@ -75,7 +75,7 @@ platforms to config.xml (default is true).
 Add or remove cordova plugins. Use the save flag to persist new
 platforms to config.xml (default is true).
 
-###Aliases
+### Aliases
 + add/a
 + remove/rm/r
 
@@ -138,7 +138,7 @@ an issue and tell us.
 #### Examples
 + `ember cordova info`
 
-####Troubleshooting
+#### Troubleshooting
 When running a proxy command, file paths are relative to
 your cordova directory.
 
@@ -147,7 +147,7 @@ So for example, if you for reasons unkwown run `ember cdv plugin add ../local-pl
 ember projects root, it will probably fail. You most likely need `ember
 cordova plugin add ../../../local-plugin-path`.
 
-##Configuration / Defaults
+## Configuration / Defaults
 
 If you find yourself needing to override CLI defaults, you can set
 new defaults in your .ember-cli file.
