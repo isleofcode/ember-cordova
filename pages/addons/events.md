@@ -25,7 +25,13 @@ ember install ember-cordova-events
 Show an alert when the battery is low, using both forms (demonstration only!!!):
 
 ```js
+import Ember from 'ember';
 import subscribe from 'ember-cordova-events/utils/subscribe';
+
+const {
+  Route,
+  inject: { service }
+} = Ember;
 
 export default Route.extend({
   cordovaEvents: service('ember-cordova/events'),
@@ -83,7 +89,13 @@ This method will tear down your object's listeners automatically, but can only b
 **Example usage:**
 
 ```js
+import Ember from 'ember';
 import subscribe from 'ember-cordova-events/utils/subscribe';
+
+const {
+  Route,
+  inject: { service }
+} = Ember;
 
 export default Route.extend({
   cordovaEvents: service('ember-cordova/events'),
