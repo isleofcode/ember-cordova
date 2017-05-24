@@ -24,8 +24,8 @@ reference](pages/cli) for more details.
 After building the app, you can deploy to a device or emulator using `ember cdv run`, like so:
 
 ```bash
-  ember cdv run --platform=ios --emulator --nobuild   # Deploy to iOS simulator
-  ember cdv run --platform=android --device --nobuild  # Deploy to Android device
+  ember cdv run ios --emulator --nobuild   # Deploy to iOS simulator
+  ember cdv run android --device --nobuild  # Deploy to Android device
 ```
 
 Alternatively `ember cdv:open` will open your project in Xcode or Android Studio. The IDE can then be used for starting emulators, code signing & app store uploads.
