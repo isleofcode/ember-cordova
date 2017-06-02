@@ -96,6 +96,6 @@
     "mocha": "^3.2.0",
     "mocha-eslint": "2.1.1",
     "mocha-jshint": "^2.3.1",
-    "testdouble": "^2.0.1"
+    "testdouble": "^3.0.0"
   }
 }
