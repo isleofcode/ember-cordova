@@ -14,6 +14,8 @@ In `config/environment.js`:
 [comment]: `{{rootUrl}}` will not render because Jekyll is rendering it as handlebars.
 2) Ensure &#123;&#123;rootURL&#125;&#125; or &#123;&#123;baseURL&#125;&#125; dont have a leading forward slash. Any hardcoded assets with a leading slash will fail to load.
 
+e.g. change `rootURL: '/',` to `rootURL: '',` in `config/environment.js`
+
 #### ENV Setup for App Compilation
 
 To build for iOS and Android, you will need Xcode or Android Studio installed.
