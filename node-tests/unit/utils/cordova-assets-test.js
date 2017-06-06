@@ -29,7 +29,9 @@ describe('Get Platform Assets Util', function() {
 
     it('adds cordova_plugins.js to files', function() {
       var assets = cordovaAssets.getPaths('ios', 'fakeProjectPath');
-      expect(assets.files).to.deep.equal(['cordova_plugins.js', 'cordova.js']);
+      expect(assets.files).to.deep.equal(
+        ['cordova_plugins.js', 'cordova.js', 'config.xml']
+      );
     });
   });
 
