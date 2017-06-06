@@ -91,9 +91,9 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
-    "ember-source": "^2.11.0",
+    "ember-source": "^2.13.3",
     "eslint-plugin-chai-expect": "^1.1.1",
-    "mocha": "^3.2.0",
+    "mocha": "^3.4.2",
     "mocha-eslint": "2.1.1",
     "mocha-jshint": "^2.3.1",
     "testdouble": "^3.0.0"
