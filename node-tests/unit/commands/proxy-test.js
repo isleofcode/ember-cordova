@@ -2,7 +2,7 @@
 
 var BashTask        = require('../../../lib/tasks/bash');
 var VerifyInstall   = require('../../../lib/tasks/validate/cordova-installed');
-var CordovaCmd      = require('../../../lib/commands/cordova');
+var CordovaCmd      = require('../../../lib/commands/proxy');
 var logger          = require('../../../lib/utils/logger');
 
 
