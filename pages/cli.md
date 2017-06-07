@@ -11,8 +11,8 @@ All commands follow the pattern `ember cordova:{command}`. `ember cdv:{command}`
 * [ember cdv:plaform](#platform)
 * [ember cdv:plugin](#plugin)
 * [ember cdv:prepare](#prepare)
+* [ember cdv:proxy](#proxy)
 * [ember cdv:serve](#serve)
-* [ember cordova](#cordova)
 
 Any arguments documented in the Cordova CLI can also be used in the `build` and `serve` commands, unless otherwise replicated in ember-cordova.
 
@@ -106,6 +106,32 @@ Also fires beforePrepare/afterPrepare hooks.
 #### Examples
 + `ember cordova:prepare`
 
+## Proxy
+
+Passes commands straight to cordova, without interference.
+
+Because this proxies to cordova-cli, you will need cordova-cli installed (this is not required for usage anywhere else). If you do not already have it installed, you can install it with:
+Our hope is you won't need this command very much. If you are, open an issue and tell us.
+
+
+```
+  npm install -g cordova
+```
+
+#### Examples
++ `ember cdv:proxy info`
++ `ember cdv:proxy run ios --nobuild`
+
+#### Troubleshooting
+
+When running a proxy command, file paths are relative to
+your cordova directory.
+
+For example, running `ember cdv plugin add ../local-plugin-path`
+(hint: just use `ember cdv:plugin add ../local-plugin-path`), from your
+ember projects root will probably fail. You most likely need `ember
+cordova plugin add ../../../local-plugin-path`.
+
 ### Serve
 
 Live reload. To learn more, [read here](/pages/workflow/live_reload).
@@ -149,31 +175,5 @@ Automatically generate platform splashscreens from a single svg. For more inform
 
 #### Examples
 + `ember cdv:make-splashes`
-
-
-## Cordova
-
-Passes commands straight to cordova, without interference.
-
-Because this proxies to cordova-cli, you will need cordova-cli installed (this is not required for usage anywhere else). If you do not already have it installed, you can install it with:
-Our hope is you won't need this command very much. If you are, open an issue and tell us.
-
-
-```
-  npm install -g cordova
-```
-
-#### Examples
-+ `ember cordova info`
-
-#### Troubleshooting
-
-When running a proxy command, file paths are relative to
-your cordova directory.
-
-For example, running `ember cdv plugin add ../local-plugin-path`
-(hint: just use `ember cdv:plugin add ../local-plugin-path`), from your
-ember projects root will probably fail. You most likely need `ember
-cordova plugin add ../../../local-plugin-path`.
 
 
