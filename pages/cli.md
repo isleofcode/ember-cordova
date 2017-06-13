@@ -53,7 +53,8 @@ Build the ember and cordova project together running in the simulator or on a de
 | platform    | ios | target cordova platform |
 | release     | debug | |
 | cordova-output-path | ember-cordova/cordova/www | |
-| skip-ember-build | false | does a cordova build with your last ember cdv:build content |
+| skip-ember-build (alias: seb) | false | only performs cordova build |
+| skip-cordova-build (alias: scb) | false | only performs ember build |
 
 The build command also takes all of the non gradle-specific cordova build opts (e.g. provisioningProfile, codeSignIdentity).
 
@@ -141,8 +142,8 @@ Live reload. To learn more, [read here](/pages/workflow/live_reload).
 | platform  | ios | cordova platform |
 | reloadUrl | auto detected ip | network ip of your machine |
 | cordova-output-path| ember-cordova/cordova/www | |
-| skip-ember-build | false | only performs cordova build |
-| skip-cordova-build | false | only performs ember build |
+| skip-ember-build (alias: seb) | false | only performs cordova build |
+| skip-cordova-build (alias: scb) | false | only performs ember build |
 
 #### Examples
 + `ember cdv:serve`
