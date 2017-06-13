@@ -1,6 +1,7 @@
 'use strict';
 
 var td              = require('testdouble');
+var expect          = require('../../helpers/expect');
 var isAnything      = td.matchers.anything();
 var logger          = require('../../../lib/utils/logger');
 
@@ -45,14 +46,35 @@ describe('Setup Webview Task', function() {
     )));
   });
 
-  it('uses cordova-plugin-wkwebview-engine for ios', function() {
-    setupTask.run();
-    td.verify(rawDouble('add', 'cordova-plugin-wkwebview-engine', isAnything));
+  it('defaults to crosswalk=false', function() {
+    expect(setupTask.crosswalk).to.equal(false);
   });
 
-  it('uses cordova-plugin-crosswalk-webview for android', function() {
+  it('defaults to uiwebview=false', function() {
+    expect(setupTask.uiwebview).to.equal(false);
+  });
+
+  it('when crosswalk=false(default), it uses android default', function() {
     setupTask.platform = 'android';
     setupTask.run();
+    td.verify(rawDouble(), {times: 0, ignoreExtraArgs: true});
+  });
+
+  it('when uiwebview=true, it uses ios default webview', function() {
+    setupTask.uiwebview = true;
+    setupTask.run();
+    td.verify(rawDouble(), {times: 0, ignoreExtraArgs: true});
+  });
+
+  it('when crosswalk=true, it uses crosswalk', function() {
+    setupTask.platform = 'android';
+    setupTask.crosswalk = true;
+    setupTask.run();
     td.verify(rawDouble('add', 'cordova-plugin-crosswalk-webview', isAnything));
+  });
+
+  it('when uiwebview=false(default), it uses wkwebview', function() {
+    setupTask.run();
+    td.verify(rawDouble('add', 'cordova-plugin-wkwebview-engine', isAnything));
   });
 });
