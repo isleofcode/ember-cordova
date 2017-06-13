@@ -77,4 +77,23 @@ describe('Setup Webview Task', function() {
     setupTask.run();
     td.verify(rawDouble('add', 'cordova-plugin-wkwebview-engine', isAnything));
   });
+
+  describe('invalid platform/webview combinations', function() {
+    it('warns ios users if crosswalk=true', function() {
+      setupTask.crosswalk = true;
+      let warnDouble = td.replace(setupTask, 'warnPlatform');
+
+      setupTask.run();
+      td.verify(warnDouble('ios', 'crosswalk=true'));
+    });
+
+    it('warns android users if uiwebview=true', function() {
+      setupTask.platform = 'android';
+      setupTask.uiwebview = true;
+      let warnDouble = td.replace(setupTask, 'warnPlatform');
+
+      setupTask.run();
+      td.verify(warnDouble('android', 'uiwebview=true'));
+    });
+  });
 });
