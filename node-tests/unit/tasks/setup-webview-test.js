@@ -1,6 +1,7 @@
 'use strict';
 
 var td              = require('testdouble');
+var expect          = require('../../helpers/expect');
 var isAnything      = td.matchers.anything();
 var logger          = require('../../../lib/utils/logger');
 
@@ -31,13 +32,13 @@ describe('Setup Webview Task', function() {
     td.verify(rawDouble(isAnything, isAnything, isAnything));
   });
 
-  it('warns the user & alerts them of install', function() {
+  it('warns the user of default changes in ios', function() {
     var warnDouble = td.replace(logger, 'warn');
     var successDouble = td.replace(logger, 'success');
 
     setupTask.run();
     td.verify(warnDouble(contains(
-      'ember-cordova initializes with upgraded WebViews.'
+      'ember-cordova initializes ios with the upgraded WKWebView'
     )));
 
     td.verify(successDouble(contains(
@@ -45,14 +46,54 @@ describe('Setup Webview Task', function() {
     )));
   });
 
-  it('uses cordova-plugin-wkwebview-engine for ios', function() {
+  it('defaults to crosswalk=false', function() {
+    expect(setupTask.crosswalk).to.equal(false);
+  });
+
+  it('defaults to uiwebview=false', function() {
+    expect(setupTask.uiwebview).to.equal(false);
+  });
+
+  it('when crosswalk=false(default), it uses android default', function() {
+    setupTask.platform = 'android';
+    setupTask.run();
+    td.verify(rawDouble(), {times: 0, ignoreExtraArgs: true});
+  });
+
+  it('when uiwebview=true, it uses ios default webview', function() {
+    setupTask.uiwebview = true;
+    setupTask.run();
+    td.verify(rawDouble(), {times: 0, ignoreExtraArgs: true});
+  });
+
+  it('when crosswalk=true, it uses crosswalk', function() {
+    setupTask.platform = 'android';
+    setupTask.crosswalk = true;
+    setupTask.run();
+    td.verify(rawDouble('add', 'cordova-plugin-crosswalk-webview', isAnything));
+  });
+
+  it('when uiwebview=false(default), it uses wkwebview', function() {
     setupTask.run();
     td.verify(rawDouble('add', 'cordova-plugin-wkwebview-engine', isAnything));
   });
 
-  it('uses cordova-plugin-crosswalk-webview for android', function() {
-    setupTask.platform = 'android';
-    setupTask.run();
-    td.verify(rawDouble('add', 'cordova-plugin-crosswalk-webview', isAnything));
+  describe('invalid platform/webview combinations', function() {
+    it('warns ios users if crosswalk=true', function() {
+      setupTask.crosswalk = true;
+      let warnDouble = td.replace(setupTask, 'warnPlatform');
+
+      setupTask.run();
+      td.verify(warnDouble('ios', 'crosswalk=true'));
+    });
+
+    it('warns android users if uiwebview=true', function() {
+      setupTask.platform = 'android';
+      setupTask.uiwebview = true;
+      let warnDouble = td.replace(setupTask, 'warnPlatform');
+
+      setupTask.run();
+      td.verify(warnDouble('android', 'uiwebview=true'));
+    });
   });
 });

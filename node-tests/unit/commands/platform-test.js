@@ -69,25 +69,11 @@ describe('Platform Command', function() {
       });
     });
 
-    it('attempts to upgrade default webviews', function() {
+    it('calls SetupWebView to handle init', function() {
       var setupViewDouble = td.replace(SetupViewTask.prototype, 'run');
 
       return platform.run({}, ['add', 'ios']).then(function() {
         td.verify(setupViewDouble());
-      });
-    });
-
-    it('uses cordova defaults if --default-webview is true', function() {
-      var called = false;
-      td.replace(SetupViewTask.prototype, 'run', function() {
-        called = true;
-        return Promise.resolve();
-      });
-
-      var opts = { defaultWebview: true };
-
-      return platform.run(opts, ['add', 'ios']).then(function() {
-        expect(called).to.equal(false);
       });
     });
   });
