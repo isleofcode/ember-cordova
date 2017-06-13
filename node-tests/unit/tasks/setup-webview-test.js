@@ -32,13 +32,13 @@ describe('Setup Webview Task', function() {
     td.verify(rawDouble(isAnything, isAnything, isAnything));
   });
 
-  it('warns the user & alerts them of install', function() {
+  it('warns the user of default changes in ios', function() {
     var warnDouble = td.replace(logger, 'warn');
     var successDouble = td.replace(logger, 'success');
 
     setupTask.run();
     td.verify(warnDouble(contains(
-      'ember-cordova initializes with upgraded WebViews.'
+      'ember-cordova initializes ios with the upgraded WKWebView'
     )));
 
     td.verify(successDouble(contains(
