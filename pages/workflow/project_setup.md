@@ -5,7 +5,7 @@ title:  "Project Setup"
 
 #### Required Ember App Changes
 
-There are a few changes required to make sure your app will work in a Cordova context. You'll get a warning if you forget.
+There are a few changes required to make sure your app will work in a Cordova context. You'll get a warning if you forget. *These changes are not required for standalone Glimmer applications.*
 
 In `config/environment.js`:
 

@@ -6,9 +6,11 @@ title:  "Installation"
 If you are migrating from ember-cli-cordova, read the [migration
 guide](legacy/migration-from-ember-cli-cordova).
 
+ember-cordova can be used in standalone Glimmer applications by following the same steps.
+
 
 #### Requirements
-- Ember 1.13+;
+- Ember 1.13+ or Glimmer;
 - node 6/7 per [Ember Node LTS Support](http://emberjs.com/blog/2016/09/07/ember-node-lts-support.html);
 
 #### Installation
