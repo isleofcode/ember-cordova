@@ -72,10 +72,13 @@ platforms to config.xml (default is true).
 | Options | default | desc |
 |---------|---------| ---- |
 | save    | true | store plugin info in `config.xml`. enables cdv:prepare |
+| uiwebview | false | initialize with UIWebView vs WKWebView |
+| crosswalk | false | initialize with Crosswalk vs Android WebView |
 
 #### Examples
 + `ember cdv:platform add ios`
 + `ember cdv:platform remove ios`
++ `ember cdv:platform add android --crosswalk`
 
 #### Aliases
 + add/a
