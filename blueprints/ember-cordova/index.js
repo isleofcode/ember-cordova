@@ -1,9 +1,6 @@
 'use strict';
 
-var CreateTask            = require('../../lib/tasks/create-cordova-project');
-var UpdateGitIgnore       = require('../../lib/tasks/update-gitignore');
-var UpdateWatchmanIgnore  = require('../../lib/tasks/update-watchman-config');
-var camelize              = require('../../lib/utils/string.js').camelize;
+var initProject = require('../../lib/utils/init-project');
 
 module.exports = {
   name: 'ember-cordova',
@@ -34,32 +31,7 @@ module.exports = {
     // to us
   },
 
-  createProjectId: function(projectName) {
-    return 'com.embercordova.' + projectName;
-  },
-
   afterInstall: function(options) {
-    var projectName = camelize(this.project.name());
-
-    var create = new CreateTask({
-      id: options.cordovaid || this.createProjectId(projectName),
-      name: options.name || projectName,
-      project: this.project,
-      ui: this.ui
-    });
-
-    var updateGitIgnore = new UpdateGitIgnore({
-      project: this.project,
-      ui: this.ui
-    });
-
-    var updateWatchmanIgnore = new UpdateWatchmanIgnore({
-      project: this.project,
-      ui: this.ui
-    });
-
-    return create.run(options.templatePath)
-           .then(updateGitIgnore.prepare())
-           .then(updateWatchmanIgnore.prepare());
+    return initProject(options, this.project, this.ui);
   }
 };
