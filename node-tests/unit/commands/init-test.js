@@ -3,6 +3,7 @@
 var td              = require('testdouble');
 var expect          = require('../../helpers/expect');
 var mockProject     = require('../../fixtures/ember-cordova-mock/project');
+var Promise         = require('rsvp').Promise;
 
 describe('Init Command', function() {
   var init;
