@@ -75,4 +75,24 @@ describe('Update Watchman Config Task', function() {
       expect(writeContents).to.equal('{"ignore_dirs":["ember-cordova"]}');
     });
   });
+
+  it('does not duplicate content', function() {
+    var writeContents;
+    var expectedWrite = '{"ignore_dirs":["tmp","dist","ember-cordova"]}';
+
+    td.replace(fsUtils, 'read', function(path) {
+      return new Promise(function(resolve) {
+        resolve('\{"ignore_dirs": ["tmp", "dist", "ember-cordova"]\}');
+      });
+    });
+
+    td.replace(fsUtils, 'write', function(path, contents) {
+      writeContents = contents;
+      return Promise.resolve();
+    });
+
+    return watchmanTask.run().then(function() {
+      expect(writeContents).to.equal(expectedWrite);
+    });
+  });
 });
