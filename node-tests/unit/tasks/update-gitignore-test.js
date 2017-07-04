@@ -24,6 +24,9 @@ describe('Update gitignore Task', function() {
   beforeEach(function() {
     expectedGitkeep = '\n' +
       'ember-cordova/tmp-livereload\n' +
+      'ember-cordova/cordova/node_modules\n' +
+      'ember-cordova/cordova/package.json\n' +
+      'ember-cordova/cordova/package-lock.json\n' +
       'ember-cordova/cordova/www/*\n' +
       '!ember-cordova/cordova/www/.gitkeep\n' +
       'ember-cordova/cordova/plugins/*\n' +
