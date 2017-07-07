@@ -27,12 +27,13 @@ describe('Update gitignore Task', function() {
       'ember-cordova/cordova/node_modules\n' +
       'ember-cordova/cordova/package.json\n' +
       'ember-cordova/cordova/package-lock.json\n' +
-      'ember-cordova/cordova/www/*\n' +
-      '!ember-cordova/cordova/www/.gitkeep\n' +
+      'ember-cordova/cordova/platforms/*\n' +
+      '!ember-cordova/cordova/platforms/.gitkeep\n' +
       'ember-cordova/cordova/plugins/*\n' +
       '!ember-cordova/cordova/plugins/.gitkeep\n' +
-      'ember-cordova/cordova/platforms/*\n' +
-      '!ember-cordova/cordova/platforms/.gitkeep';
+      'ember-cordova/cordova/www/*\n' +
+      '!ember-cordova/cordova/www/.gitkeep';
+
   });
 
   afterEach(function() {
@@ -63,9 +64,9 @@ describe('Update gitignore Task', function() {
     var task = createTask();
     return task.run().then(function() {
       expect(calls).to.deep.equal([
-        'ember-cordova/cordova/www/.gitkeep',
-        'ember-cordova/cordova/plugins/.gitkeep',
         'ember-cordova/cordova/platforms/.gitkeep',
+        'ember-cordova/cordova/plugins/.gitkeep',
+        'ember-cordova/cordova/www/.gitkeep',
         '.gitignore'
       ]);
     });
