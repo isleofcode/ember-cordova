@@ -18,6 +18,7 @@ var isAnything      = td.matchers.anything;
 var ValidatePlatform        = require('../../../lib/tasks/validate/platform');
 var ValidateAllowNavigation = require('../../../lib/tasks/validate/allow-navigation');
 var ValidateRootUrl         = require('../../../lib/tasks/validate/root-url');
+var LintIndex               = require('../../../lib/tasks/lint-index');
 /* eslint-enable max-len */
 
 var setupBuild = function() {
@@ -85,6 +86,11 @@ describe('Build Command', function() {
         tasks.push('cordova-build');
         return Promise.resolve();
       });
+
+      td.replace(LintIndex.prototype, 'run', function() {
+        tasks.push('lint-index');
+        return Promise.resolve();
+      });
     }
 
     it('exits cleanly', function() {
@@ -108,7 +114,8 @@ describe('Build Command', function() {
             'hook beforeBuild',
             'ember-build',
             'cordova-build',
-            'hook afterBuild'
+            'hook afterBuild',
+            'lint-index'
           ]);
         });
     });
@@ -125,7 +132,8 @@ describe('Build Command', function() {
             'validate-platform',
             'hook beforeBuild',
             'cordova-build',
-            'hook afterBuild'
+            'hook afterBuild',
+            'lint-index'
           ]);
         });
     });
@@ -141,7 +149,8 @@ describe('Build Command', function() {
             'validate-allow-navigation',
             'hook beforeBuild',
             'ember-build',
-            'hook afterBuild'
+            'hook afterBuild',
+            'lint-index'
           ]);
         });
     });
