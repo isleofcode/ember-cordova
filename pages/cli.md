@@ -8,6 +8,7 @@ All commands follow the pattern `ember cordova:{command}`. `ember cdv:{command}`
 ## Available Commands
 * [ember cdv:open](#open)
 * [ember cdv:build](#build)
+* [ember cdv:lint-index](#lint-index)
 * [ember cdv:plaform](#platform)
 * [ember cdv:plugin](#plugin)
 * [ember cdv:prepare](#prepare)
@@ -62,6 +63,17 @@ The build command also takes all of the non gradle-specific cordova build opts (
 + `ember cordova:build`
 + `ember cordova:build --environment=production --platform=ios`
 + `ember cordova:build --environment=production --platform=ios --release`
+
+### lint-index
+
+Validates there are no leading `/` paths in ember-cordova/cordova/www/index.html.
+
+While ember:cdv will validate your Ember config pre build, sometimes items such as hardcoded CND urls will slip through.
+
+lint-index is automatically run on builds, however will warn vs error.
+
+#### Examples
++ `ember cordova:lint-index`
 
 ### Platform
 
