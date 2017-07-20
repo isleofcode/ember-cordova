@@ -108,10 +108,10 @@ describe('Build Command', function() {
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
+            'hook beforeBuild',
             'validate-root-url',
             'validate-allow-navigation',
             'validate-platform',
-            'hook beforeBuild',
             'ember-build',
             'cordova-build',
             'hook afterBuild',
@@ -127,10 +127,10 @@ describe('Build Command', function() {
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
+            'hook beforeBuild',
             'validate-root-url',
             'validate-allow-navigation',
             'validate-platform',
-            'hook beforeBuild',
             'cordova-build',
             'hook afterBuild',
             'lint-index'
@@ -145,9 +145,9 @@ describe('Build Command', function() {
         .then(function() {
           //h-t ember-electron for the pattern
           expect(tasks).to.deep.equal([
+            'hook beforeBuild',
             'validate-root-url',
             'validate-allow-navigation',
-            'hook beforeBuild',
             'ember-build',
             'hook afterBuild',
             'lint-index'
