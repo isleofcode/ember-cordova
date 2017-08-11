@@ -13,7 +13,7 @@ var rejectMsg =
   '{{rootURL}} or {{baseURL}} in config/environment has a leading slash. \n' +
   'This will not work in cordova, and needs to be removed. \n' +
   'You can pass the --force flag to ignore this if youve otherwise handled \n' +
-  'See http://embercordova.com/pages/setup_guide for more info.';
+  'See http://embercordova.com/pages/workflow/project_setup for more info.';
 
 describe('Validate Root Url', function() {
   var validateRoot;
