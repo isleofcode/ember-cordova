@@ -16,7 +16,7 @@
     "test": "./node_modules/.bin/mocha --harmony --compilers js:babel-register 'node-tests/**/*-test.js'"
   },
   "engines": {
-    "node": "^4.5 || 6.* || 7.*"
+    "node": "^4.5 || 6.* || 7.* || 8.*"
   },
   "author": {
     "name": "Alex Blom",
