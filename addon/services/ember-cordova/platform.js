@@ -29,6 +29,13 @@ export default Ember.Service.extend({
   init() {
     this._super(...arguments);
     this._setPlatforms();
+
+    console.warn(
+       'DEPRECATION WARNING (ember-cordova): the ember-cordova/platform plugin should now be installed as a standalone.\n' +
+       'Run: "ember install ember-cordova-platform". The import path remains the same. \n' +
+       'Like prior abstractions, it will be easier to maintain and test the platform plugin independently. \n' +
+       'This is just a warning. The embedded platform service will be deprecated as of Sep 30.'
+   );
   },
 
   isHybrid: computed(function() {
