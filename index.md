@@ -3,6 +3,14 @@ layout: page
 title: "ember-cordova"
 ---
 
+#### corber announcement
+
+We have started moving the ember-cordova CLI into the corber project, which adds support for other frameworks. This repository is a mirror of the pre-forked, stable ember-cordova. We encourage you to try the corber beta.
+
+Announcement details can be found [here](http://blog.isleofcode.com/announcing-corber-ember-cordova-vue/), the repository [here](https://github.com/isleofcode/corber) and documentation [here](http://corber.io).
+
+#### ember-cordova
+
 ember-cordova provides a pipeline & tooling for extending Ember.js & standalone Glimmer applications with Cordova.
 
 Once [installed](pages/installation), building is as simple as:
