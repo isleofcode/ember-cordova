@@ -2,6 +2,13 @@
 
 [![Build Status](https://travis-ci.org/isleofcode/ember-cordova.svg?branch=feat%2Ftravis)](https://travis-ci.org/isleofcode/ember-cordova)
 
+## corber
+
+We have started moving the ember-cordova CLI into the corber project, which adds support for other frameworks. This repository is a mirror of the pre-forked, stable ember-cordova. We encourage you to try the corber beta.
+
+Announcement details can be found [here](http://blog.isleofcode.com/announcing-corber-ember-cordova-vue/), the repository [here](https://github.com/isleofcode/corber) and documentation [here](http://corber.io).
+
+## ember-cordova
 ember-cordova simplifies building Cordova applications with Ember.js.
 
 Included is a CLI, icon generation & plugins/platforms, bindings to the Cordova platform and a growing ecosystem of Cordova plugins built to work with Ember. It is maintained by Isle of Code in Toronto, with a community of contributors.
