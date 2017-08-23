@@ -1,6 +1,6 @@
 # Ember Cordova
 
-[![Build Status](https://travis-ci.org/isleofcode/ember-cordova.svg?branch=feat%2Ftravis)](https://travis-ci.org/isleofcode/ember-cordova)
+[![Build Status](https://travis-ci.org/isleofcode/ember-cordova.svg?branch=master)](https://travis-ci.org/isleofcode/ember-cordova)
 
 ## corber
 
