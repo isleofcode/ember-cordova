@@ -19,6 +19,11 @@ By default, ember-cordova produces debug builds. You need to add a
 `--release` flag for Cordova release builds, see the [cli
 reference](pages/cli) for more details.
 
+##### Obtaining provisioning profile UUID for signing iOS
+
+When signing while building as described [here](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html#signing-an-app), you can obtain your iOS provisioning profile UUID by downloading it from iTunesConnect and run the following command:
+`$ grep -a -A 1 'UUID' /Users/me/Downloads/myapp_dev.mobileprovision`
+
 #### Deploying to a device or emulator
 
 After building the app, you can deploy to a device or emulator using `ember cdv run`, like so:
