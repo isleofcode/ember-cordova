@@ -5,7 +5,9 @@ title: "ember-cordova"
 
 #### corber announcement
 
-We have started moving the ember-cordova CLI into the corber project, which adds support for other frameworks. This repository is a mirror of the pre-forked, stable ember-cordova. We encourage you to try the corber beta.
+We have started moving the ember-cordova CLI into the corber project, which adds support for other Vue/React/Webpack. This repository is a mirror of the pre-forked, stable ember-cordova. We encourage you to try the corber beta.
+
+ember-cordova will continue receiving bugfixes, but most new feature development will appear in corber. Ember users will see no loss of features by migrating.
 
 Announcement details can be found [here](http://blog.isleofcode.com/announcing-corber-ember-cordova-vue/), the repository [here](https://github.com/isleofcode/corber) and documentation [here](http://corber.io).
 
