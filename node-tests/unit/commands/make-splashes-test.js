@@ -13,7 +13,7 @@ describe('Make Splashes Command', function() {
 
   beforeEach(function() {
     // Manually replace function because splash task returns a promise.
-    td.replace('splicon/dist/splash-task', function(options) {
+    td.replace('splicon/src/splash-task', function(options) {
       // Assign options for verification because td.verify doesn't work with
       // manually replaced functions.
       splashTaskOptions = options;

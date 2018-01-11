@@ -13,7 +13,7 @@ describe('Make Icons Command', function() {
 
   beforeEach(function() {
     // Manually replace function because icon task returns a promise.
-    td.replace('splicon/dist/icon-task', function(options) {
+    td.replace('splicon/src/icon-task', function(options) {
       // Assign options for verification because td.verify doesn't work with
       // manually replaced functions.
       iconTaskOptions = options;
