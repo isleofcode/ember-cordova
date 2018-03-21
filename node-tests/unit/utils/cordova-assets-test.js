@@ -17,7 +17,7 @@ describe('Get Platform Assets Util', function() {
 
     it('is valid for android', function() {
       var assets = cordovaAssets.getPaths('android', 'fakeProjectPath');
-      var expectedPath = 'platforms/android/app/src/main/assets/www';
+      var expectedPath = 'platforms/android/platform_www';
       expect(assets.assetsPath).to.equal(expectedPath);
     });
 
